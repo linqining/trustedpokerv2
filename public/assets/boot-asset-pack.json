@@ -32,6 +32,11 @@
                 "key": "Desktop_atlas4"
             },
             {
+                "url": "assets/image/shuffing.webp",
+                "type": "image",
+                "key": "shuffing"
+            },
+            {
                 "url": "assets/desktop/texas_bg.png",
                 "type": "image",
                 "key": "texas_bg"

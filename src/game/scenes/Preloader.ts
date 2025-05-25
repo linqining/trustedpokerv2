@@ -2,7 +2,6 @@
 
 /* START OF COMPILED CODE */
 
-import Phaser from "phaser";
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
@@ -16,13 +15,85 @@ export default class Preloader extends Phaser.Scene {
 		/* END-USER-CTR-CODE */
 	}
 
+	preload(): void {
+
+        
+        // let progressBar = this.add.graphics();
+        // let progressBox = this.add.graphics();
+        // progressBox.fillStyle(0x222222, 0.8);
+        // progressBox.fillRect(240, 270, 320, 50);
+
+        const width = this.cameras.main.width;
+        const height = this.cameras.main.height;
+        const loadingText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 50,
+            text: 'Loading...',
+            style: {
+                font: '20px monospace',
+                fill: '#ffffff'
+            }
+        });
+        loadingText.setOrigin(0.5, 0.5);
+
+        const percentText = this.make.text({
+            x: width / 2,
+            y: height / 2 - 5,
+            text: '0%',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff'
+            }
+        });
+        percentText.setOrigin(0.5, 0.5);
+
+        const assetText = this.make.text({
+            x: width / 2,
+            y: height / 2 + 50,
+            text: '',
+            style: {
+                font: '18px monospace',
+                fill: '#ffffff'
+            }
+        });
+        assetText.setOrigin(0.5, 0.5);
+
+        this.load.on('progress', function (value) {
+            percentText.setText(parseInt(value * 100) + '%');
+            // progressBar.clear();
+            // progressBar.fillStyle(0xffffff, 1);
+            // progressBar.fillRect(250, 280, 300 * value, 30);
+        });
+
+        this.load.on('fileprogress', function (file) {
+            assetText.setText('Loading asset: ' + file.key);
+        });
+        this.load.on('complete', function () {
+            // progressBar.destroy();
+            // progressBox.destroy();
+            // loadingText.destroy();
+            // percentText.destroy();
+            // assetText.destroy();
+        });
+        this.load.pack("boot-asset-pack", "assets/boot-asset-pack.json");
+
+
+        this.load.image('logo', 'zenvalogo.png');
+        for (let i = 0; i < 2000; i++) {
+            this.load.image('logo'+i, 'zenvalogo.png');
+        }
+	}
+
 	editorCreate(): void {
 
-		// background
-		this.add.image(512, 384, "background");
+		// shuffing
+		const shuffing = this.add.image(0, 0, "shuffing");
+		shuffing.scaleX = 1.4415829812855638;
+		shuffing.scaleY = 1.444319331210211;
+		shuffing.setOrigin(0, 0);
 
 		// progressBar
-		const progressBar = this.add.rectangle(512, 384, 468, 32);
+		const progressBar = this.add.rectangle(656, 385, 468, 32);
 		progressBar.isFilled = true;
 		progressBar.fillColor = 14737632;
 		progressBar.isStroked = true;
@@ -53,12 +124,7 @@ export default class Preloader extends Phaser.Scene {
 
         });
     }
-
-    preload ()
-    {
-        // Use the 'pack' file to load in any assets you need for this scene
-        this.load.pack('preload', 'assets/preload-asset-pack.json');
-    }
+    
 
     create ()
     {
@@ -68,6 +134,12 @@ export default class Preloader extends Phaser.Scene {
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
         // this.scene.start('MainMenu');
         this.scene.start('Table');
+        // this.time.addEvent({
+        //     delay: 2000,
+        //     callback: () => {
+        //         this.scene.start('Table');
+        //     },
+        // })
     }
     /* END-USER-CODE */
 }
