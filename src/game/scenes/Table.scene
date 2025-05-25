@@ -1,0 +1,185 @@
+{
+    "id": "586dbb8b-ba4b-4c81-b8e0-de7c1df11011",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Table",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1024,
+        "borderHeight": 768
+    },
+    "displayList": [
+        {
+            "prefabId": "a254fc52-d706-45ec-95d2-e276034ec35e",
+            "id": "c6c6f006-e325-4034-a27b-f28f45facdc8",
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "label": "texas_bg",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "89a9a026-881a-44f9-a973-c4a3f5e9dd2f",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY"
+            ],
+            "label": "user1",
+            "x": 553,
+            "y": 516,
+            "scaleX": 0.5,
+            "scaleY": 0.5
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "d38f9aaf-8eb1-40c4-baa3-03b1f9200aa0",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "visible"
+            ],
+            "label": "user2",
+            "x": 176,
+            "y": 463,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "visible": false
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "cbcf4c18-9fab-44f2-8521-f33451cfcb1d",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "visible"
+            ],
+            "label": "user9",
+            "x": 931,
+            "y": 471,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "visible": false
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "15501758-146d-44ba-b483-549fc94493dc",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "visible"
+            ],
+            "label": "user3",
+            "x": 81,
+            "y": 300,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "visible": false
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "0aee7504-9216-446e-b05c-4f3cd9806015",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "visible"
+            ],
+            "label": "user8",
+            "x": 1047,
+            "y": 290,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "visible": false
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "15721656-e05d-4e05-9a10-41281d8ef85c",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "visible"
+            ],
+            "label": "user5",
+            "x": 388,
+            "y": 35,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "visible": false
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "5e16e46b-fc93-4600-865d-81c98c65a7bf",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "visible"
+            ],
+            "label": "user6",
+            "x": 745,
+            "y": 27,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "visible": false
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "9d1a4a8d-c46b-4b18-ac7e-1eef678bc871",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "visible"
+            ],
+            "label": "user4",
+            "x": 139,
+            "y": 113,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "visible": false
+        },
+        {
+            "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
+            "id": "37378e45-aa36-4185-ba40-18c2bcad9495",
+            "unlock": [
+                "x",
+                "y",
+                "scaleX",
+                "scaleY",
+                "visible"
+            ],
+            "label": "user7",
+            "x": 987,
+            "y": 116,
+            "scaleX": 0.5,
+            "scaleY": 0.5,
+            "visible": false
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}

@@ -1,0 +1,93 @@
+{
+    "id": "03270951-77ad-4aa8-8e85-01c069472905",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1024,
+        "borderHeight": 768
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "a8577701-835a-4eb1-bb71-5326a045f01c",
+            "label": "container_1",
+            "x": 449.8756830532577,
+            "y": 103.94060157132414,
+            "list": [
+                {
+                    "type": "Rectangle",
+                    "id": "ad47248e-214d-44a5-aa09-ae425f97005a",
+                    "label": "user_box",
+                    "x": 62.77881089162656,
+                    "y": 115.74967914480494,
+                    "scaleX": 1.0257970460360888,
+                    "scaleY": 1.7307571274850566,
+                    "originX": 0.4795699426706248,
+                    "originY": 0.5204300573293752,
+                    "isFilled": true,
+                    "fillColor": "#000000",
+                    "isStroked": true,
+                    "width": 128,
+                    "height": 128
+                },
+                {
+                    "type": "Image",
+                    "id": "7dcd8e3b-bd57-4ea4-92ad-297941aa2fdb",
+                    "label": "boy",
+                    "texture": {
+                        "key": "boy"
+                    },
+                    "x": 63.12430191040039,
+                    "y": 114.05939483642582,
+                    "scaleX": 0.1,
+                    "scaleY": 0.1,
+                    "originX": 0.4789448687665644,
+                    "originY": 0.5315826968501549
+                },
+                {
+                    "type": "Text",
+                    "id": "955fd9e8-ec1d-473c-95be-a788c4bf1889",
+                    "label": "action",
+                    "x": 25.124302118189178,
+                    "y": 5.059395115844794,
+                    "text": "Call",
+                    "fontSize": "35px",
+                    "color": "#ffffffff"
+                },
+                {
+                    "type": "Text",
+                    "id": "36efb57c-f812-4824-ae07-19bcb7b4e866",
+                    "label": "chips",
+                    "x": 16.124302118189178,
+                    "y": 178.05939511584478,
+                    "text": "10000",
+                    "fontSize": "35px",
+                    "color": "#ffffffff"
+                },
+                {
+                    "prefabId": "3fbc4a5f-20a2-4a78-a700-28689d94a8c3",
+                    "id": "0a7dc163-d8c9-4b13-bb1a-b5982635d630",
+                    "unlock": [
+                        "x",
+                        "y"
+                    ],
+                    "label": "cardBackPrefab",
+                    "x": 240.6977808482212,
+                    "y": 114.82615281627233
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
