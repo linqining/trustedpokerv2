@@ -32,7 +32,6 @@ function App()
             phaserRef.current?.game?.scene?.start('Table');
         }else{
             // setBtnVisible(true);
-            console.log("no account ,return to preloader,scene",phaserRef.current?.game?.scene);
             if(phaserRef.current) {
                 const game = phaserRef.current.game;
                 if (game?.scene) {
