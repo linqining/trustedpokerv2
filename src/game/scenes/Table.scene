@@ -8,8 +8,8 @@
         "createMethodName": "editorCreate",
         "sceneKey": "Table",
         "compilerOutputLanguage": "TYPE_SCRIPT",
-        "borderWidth": 1024,
-        "borderHeight": 768
+        "borderWidth": 1280,
+        "borderHeight": 720
     },
     "displayList": [
         {
@@ -173,6 +173,114 @@
             "scaleX": 0.5,
             "scaleY": 0.5,
             "visible": false
+        },
+        {
+            "type": "Container",
+            "id": "4b7c209e-f995-422a-8714-4830b53f0f6b",
+            "label": "op_btn_check",
+            "displayName": "op_btn_check",
+            "useGameObjectName": true,
+            "x": 969,
+            "y": 638,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "1d57cb20-9c62-41ee-8148-722e0d8fcb59",
+                    "label": "button_check",
+                    "displayName": "button_check",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "button_green"
+                    },
+                    "x": 65.14567187550324,
+                    "y": 22.269595152564364,
+                    "scaleX": 0.15758130827137293,
+                    "scaleY": 0.15758130827137293
+                },
+                {
+                    "type": "Text",
+                    "id": "5c6e8d5a-0349-423a-94af-5615bb59c036",
+                    "label": "check_text",
+                    "displayName": "check_text",
+                    "useGameObjectName": true,
+                    "x": 16,
+                    "y": 6,
+                    "text": "Check",
+                    "fontSize": "32px"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "id": "0ce1b46d-f0d0-4e9a-972b-035cb91f0c48",
+            "label": "op_btn_fold_1",
+            "displayName": "op_btn_fold",
+            "useGameObjectName": true,
+            "x": 818,
+            "y": 639,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "ba7bda62-7ca2-49ee-adb8-974b288e2073",
+                    "label": "button_fold_1",
+                    "displayName": "button_fold",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "button_red"
+                    },
+                    "x": 62.812552081710464,
+                    "y": 20.799078357486906,
+                    "scaleX": 0.15758130827137293,
+                    "scaleY": 0.15758130827137293
+                },
+                {
+                    "type": "Text",
+                    "id": "3949a86a-4342-4dc8-b5d4-d7ade9067bfb",
+                    "label": "fold_text",
+                    "displayName": "fold_text",
+                    "useGameObjectName": true,
+                    "x": 24.812552081710464,
+                    "y": 3.7990783574869056,
+                    "text": "Fold",
+                    "fontSize": "32px"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "id": "642ab05d-196f-4be0-a3ca-d5207643e4e1",
+            "label": "op_btn_raise",
+            "displayName": "op_btn_raise",
+            "useGameObjectName": true,
+            "x": 1122,
+            "y": 639,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "c43b7eea-4bcd-4183-9cfe-720f6a9673d6",
+                    "label": "button_raise",
+                    "displayName": "button_raise",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "button_yellow"
+                    },
+                    "x": 65.14567187550324,
+                    "y": 22.269595152564364,
+                    "scaleX": 0.15758130827137293,
+                    "scaleY": 0.15758130827137293
+                },
+                {
+                    "type": "Text",
+                    "id": "ddd61b8d-6a24-428e-b70d-c0dea759c947",
+                    "label": "raise_text",
+                    "displayName": "raise_text",
+                    "useGameObjectName": true,
+                    "x": 16,
+                    "y": 6,
+                    "text": "Raise",
+                    "fontSize": "32px"
+                }
+            ]
         }
     ],
     "plainObjects": [],
@@ -181,5 +289,11 @@
         "url": "https://phaser.io/editor",
         "contentType": "phasereditor2d.core.scene.SceneContentType",
         "version": 5
-    }
+    },
+    "lists": [
+        {
+            "id": "36a2db91-142a-4a06-a25f-d628ba572dde",
+            "label": "list"
+        }
+    ]
 }
