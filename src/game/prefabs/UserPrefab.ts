@@ -42,7 +42,7 @@ export default class UserPrefab extends Phaser.GameObjects.Container {
 		this.add(chips);
 
 		// cardBackPrefab
-		const cardBackPrefab = new CardBackPrefab(scene, 240.6977808482212, 114.82615281627233);
+		const cardBackPrefab = new CardBackPrefab(scene, 242, 79);
 		this.add(cardBackPrefab);
 
 		/* START-USER-CTR-CODE */

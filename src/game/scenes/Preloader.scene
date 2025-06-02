@@ -27,17 +27,83 @@
             "originY": 0
         },
         {
-            "type": "Rectangle",
-            "id": "845d4ca6-7417-44fc-97e3-a3bb2fbbdd03",
-            "label": "progressBar",
-            "scope": "CLASS",
-            "x": 656,
-            "y": 385,
-            "isFilled": true,
-            "fillColor": "#e0e0e0",
-            "isStroked": true,
-            "width": 468,
-            "height": 32
+            "type": "Container",
+            "id": "bbe48911-4fc6-4065-8494-861129ef2de1",
+            "label": "loading_container",
+            "displayName": "loading_container",
+            "useGameObjectName": true,
+            "x": 700,
+            "y": 425,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "2ec2407a-5bc4-4bd9-b587-55cbdb30b550",
+                    "label": "loading_main",
+                    "texture": {
+                        "key": "loading_main"
+                    },
+                    "x": 8.113136826998641,
+                    "y": -3.2021803722523146,
+                    "scaleX": 0.6599700446728418,
+                    "scaleY": 0.6887199459947883
+                },
+                {
+                    "type": "Image",
+                    "id": "dbf04cba-798b-4407-b56b-8adc132a03d3",
+                    "label": "loading_complete",
+                    "displayName": "loading_complete",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "loading_complete"
+                    },
+                    "x": -201.88686555718715,
+                    "y": -27.202180372252315,
+                    "scaleX": 0.635894603121304,
+                    "scaleY": 0.635894603121304,
+                    "visible": false
+                },
+                {
+                    "type": "Text",
+                    "id": "36f599cc-42f7-4310-b230-a526a0474703",
+                    "label": "progress_text",
+                    "displayName": "progress_text",
+                    "useGameObjectName": true,
+                    "x": 87.11312156820958,
+                    "y": -70.20218037225231,
+                    "text": "0",
+                    "fontSize": "32px",
+                    "color": "#ce302e"
+                },
+                {
+                    "type": "Rectangle",
+                    "id": "98cfb962-d479-4c99-b514-93f8a206c40f",
+                    "label": "progress_bar",
+                    "displayName": "progress_bar",
+                    "useGameObjectName": true,
+                    "x": -340.89,
+                    "y": 28.797819627747685,
+                    "scaleX": 5.472706338490127,
+                    "scaleY": 0.23948907841859302,
+                    "originX": 0.002683208212025223,
+                    "visible": false,
+                    "isFilled": true,
+                    "fillColor": "#ce302e",
+                    "width": 128,
+                    "height": 128
+                },
+                {
+                    "type": "Text",
+                    "id": "61f0ad4f-e09b-4012-ac01-d2dfdacb176a",
+                    "label": "loading_text",
+                    "displayName": "loading_text",
+                    "useGameObjectName": true,
+                    "x": -328.88686317300136,
+                    "y": -36.202180372252315,
+                    "text": "Loading...",
+                    "fontSize": "32px",
+                    "color": "#ce302e"
+                }
+            ]
         }
     ],
     "plainObjects": [],

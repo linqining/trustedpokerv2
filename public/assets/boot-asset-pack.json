@@ -22,6 +22,26 @@
                 "key": "boy"
             },
             {
+                "url": "assets/buttons/button_blue.png",
+                "type": "image",
+                "key": "button_blue"
+            },
+            {
+                "url": "assets/buttons/button_green.png",
+                "type": "image",
+                "key": "button_green"
+            },
+            {
+                "url": "assets/buttons/button_red.png",
+                "type": "image",
+                "key": "button_red"
+            },
+            {
+                "url": "assets/buttons/button_yellow.png",
+                "type": "image",
+                "key": "button_yellow"
+            },
+            {
                 "url": "assets/cards/card_back_0.png",
                 "type": "image",
                 "key": "card_back_0"
@@ -30,6 +50,16 @@
                 "url": "assets/desktop/Desktop_atlas4.png",
                 "type": "image",
                 "key": "Desktop_atlas4"
+            },
+            {
+                "url": "assets/loading/loading_complete.png",
+                "type": "image",
+                "key": "loading_complete"
+            },
+            {
+                "url": "assets/loading/loading_main.png",
+                "type": "image",
+                "key": "loading_main"
             },
             {
                 "url": "assets/image/shuffing.webp",
