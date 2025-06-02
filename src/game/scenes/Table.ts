@@ -169,6 +169,24 @@ export default class Table extends Phaser.Scene {
 		slider_arrow.scaleY = 0.15557376061488526;
 		slider.add(slider_arrow);
 
+		// op_buy_in
+		const op_buy_in = this.add.container(554, 305);
+		op_buy_in.name = "op_buy_in";
+
+		// buyin_btn
+		const buyin_btn = this.add.image(65.14567187550324, 22.269595152564364, "button_yellow");
+		buyin_btn.name = "buyin_btn";
+		buyin_btn.scaleX = 0.15758130827137293;
+		buyin_btn.scaleY = 0.15758130827137293;
+		op_buy_in.add(buyin_btn);
+
+		// buyin_text
+		const buyin_text = this.add.text(16, 3, "", {});
+		buyin_text.name = "buyin_text";
+		buyin_text.text = "BuyIn";
+		buyin_text.setStyle({ "fontSize": "32px" });
+		op_buy_in.add(buyin_text);
+
 		// lists
 		const list: Array<any> = [];
 

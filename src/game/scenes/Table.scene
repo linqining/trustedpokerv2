@@ -341,6 +341,42 @@
                     "scaleY": 0.15557376061488526
                 }
             ]
+        },
+        {
+            "type": "Container",
+            "id": "5b17a081-23c3-4b9e-8905-643f57eff0b7",
+            "label": "op_buy_in",
+            "displayName": "op_buy_in",
+            "useGameObjectName": true,
+            "x": 554,
+            "y": 305,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "d01aaa0e-7c8f-49c1-9241-2fb9e55a09d2",
+                    "label": "buyin_btn",
+                    "displayName": "buyin_btn",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "button_yellow"
+                    },
+                    "x": 65.14567187550324,
+                    "y": 22.269595152564364,
+                    "scaleX": 0.15758130827137293,
+                    "scaleY": 0.15758130827137293
+                },
+                {
+                    "type": "Text",
+                    "id": "d3f94d65-dc21-4cfe-904f-584311361df6",
+                    "label": "buyin_text",
+                    "displayName": "buyin_text",
+                    "useGameObjectName": true,
+                    "x": 16,
+                    "y": 3,
+                    "text": "BuyIn",
+                    "fontSize": "32px"
+                }
+            ]
         }
     ],
     "plainObjects": [],
