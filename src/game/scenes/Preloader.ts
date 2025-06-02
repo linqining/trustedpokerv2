@@ -59,7 +59,6 @@ export default class Preloader extends Phaser.Scene {
 		progress_bar.scaleX = 5.472706338490127;
 		progress_bar.scaleY = 0.23948907841859302;
 		progress_bar.setOrigin(0.002683208212025223, 0.5);
-		progress_bar.visible = false;
 		progress_bar.isFilled = true;
 		progress_bar.fillColor = 13512750;
 		loading_container.add(progress_bar);
@@ -78,58 +77,36 @@ export default class Preloader extends Phaser.Scene {
 
 	// Write your code here
     init () {
-
 		this.editorCreate();
-        console.log(this)
-        const container = this.scene.scene.children.getByName("loading_container") as Phaser.GameObjects.Container;
-
-        const progressBar = container.getByName('progress_bar') as Phaser.GameObjects.Rectangle;
         this.loadingEffect();
-
-        //  This is the progress bar itself. It will increase in size from the left based on the % of progress.
-        const bar = this.add.rectangle(progressBar.x+container.x, progressBar.y+container.y, 0, 29, 13512750)
-        bar.setOrigin(0,0.5);
-
-        //  Use the 'progress' event emitted by the LoaderPlugin to update the loading bar
-        this.load.on('progress', (progress: number) => {
-            //  Update the progress bar (our bar is 464px wide, so 100% = 464px)
-            bar.width =  (700 * progress);
-            if (progress>=1){
-                // bar.destroy();
-            }
-        });
     }
 
     loadingEffect(){
         const container = this.scene.scene.children.getByName("loading_container") as Phaser.GameObjects.Container;
-
-
-        // const width = this.cameras.main.width;
-        // const height = this.cameras.main.height;
-
-
         const percentText = container.getByName('progress_text') as Phaser.GameObjects.Text;
 
+        const progressBar = container.getByName("progress_bar") as Phaser.GameObjects.Rectangle;
 
-        this.load.on('progress', function (value) {
-            percentText.setText(parseInt(value * 100) );
-        });
-
-
-
-        const load_complete = container.getByName('loading_complete') as Phaser.GameObjects.Image;
-        const loading_text = container.getByName("loading_text") as Phaser.GameObjects.Text;
-        this.load.on('complete', function () {
-            loading_text.visible = false;
-            load_complete.visible =true;
-
-        });
-
-
-        this.load.image('logo', 'zenvalogo.png');
-        for (let i = 0; i < 2000; i++) {
-            this.load.image('logo'+i, 'zenvalogo.png');
-        }
+        let count =0
+        const width = progressBar.width;
+        this.timerEventProgress = this.time.addEvent({
+            delay: 20,         // 间隔 1 秒
+            callback: () =>  {
+                count++;
+                percentText.setText(count);
+                progressBar.width =  (width * count/100);
+                if(count >= 100) {
+                    this.time.removeEvent(this.timerEventProgress);
+                    this.time.addEvent({
+                        delay:1000,
+                        callback:()=>{
+                            container.visible = false;
+                        },
+                    })
+                }
+            },
+            loop: true           // 无限循环
+        })
     }
 
 
