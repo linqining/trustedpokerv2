@@ -1,0 +1,13 @@
+.connect-button{
+    background-image: url("../assets/buttons/button_red.png");
+    position: absolute;
+    top: 56%;
+}
+
+.connect-button>button{
+    background-image: url(/public/assets/buttons/button_red.png);
+    background-size: cover;
+    height: 49px;
+    width: 155px;
+    color: white !important;
+}

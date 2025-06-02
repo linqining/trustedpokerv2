@@ -5,6 +5,8 @@
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
+import {EventBus} from "../EventBus.ts";
+
 export default class Preloader extends Phaser.Scene {
 
 	constructor() {
@@ -29,7 +31,7 @@ export default class Preloader extends Phaser.Scene {
 		shuffing.setOrigin(0, 0);
 
 		// loading_container
-		const loading_container = this.add.container(700, 425);
+		const loading_container = this.add.container(639, 425);
 		loading_container.name = "loading_container";
 
 		// loading_main
@@ -70,6 +72,24 @@ export default class Preloader extends Phaser.Scene {
 		loading_text.setStyle({ "color": "#ce302e", "fontSize": "32px" });
 		loading_container.add(loading_text);
 
+		// login_container
+		const login_container = this.add.container(546, 429);
+		login_container.name = "login_container";
+		login_container.visible = false;
+
+		// login_btn
+		const login_btn = this.add.image(93.32542552044305, 25.899244946333, "button_red");
+		login_btn.name = "login_btn";
+		login_btn.scaleX = 0.2325799507546315;
+		login_btn.scaleY = 0.2325799507546315;
+		login_container.add(login_btn);
+
+		// login
+		const login = this.add.text(45.32542552044305, 6.899244946332999, "", {});
+		login.text = "Login";
+		login.setStyle({ "fontSize": "32px" });
+		login_container.add(login);
+
 		this.events.emit("scene-awake");
 	}
 
@@ -77,8 +97,6 @@ export default class Preloader extends Phaser.Scene {
 
 	// Write your code here
     init () {
-		this.editorCreate();
-        this.loadingEffect();
     }
 
     loadingEffect(){
@@ -87,20 +105,30 @@ export default class Preloader extends Phaser.Scene {
 
         const progressBar = container.getByName("progress_bar") as Phaser.GameObjects.Rectangle;
 
+        const that = this;
         let count =0
         const width = progressBar.width;
+        const tick =50;
         this.timerEventProgress = this.time.addEvent({
             delay: 20,         // 间隔 1 秒
             callback: () =>  {
                 count++;
-                percentText.setText(count);
-                progressBar.width =  (width * count/100);
-                if(count >= 100) {
+                percentText.setText(count * 100/tick + "");
+                progressBar.width =  (width * count/tick);
+                if(count >= tick) {
                     this.time.removeEvent(this.timerEventProgress);
                     this.time.addEvent({
-                        delay:1000,
+                        delay: 500,
                         callback:()=>{
                             container.visible = false;
+                            // const login_container = this.scene.scene.children.getByName("login_container") as Phaser.GameObjects.Container;
+                            console.log("current_account",this.registry.get("current_account"))
+                            const current_account =  this.registry.get("current_account");
+                            if (current_account && current_account.address ) {
+                                this.scene.start('Table');
+                            }else{
+                                EventBus.emit("action_login", that);
+                            }
                         },
                     })
                 }
@@ -116,27 +144,9 @@ export default class Preloader extends Phaser.Scene {
         //  For example, you can define global animations here, so we can use them in other scenes.
 
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-
-        // if (!this.registry.get("current_account") ) {
-        //     this.login = this.add.image(512, 550   , 'guest_login');
-        //     this.login.displayHeight= 50;
-        //     this.login.displayWidth = 150;
-        //     EventBus.removeListener("action_login")
-        //     this.login.setInteractive().on("pointerdown", () => {
-        //         console.log('图片被点击');
-        //         EventBus.emit('action_login', this);
-        //     })
-        // }else{
-        //     this.scene.start('Hall');
-        // }
-
-        // this.scene.start('Table');
-        // this.time.addEvent({
-        //     delay: 2000,
-        //     callback: () => {
-        //         this.scene.start('Table');
-        //     },
-        // })
+        
+        this.editorCreate();
+        this.loadingEffect();
     }
     /* END-USER-CODE */
 }

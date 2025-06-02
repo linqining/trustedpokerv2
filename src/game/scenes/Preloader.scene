@@ -32,7 +32,7 @@
             "label": "loading_container",
             "displayName": "loading_container",
             "useGameObjectName": true,
-            "x": 700,
+            "x": 639,
             "y": 425,
             "list": [
                 {
@@ -101,6 +101,39 @@
                     "text": "Loading...",
                     "fontSize": "32px",
                     "color": "#ce302e"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "id": "731ba434-3997-4f33-9b43-452197bf6c86",
+            "label": "login_container",
+            "useGameObjectName": true,
+            "x": 546,
+            "y": 429,
+            "visible": false,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "facbdee3-b511-444f-9516-20deeaeba601",
+                    "label": "login_btn",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "button_red"
+                    },
+                    "x": 93.32542552044305,
+                    "y": 25.899244946333,
+                    "scaleX": 0.2325799507546315,
+                    "scaleY": 0.2325799507546315
+                },
+                {
+                    "type": "Text",
+                    "id": "9efff84a-9dbd-43b8-ba0b-f911b2c71f91",
+                    "label": "login",
+                    "x": 45.32542552044305,
+                    "y": 6.899244946332999,
+                    "text": "Login",
+                    "fontSize": "32px"
                 }
             ]
         }
