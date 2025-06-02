@@ -67,9 +67,39 @@
                 "key": "shuffing"
             },
             {
+                "url": "assets/slider/slider_arrow.png",
+                "type": "image",
+                "key": "slider_arrow"
+            },
+            {
+                "url": "assets/slider/slider_empty.png",
+                "type": "image",
+                "key": "slider_empty"
+            },
+            {
+                "url": "assets/slider/slider_full.png",
+                "type": "image",
+                "key": "slider_full"
+            },
+            {
+                "url": "assets/slider/slider_handle.png",
+                "type": "image",
+                "key": "slider_handle"
+            },
+            {
                 "url": "assets/desktop/texas_bg.png",
                 "type": "image",
                 "key": "texas_bg"
+            },
+            {
+                "url": "assets/slider/value_box.png",
+                "type": "image",
+                "key": "value_box"
+            },
+            {
+                "url": "assets/slider/value_slash.png",
+                "type": "image",
+                "key": "value_slash"
             }
         ]
     },

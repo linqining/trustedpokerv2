@@ -140,6 +140,35 @@ export default class Table extends Phaser.Scene {
 		raise_text.setStyle({ "fontSize": "32px" });
 		op_btn_raise.add(raise_text);
 
+		// slider
+		const slider = this.add.container(509, 652);
+		slider.name = "slider";
+
+		// slider_empty
+		const slider_empty = this.add.image(141.0321179395704, 12.065463195636198, "slider_empty");
+		slider_empty.scaleX = 0.5;
+		slider_empty.scaleY = 0.5;
+		slider.add(slider_empty);
+
+		// slider_full
+		const slider_full = this.add.image(140.0321179395704, 15.065463195636198, "slider_full");
+		slider_full.scaleX = 0.5;
+		slider_full.scaleY = 0.5;
+		slider_full.setOrigin(0.5, 1);
+		slider.add(slider_full);
+
+		// value_box
+		const value_box = this.add.image(-132, 12, "value_box");
+		value_box.scaleX = 0.3814860714180076;
+		value_box.scaleY = 0.2727097091463893;
+		slider.add(value_box);
+
+		// slider_arrow
+		const slider_arrow = this.add.image(18, -5, "slider_arrow");
+		slider_arrow.scaleX = 0.15557376061488526;
+		slider_arrow.scaleY = 0.15557376061488526;
+		slider.add(slider_arrow);
+
 		// lists
 		const list: Array<any> = [];
 

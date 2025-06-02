@@ -281,6 +281,66 @@
                     "fontSize": "32px"
                 }
             ]
+        },
+        {
+            "type": "Container",
+            "id": "28275f4d-3358-469f-9d72-0bd7579b34e8",
+            "label": "slider",
+            "displayName": "slider",
+            "useGameObjectName": true,
+            "x": 509,
+            "y": 652,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "92ff4f39-834a-4a2c-a453-9741d183971c",
+                    "label": "slider_empty",
+                    "texture": {
+                        "key": "slider_empty"
+                    },
+                    "x": 141.0321179395704,
+                    "y": 12.065463195636198,
+                    "scaleX": 0.5,
+                    "scaleY": 0.5
+                },
+                {
+                    "type": "Image",
+                    "id": "ee8d8c5c-62d9-4b18-8d59-4beb1865976f",
+                    "label": "slider_full",
+                    "texture": {
+                        "key": "slider_full"
+                    },
+                    "x": 140.0321179395704,
+                    "y": 15.065463195636198,
+                    "scaleX": 0.5,
+                    "scaleY": 0.5,
+                    "originY": 1
+                },
+                {
+                    "type": "Image",
+                    "id": "c284b799-2258-4ed4-9d3d-d5d42f50b03e",
+                    "label": "value_box",
+                    "texture": {
+                        "key": "value_box"
+                    },
+                    "x": -132,
+                    "y": 12,
+                    "scaleX": 0.3814860714180076,
+                    "scaleY": 0.2727097091463893
+                },
+                {
+                    "type": "Image",
+                    "id": "c62b8f56-a7cc-4427-8fb6-d17f3f4d31a7",
+                    "label": "slider_arrow",
+                    "texture": {
+                        "key": "slider_arrow"
+                    },
+                    "x": 18,
+                    "y": -5,
+                    "scaleX": 0.15557376061488526,
+                    "scaleY": 0.15557376061488526
+                }
+            ]
         }
     ],
     "plainObjects": [],
