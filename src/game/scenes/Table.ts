@@ -8,6 +8,7 @@ import UserPrefab from "../prefabs/UserPrefab";
 /* START-USER-IMPORTS */
 import Server from "../server.js";
 import {callbackOpen,callbackClose,callbackMessage,callbackError} from "../logic.js";
+import {EventBus} from "../EventBus.ts";
 /* END-USER-IMPORTS */
 
 export default class Table extends Phaser.Scene {
@@ -25,6 +26,7 @@ export default class Table extends Phaser.Scene {
 		// texas_bg
 		const texas_bg = new BackgroundPrefab(this, 0, 0);
 		this.add.existing(texas_bg);
+		texas_bg.name = "texas_bg";
 
 		// user1
 		const user1 = new UserPrefab(this, 553, 516);
@@ -204,13 +206,33 @@ export default class Table extends Phaser.Scene {
 	// Write your code here
     private  betServer:Server;
 
+    init () {
+
+    }
+
 	create() {
-		this.editorCreate();
-        
+        this.editorCreate();
+        // 设置buyin组件的行为
+        const buyInContainer = this.scene.scene.children.getByName("op_buy_in") as Phaser.GameObjects.Container;
+        const buyInBtn = buyInContainer.getByName("buyin_btn") as Phaser.GameObjects.Image;
+        // EventBus.removeListener('action_join_and_pay');
+        buyInBtn.setInteractive().on('pointerdown', () => {
+            console.log("buyin btn click")
+            EventBus.emit('action_join_and_pay', this);
+        })
+        EventBus.removeListener('action_join_and_pay_success');
+        EventBus.on("action_join_and_pay_success",function (scene, gameid, chips) {
+            console.log("action_join_and_pay_success",scene, gameid, chips);
+        })
+
+
+
         this.betServer = new Server();
         this.betServer.registerCallback(callbackOpen, callbackClose, callbackMessage, callbackError);
         this.betServer.connect();
-	}
+        
+
+    }
 
 
 	/* END-USER-CODE */
