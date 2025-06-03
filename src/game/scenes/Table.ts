@@ -6,6 +6,8 @@
 import BackgroundPrefab from "../prefabs/BackgroundPrefab";
 import UserPrefab from "../prefabs/UserPrefab";
 /* START-USER-IMPORTS */
+import Server from "../server.js";
+import {callbackOpen,callbackClose,callbackMessage,callbackError} from "../logic.js";
 /* END-USER-IMPORTS */
 
 export default class Table extends Phaser.Scene {
@@ -200,11 +202,16 @@ export default class Table extends Phaser.Scene {
 	/* START-USER-CODE */
 
 	// Write your code here
+    private  betServer:Server;
 
 	create() {
-
 		this.editorCreate();
+        
+        this.betServer = new Server();
+        this.betServer.registerCallback(callbackOpen, callbackClose, callbackMessage, callbackError);
+        this.betServer.connect();
 	}
+
 
 	/* END-USER-CODE */
 }
