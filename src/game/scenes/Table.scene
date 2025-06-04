@@ -31,13 +31,17 @@
                 "x",
                 "y",
                 "scaleX",
-                "scaleY"
+                "scaleY",
+                "visible"
             ],
             "label": "user1",
+            "displayName": "user1",
+            "useGameObjectName": true,
             "x": 553,
             "y": 516,
             "scaleX": 0.5,
-            "scaleY": 0.5
+            "scaleY": 0.5,
+            "visible": true
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -214,7 +218,7 @@
         {
             "type": "Container",
             "id": "0ce1b46d-f0d0-4e9a-972b-035cb91f0c48",
-            "label": "op_btn_fold_1",
+            "label": "op_btn_fold",
             "displayName": "op_btn_fold",
             "useGameObjectName": true,
             "x": 818,
@@ -351,6 +355,7 @@
             "useGameObjectName": true,
             "x": 554,
             "y": 305,
+            "visible": false,
             "list": [
                 {
                     "type": "Image",
@@ -378,6 +383,95 @@
                     "fontSize": "32px"
                 }
             ]
+        },
+        {
+            "type": "Text",
+            "id": "1727396d-d15a-4f80-a17e-1dbfda84c352",
+            "label": "bb_text",
+            "useGameObjectName": true,
+            "x": 640,
+            "y": 189,
+            "originX": 0.5,
+            "originY": 0.5,
+            "fontSize": "21px",
+            "color": "#000000ff",
+            "stroke": "#000000ff"
+        },
+        {
+            "type": "Container",
+            "id": "1128255c-639f-49c8-95b8-51d3750df72b",
+            "label": "public_card_container",
+            "useGameObjectName": true,
+            "x": 644,
+            "y": 331,
+            "visible": false,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "b6f68256-e9be-44b8-a163-7b8acc39296a",
+                    "label": "public_card_1",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "card_back_0"
+                    },
+                    "x": -177.18549263145178,
+                    "y": -0.23896370084037244,
+                    "scaleX": 0.15041695188999193,
+                    "scaleY": 0.15041695188999193
+                },
+                {
+                    "type": "Image",
+                    "id": "055211f8-d4db-41e0-aebe-fdcd7d0d78d5",
+                    "label": "public_card_2",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "card_back_0"
+                    },
+                    "x": -89.18549263145178,
+                    "y": -0.23896370084037244,
+                    "scaleX": 0.15041695188999193,
+                    "scaleY": 0.15041695188999193
+                },
+                {
+                    "type": "Image",
+                    "id": "03ed1d46-6754-4f2a-9020-569214158b5a",
+                    "label": "public_card_3",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "card_back_0"
+                    },
+                    "x": -1.1854926314517797,
+                    "y": -0.23896370084037244,
+                    "scaleX": 0.15041695188999193,
+                    "scaleY": 0.15041695188999193
+                },
+                {
+                    "type": "Image",
+                    "id": "237fd133-3b63-4c9f-84f4-927e7a970783",
+                    "label": "public_card_4",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "card_back_0"
+                    },
+                    "x": 86.81450736854822,
+                    "y": -0.23896370084037244,
+                    "scaleX": 0.15041695188999193,
+                    "scaleY": 0.15041695188999193
+                },
+                {
+                    "type": "Image",
+                    "id": "f5b55341-df6a-4810-8a28-1195a2154395",
+                    "label": "public_card_5",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "card_back_0"
+                    },
+                    "x": 174.81450736854822,
+                    "y": -0.23896370084037244,
+                    "scaleX": 0.15041695188999193,
+                    "scaleY": 0.15041695188999193
+                }
+            ]
         }
     ],
     "plainObjects": [],
@@ -390,7 +484,7 @@
     "lists": [
         {
             "id": "36a2db91-142a-4a06-a25f-d628ba572dde",
-            "label": "list"
+            "label": "public_card_list"
         }
     ]
 }

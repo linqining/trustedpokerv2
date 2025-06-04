@@ -42,14 +42,392 @@
                 "key": "button_yellow"
             },
             {
+                "url": {
+                    "IMG": "assets/cards/C_1.png"
+                },
+                "type": "texture",
+                "key": "C_1"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_10.png"
+                },
+                "type": "texture",
+                "key": "C_10"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_11.png"
+                },
+                "type": "texture",
+                "key": "C_11"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_12.png"
+                },
+                "type": "texture",
+                "key": "C_12"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_13.png"
+                },
+                "type": "texture",
+                "key": "C_13"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_2.png"
+                },
+                "type": "texture",
+                "key": "C_2"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_3.png"
+                },
+                "type": "texture",
+                "key": "C_3"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_4.png"
+                },
+                "type": "texture",
+                "key": "C_4"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_5.png"
+                },
+                "type": "texture",
+                "key": "C_5"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_6.png"
+                },
+                "type": "texture",
+                "key": "C_6"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_7.png"
+                },
+                "type": "texture",
+                "key": "C_7"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_8.png"
+                },
+                "type": "texture",
+                "key": "C_8"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_9.png"
+                },
+                "type": "texture",
+                "key": "C_9"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_A.png"
+                },
+                "type": "texture",
+                "key": "C_A"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_J.png"
+                },
+                "type": "texture",
+                "key": "C_J"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_K.png"
+                },
+                "type": "texture",
+                "key": "C_K"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_Q.png"
+                },
+                "type": "texture",
+                "key": "C_Q"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/C_T.png"
+                },
+                "type": "texture",
+                "key": "C_T"
+            },
+            {
                 "url": "assets/cards/card_back_0.png",
                 "type": "image",
                 "key": "card_back_0"
             },
             {
+                "url": {
+                    "IMG": "assets/cards/D_1.png"
+                },
+                "type": "texture",
+                "key": "D_1"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_10.png"
+                },
+                "type": "texture",
+                "key": "D_10"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_11.png"
+                },
+                "type": "texture",
+                "key": "D_11"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_12.png"
+                },
+                "type": "texture",
+                "key": "D_12"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_13.png"
+                },
+                "type": "texture",
+                "key": "D_13"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_2.png"
+                },
+                "type": "texture",
+                "key": "D_2"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_3.png"
+                },
+                "type": "texture",
+                "key": "D_3"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_4.png"
+                },
+                "type": "texture",
+                "key": "D_4"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_5.png"
+                },
+                "type": "texture",
+                "key": "D_5"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_6.png"
+                },
+                "type": "texture",
+                "key": "D_6"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_7.png"
+                },
+                "type": "texture",
+                "key": "D_7"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_8.png"
+                },
+                "type": "texture",
+                "key": "D_8"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_9.png"
+                },
+                "type": "texture",
+                "key": "D_9"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_A.png"
+                },
+                "type": "texture",
+                "key": "D_A"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_J.png"
+                },
+                "type": "texture",
+                "key": "D_J"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_K.png"
+                },
+                "type": "texture",
+                "key": "D_K"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_Q.png"
+                },
+                "type": "texture",
+                "key": "D_Q"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/D_T.png"
+                },
+                "type": "texture",
+                "key": "D_T"
+            },
+            {
                 "url": "assets/desktop/Desktop_atlas4.png",
                 "type": "image",
                 "key": "Desktop_atlas4"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_1.png"
+                },
+                "type": "texture",
+                "key": "H_1"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_10.png"
+                },
+                "type": "texture",
+                "key": "H_10"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_11.png"
+                },
+                "type": "texture",
+                "key": "H_11"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_12.png"
+                },
+                "type": "texture",
+                "key": "H_12"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_13.png"
+                },
+                "type": "texture",
+                "key": "H_13"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_2.png"
+                },
+                "type": "texture",
+                "key": "H_2"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_3.png"
+                },
+                "type": "texture",
+                "key": "H_3"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_4.png"
+                },
+                "type": "texture",
+                "key": "H_4"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_5.png"
+                },
+                "type": "texture",
+                "key": "H_5"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_6.png"
+                },
+                "type": "texture",
+                "key": "H_6"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_7.png"
+                },
+                "type": "texture",
+                "key": "H_7"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_8.png"
+                },
+                "type": "texture",
+                "key": "H_8"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_9.png"
+                },
+                "type": "texture",
+                "key": "H_9"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_A.png"
+                },
+                "type": "texture",
+                "key": "H_A"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_J.png"
+                },
+                "type": "texture",
+                "key": "H_J"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_K.png"
+                },
+                "type": "texture",
+                "key": "H_K"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_Q.png"
+                },
+                "type": "texture",
+                "key": "H_Q"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/H_T.png"
+                },
+                "type": "texture",
+                "key": "H_T"
             },
             {
                 "url": "assets/loading/loading_complete.png",
@@ -60,6 +438,132 @@
                 "url": "assets/loading/loading_main.png",
                 "type": "image",
                 "key": "loading_main"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_1.png"
+                },
+                "type": "texture",
+                "key": "S_1"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_10.png"
+                },
+                "type": "texture",
+                "key": "S_10"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_11.png"
+                },
+                "type": "texture",
+                "key": "S_11"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_12.png"
+                },
+                "type": "texture",
+                "key": "S_12"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_13.png"
+                },
+                "type": "texture",
+                "key": "S_13"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_2.png"
+                },
+                "type": "texture",
+                "key": "S_2"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_3.png"
+                },
+                "type": "texture",
+                "key": "S_3"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_4.png"
+                },
+                "type": "texture",
+                "key": "S_4"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_5.png"
+                },
+                "type": "texture",
+                "key": "S_5"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_6.png"
+                },
+                "type": "texture",
+                "key": "S_6"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_7.png"
+                },
+                "type": "texture",
+                "key": "S_7"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_8.png"
+                },
+                "type": "texture",
+                "key": "S_8"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_9.png"
+                },
+                "type": "texture",
+                "key": "S_9"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_A.png"
+                },
+                "type": "texture",
+                "key": "S_A"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_J.png"
+                },
+                "type": "texture",
+                "key": "S_J"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_K.png"
+                },
+                "type": "texture",
+                "key": "S_K"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_Q.png"
+                },
+                "type": "texture",
+                "key": "S_Q"
+            },
+            {
+                "url": {
+                    "IMG": "assets/cards/S_T.png"
+                },
+                "type": "texture",
+                "key": "S_T"
             },
             {
                 "url": "assets/image/shuffing.webp",

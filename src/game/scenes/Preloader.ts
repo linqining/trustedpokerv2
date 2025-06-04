@@ -5,6 +5,8 @@
 /* START-USER-IMPORTS */
 /* END-USER-IMPORTS */
 
+import {EventBus} from "../EventBus.ts";
+
 export default class Preloader extends Phaser.Scene {
 
 	constructor() {
@@ -96,6 +98,7 @@ export default class Preloader extends Phaser.Scene {
 	// Write your code here
     init () {
     }
+    private timerEventProgress: Phaser.Time.TimerEvent | null = null;
 
     loadingEffect(){
         const container = this.scene.scene.children.getByName("loading_container") as Phaser.GameObjects.Container;
@@ -114,7 +117,9 @@ export default class Preloader extends Phaser.Scene {
                 percentText.setText(count * 100/tick + "");
                 progressBar.width =  (width * count/tick);
                 if(count >= tick) {
-                    this.time.removeEvent(this.timerEventProgress);
+                    if (this.timerEventProgress){
+                        this.time.removeEvent(this.timerEventProgress);
+                    }
                     this.time.addEvent({
                         delay: 500,
                         callback:()=>{

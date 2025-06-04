@@ -6,9 +6,13 @@
 import BackgroundPrefab from "../prefabs/BackgroundPrefab";
 import UserPrefab from "../prefabs/UserPrefab";
 /* START-USER-IMPORTS */
-import Server from "../server.js";
+// import Server from "../server.js";
+import BetApi from "../betApi.js";
 import {callbackOpen,callbackClose,callbackMessage,callbackError} from "../logic.js";
 import {EventBus} from "../EventBus.ts";
+import {reconnect} from "../../api/api";
+import {Room, StateData} from "../types/types.ts";
+import {GameState} from "../types/game_state.ts"
 /* END-USER-IMPORTS */
 
 export default class Table extends Phaser.Scene {
@@ -31,8 +35,10 @@ export default class Table extends Phaser.Scene {
 		// user1
 		const user1 = new UserPrefab(this, 553, 516);
 		this.add.existing(user1);
+		user1.name = "user1";
 		user1.scaleX = 0.5;
 		user1.scaleY = 0.5;
+		user1.visible = true;
 
 		// user2
 		const user2 = new UserPrefab(this, 176, 463);
@@ -108,23 +114,23 @@ export default class Table extends Phaser.Scene {
 		check_text.setStyle({ "fontSize": "32px" });
 		op_btn_check.add(check_text);
 
-		// op_btn_fold_1
-		const op_btn_fold_1 = this.add.container(818, 639);
-		op_btn_fold_1.name = "op_btn_fold_1";
+		// op_btn_fold
+		const op_btn_fold = this.add.container(818, 639);
+		op_btn_fold.name = "op_btn_fold";
 
 		// button_fold_1
 		const button_fold_1 = this.add.image(62.812552081710464, 20.799078357486906, "button_red");
 		button_fold_1.name = "button_fold_1";
 		button_fold_1.scaleX = 0.15758130827137293;
 		button_fold_1.scaleY = 0.15758130827137293;
-		op_btn_fold_1.add(button_fold_1);
+		op_btn_fold.add(button_fold_1);
 
 		// fold_text
 		const fold_text = this.add.text(24.812552081710464, 3.7990783574869056, "", {});
 		fold_text.name = "fold_text";
 		fold_text.text = "Fold";
 		fold_text.setStyle({ "fontSize": "32px" });
-		op_btn_fold_1.add(fold_text);
+		op_btn_fold.add(fold_text);
 
 		// op_btn_raise
 		const op_btn_raise = this.add.container(1122, 639);
@@ -176,6 +182,7 @@ export default class Table extends Phaser.Scene {
 		// op_buy_in
 		const op_buy_in = this.add.container(554, 305);
 		op_buy_in.name = "op_buy_in";
+		op_buy_in.visible = false;
 
 		// buyin_btn
 		const buyin_btn = this.add.image(65.14567187550324, 22.269595152564364, "button_yellow");
@@ -191,49 +198,298 @@ export default class Table extends Phaser.Scene {
 		buyin_text.setStyle({ "fontSize": "32px" });
 		op_buy_in.add(buyin_text);
 
-		// lists
-		const list: Array<any> = [];
+		// bb_text
+		const bb_text = this.add.text(640, 189, "", {});
+		bb_text.name = "bb_text";
+		bb_text.setOrigin(0.5, 0.5);
+		bb_text.setStyle({ "color": "#000000ff", "fontSize": "21px", "stroke": "#000000ff" });
 
-		this.list = list;
+		// public_card_container
+		const public_card_container = this.add.container(644, 331);
+		public_card_container.name = "public_card_container";
+		public_card_container.visible = false;
+
+		// public_card_1
+		const public_card_1 = this.add.image(-177.18549263145178, -0.23896370084037244, "card_back_0");
+		public_card_1.name = "public_card_1";
+		public_card_1.scaleX = 0.15041695188999193;
+		public_card_1.scaleY = 0.15041695188999193;
+		public_card_container.add(public_card_1);
+
+		// public_card_2
+		const public_card_2 = this.add.image(-89.18549263145178, -0.23896370084037244, "card_back_0");
+		public_card_2.name = "public_card_2";
+		public_card_2.scaleX = 0.15041695188999193;
+		public_card_2.scaleY = 0.15041695188999193;
+		public_card_container.add(public_card_2);
+
+		// public_card_3
+		const public_card_3 = this.add.image(-1.1854926314517797, -0.23896370084037244, "card_back_0");
+		public_card_3.name = "public_card_3";
+		public_card_3.scaleX = 0.15041695188999193;
+		public_card_3.scaleY = 0.15041695188999193;
+		public_card_container.add(public_card_3);
+
+		// public_card_4
+		const public_card_4 = this.add.image(86.81450736854822, -0.23896370084037244, "card_back_0");
+		public_card_4.name = "public_card_4";
+		public_card_4.scaleX = 0.15041695188999193;
+		public_card_4.scaleY = 0.15041695188999193;
+		public_card_container.add(public_card_4);
+
+		// public_card_5
+		const public_card_5 = this.add.image(174.81450736854822, -0.23896370084037244, "card_back_0");
+		public_card_5.name = "public_card_5";
+		public_card_5.scaleX = 0.15041695188999193;
+		public_card_5.scaleY = 0.15041695188999193;
+		public_card_container.add(public_card_5);
+
+		// lists
+		const public_card_list: Array<any> = [];
+
+		this.public_card_list = public_card_list;
 
 		this.events.emit("scene-awake");
 	}
 
-	private list!: Array<any>;
+	private public_card_list!: Array<any>;
 
 	/* START-USER-CODE */
 
 	// Write your code here
-    private  betServer:Server;
+    private  betApi:BetApi;
+    private gameState:GameState = new GameStateInstance(this.game);
+
+    preload(){
+        // const gImageDir = 'assets_poker/2x/';
+        // this.load.image('gamecenterbackground', gImageDir+'background.png')
+        // this.load.image('playerBK', 'assets_guopai/Desktop/player_frame.png')
+        // this.load.image('userBK', gImageDir+'player-guest.png')
+        // this.load.image('blankBK', gImageDir+'player-blank.png')
+        // this.load.image('winBK', gImageDir+'win-frame-bg.png')
+        // this.load.image('winBKFrame', gImageDir+'win-frame.png')
+        // this.load.image('buttonblue', gImageDir+'btn-big-green.png')
+        // this.load.image('buttongrey', gImageDir+'btn-big-green.png')
+        // this.load.image('buttonyellow', gImageDir+'btn-big-blue.png')
+        // this.load.image('fold_btn','assets_guopai/operate/fold.png')
+        // this.load.image('call_btn','assets_guopai/operate/call.png')
+        // this.load.image('raise_btn','assets_guopai/operate/raise.png')
+        // this.load.image('animeCoins', gImageDir+'coin.png')
+        // this.load.image('light', gImageDir+'roomLight.png')
+
+        // var cardDir = "assets_guopai/cards/"
+
+        // const cardImageName = [ "clubs", "diamonds","hearts","spades"];
+        // const cardName = [  "C", "D","H","S"]; // 梅花，方块，红心，黑桃
+        // const cardNumber = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K","A"];
+        // for(let i = 0; i < cardImageName.length; i++) {
+        //     for(let j = 0; j < cardNumber.length; j++) {
+        //         this.load.image(cardName[i] + cardNumber[j], "cards/"+cardName[i] +  "_" + cardNumber[j] + ".png")
+        //     }
+        // }
+
+        // this.load.image("cardBK", 'assets_guopai/cards/CardBack.png')
+        // this.load.image("chipPool", gImageDir+'chip-pool.png')
+        // this.load.image("chip01", 'assets_guopai/Desktop/chips.png')
+        // this.load.image("chip05", gImageDir+'texas_chip05.png')
+        // this.load.image("chip1k", gImageDir+'texas_chip1k.png')
+        // this.load.image("chip5k", gImageDir+'texas_chip5k.png')
+        // this.load.image("chip10w", gImageDir+'texas_chip10w.png')
+        // this.load.image("chip50w", gImageDir+'texas_chip50w.png')
+        //
+        // this.load.image("dcardBK", 'assets_guopai/cards/CardBack.png')
+        // // this.load.image("dcardBK", gImageDir+'card_backs_rotate.png');
+        //
+        //
+        // this.load.image("checkOn", gImageDir+'check-on.png')
+        // this.load.image("checkOff", gImageDir+'check-off.png')
+        // this.load.image("chipbox", gImageDir+'add-chips-box.png')
+        // this.load.image("winLight", gImageDir+'light_dot.png')
+        // this.load.image("groove", gImageDir+'sliderGroove.png')
+        // this.load.image("slidebar", gImageDir+'slidebar.png');
+        // this.load.image("btnslider", gImageDir+'btn-slider.png')
+        // this.load.image("fillbox", gImageDir+'fill-box.png')
+        // this.load.image("exitdoor", gImageDir+'btn-grey.png')
+        // this.load.image("dealer", gImageDir+'dealer.png')
+        // this.load.image("waitingRound", gImageDir+'win-frameWaiting.png')
+        // this.load.image("card_typebg", gImageDir+'card_typebg.png')
+        // this.load.image("defaultProfile", 'assets_guopai/Common/avatar.png')
+        // this.load.image("buttonrules", gImageDir+'btn-rules.png')
+        //
+        // const soundDir = "assets_poker/sound/"
+        // this.load.audio('sendcard', 'assets_guopai/audio/desk_new_card.wav')
+        // this.load.audio('click', soundDir+'click.mp3')
+        // this.load.audio('chipsmoving',soundDir+ 'chipsmoving.mp3')
+        // this.load.audio('reordercard', soundDir+'reordercard.mp3')
+        // this.load.audio('ding', soundDir+'ding.mp3')
+        // this.load.audio('win', soundDir+'win.mp3')
+        // this.load.audio('lost', soundDir+'lose.mp3')
+    }
+
 
     init () {
-
+        const userAccount = this.registry.get("current_account")
+        if (!userAccount){
+            this.scene.start('Preloader');
+        }
+        // this.scene.start('Preloader');
+        let api = this.betApi
+        this.betApi = new BetApi(function (data) {
+            console.log("connect success",JSON.stringify(data))
+            api.loginCertification(userAccount.address, function (authData){
+                console.log("authdata",authData)
+            });
+        }, callbackClose, this.callbackMessage.bind(this), callbackError);
+        this.betApi.setUserID(userAccount.address);
+        this.betApi.connect();
     }
 
 	create() {
         this.editorCreate();
+        this.setGameObject();
+
         // 设置buyin组件的行为
         const buyInContainer = this.scene.scene.children.getByName("op_buy_in") as Phaser.GameObjects.Container;
         const buyInBtn = buyInContainer.getByName("buyin_btn") as Phaser.GameObjects.Image;
-        // EventBus.removeListener('action_join_and_pay');
         buyInBtn.setInteractive().on('pointerdown', () => {
             console.log("buyin btn click")
             EventBus.emit('action_join_and_pay', this);
         })
+
+        let api = this.betApi
+
         EventBus.removeListener('action_join_and_pay_success');
         EventBus.on("action_join_and_pay_success",function (scene, gameid, chips) {
             console.log("action_join_and_pay_success",scene, gameid, chips);
+            console.log(api);
+            // buyInContainer.visible = false;
+            api.enterRoom(function (res) {
+                console.log(res)
+            },gameid, chips)
         })
 
+        // 重连根据用户是否在房间设置对应信息
+        const userAccount = this.registry.get("current_account")
+        reconnect(userAccount.address).then((res)=>{
+            console.log("reconnect success",res.data)
+            if (res.data.room_id){
+                buyInContainer.visible = false;
 
+                this.betApi.enterRoom(function (res) {
+                        console.log(res)
+                },res.data.room_id, res.data.chips)
+            }else{
+                buyInContainer.visible = true;
+                const user1 =this.scene.scene.children.getByName("user1") as Phaser.GameObjects.Container;
+                user1.visible = false;
+                console.log("user1",user1)
 
-        this.betServer = new Server();
-        this.betServer.registerCallback(callbackOpen, callbackClose, callbackMessage, callbackError);
-        this.betServer.connect();
-        
+                const op_raise =this.scene.scene.children.getByName("op_btn_raise") as Phaser.GameObjects.Container;
+                op_raise.visible = false;
 
+                const op_fold =this.scene.scene.children.getByName("op_btn_fold") as Phaser.GameObjects.Container;
+                op_fold.visible = false;
+
+                const op_check =this.scene.scene.children.getByName("op_btn_check") as Phaser.GameObjects.Container;
+                op_check.visible = false;
+
+                const slider =this.scene.scene.children.getByName("slider") as Phaser.GameObjects.Container;
+                slider.visible = false;
+            }
+        });
     }
 
+    setGameObject() {
+        const bbText =this.scene.scene.children.getByName("bb_text") as Phaser.GameObjects.Text;
+        this.gameState.blindText = bbText;
+
+        const publicCardContainer = this.scene.scene.children.getByName("public_card_container") as Phaser.GameObjects.Container;
+        const publicCardOne = publicCardContainer.getByName("public_card_1") as Phaser.GameObjects.Image;
+        const publicCardTwo = publicCardContainer.getByName("public_card_2") as Phaser.GameObjects.Image;
+        const publicCardThree = publicCardContainer.getByName("public_card_3") as Phaser.GameObjects.Image;
+        const publicCardFour = publicCardContainer.getByName("public_card_4") as Phaser.GameObjects.Image;
+        const publicCardFive = publicCardContainer.getByName("public_card_5") as Phaser.GameObjects.Image;
+        this.gameState.publicCards = [publicCardOne,publicCardTwo,publicCardThree,publicCardFour,publicCardFive]
+
+        const chipPoolText =this.scene.scene.children.getByName("chip_pool_text") as Phaser.GameObjects.Text;
+        this.gameState.chipPoolText = chipPoolText;
+    }
+
+     callbackMessage(data) {
+        console.log("callback message",JSON.stringify(data))
+        if(data.type == "iq") {
+            if(data.class == "room")       //查询游戏房间列表
+            {
+                this.handleCreateRoom(data);
+            }
+        } else if(data.type == "message"){
+            console.log("message",JSON.stringify(data))
+        } else if(data.type == "presence") {
+            console.log("presence data",JSON.stringify(data))
+            if(data.action == "active"){         //服务器广播进入房间的玩家
+            }
+            else if(data.action == "gone")      //服务器广播离开房间的玩家
+            {
+                this.handleGone(data)
+            }
+            else if(data.action == "join")      //服务器通报加入游戏的玩家
+            {
+                console.log("join data",JSON.stringify(data))
+                this.handleJoin(data);
+            }
+            else if(data.action == "button")    //服务器通报本局庄家
+            {
+                this.handleButton(data);
+            }
+            else if(data.action == "preflop")   //服务器通报发牌
+            {
+                this.handlePreflop(data);
+            }
+            else if(data.action == "flop")   //发牌
+            {
+                this.handleFlop(data);
+            }
+            else if(data.action == "turn")   //发牌
+            {
+                this.handleTurn(data);
+            }
+            else if(data.action == "river")   //发牌
+            {
+                this.handleRiver(data);
+            }
+            else if(data.action == "pot")       //服务器通报奖池
+            {
+                this.handlePot(data)
+            }
+            else if(data.action == "action")    //服务器通报当前下注玩家
+            {
+                this.handleAction(data);
+
+            }
+            else if(data.action == "bet")       //服务器通报玩家下注结果
+            {
+                this.handleBet(data);
+
+            }
+            else if(data.action == "showdown")  //服务器通报摊牌和比牌
+            {
+                this.handleShowDown(data);
+            }
+            else if(data.action == "state")  {//服务器通报房间信息
+                console.log("handle state",this);
+                this.handleState(data);
+                this.initRoomDone = true;
+            }
+        }
+    }
+
+    handleState(data:StateData){
+        console.log("handle state",JSON.stringify(data));
+        const roomInfo = data.room;
+
+        this.gameState.InitRoom(roomInfo)
+        
+    }
 
 	/* END-USER-CODE */
 }
@@ -241,3 +497,136 @@ export default class Table extends Phaser.Scene {
 /* END OF COMPILED CODE */
 
 // You can write more code here
+export class GameStateInstance implements GameState{
+    sb: number;
+    bb: number;
+    bet: number;
+    roomID: string;
+    timeout:number;
+    buttonPos:number;
+    publicCardArr:string[];
+    // phaser 牌桌对象
+    phaserGame:Phaser.Game;
+    blindText:Phaser.GameObjects.Text;
+    chipPoolText:Phaser.GameObjects.Text;
+    publicCards:Phaser.GameObjects.Image[];
+    constructor(game:Phaser.Game) {
+        this.phaserGame = game
+    }
+
+    InitRoom(roomInfo:Room){
+        this.roomID = roomInfo.id
+        this.bb = roomInfo.bb
+        this.sb = roomInfo.sb
+        this.timeout = roomInfo.timeout
+        this.buttonPos = roomInfo.button;
+        this.bet = roomInfo.bet;
+        let publicCards = roomInfo.cards;
+        if(!publicCards) {
+            publicCards = [];
+        }
+        this.publicCardArr = publicCards;
+
+        this.updateBlindText()
+        this.initPublicCards()
+        this.initChipPool(roomInfo)
+        this.initOccupants(roomInfo.occupants);
+    }
+
+     formatElement(str:string) {
+        return str.replace(/([CDHS])([2-9ATJQK])/g, '$1_$2');
+    }
+
+    initPublicCards(){
+        for(let i = 0; i < this.publicCardArr.length; i++) {
+            this.publicCards[i].visible = true;
+            console.log("initpublic card",this.publicCardArr[i])
+            const frame = this.phaserGame.textures.get(this.formatElement(this.publicCardArr[i]));
+            this.publicCards[i].setTexture(frame);
+            // this.publicCards[i].load.image(publicCards[i], this.publicCards[i].frame);
+        }
+        for(let i = this.publicCardArr.length; i < this.publicCards.length; i++) {
+            if (this.publicCards[i].visible) {
+                this.publicCards[i].visible = false;
+                // // this.publicCards[i].load.image("cardBK", this.publicCards[i].frame);
+                // const frame = this.phaserGame.textures.get("cardBK");
+                // this.publicCards[i].setTexture(frame);
+            }
+        }
+    }
+
+    initChipPool(roomInfo:Room){
+        //初始化筹码池
+        let chipPoolCount = 0;
+        if(!roomInfo.pot) {
+            roomInfo.pot = []
+        }
+        for(let i = 0; i < roomInfo.pot.length; i++) {
+            chipPoolCount += roomInfo.pot[i];
+        }
+        this.chipPoolText.setText(chipPoolCount+"");
+    }
+    
+    initOccupant(roomInfo:Room){
+        //初始化玩家
+        let occupants = roomInfo.occupants;
+        for (let i = 0; i < this.userList.length; i++) {
+            var user = this.userList[i];
+            user.setParam(null, null, "");
+        }
+        //计算座位偏移量，以自己为5号桌计算
+        var isSendCard = true;
+        var playerOffset = 0;
+        for(var i = 0; i < occupants.length; i++) {
+            var userInfo = occupants[i];
+            if(userInfo && userInfo.id == this.userID)
+            {
+                var arrayCards = userInfo.cards;
+                if(arrayCards != undefined && arrayCards != null ) {
+                    this._loadSelfCard(arrayCards);
+                } else {
+                    isSendCard = false;
+                }
+                playerOffset = (this.userList.length - 1) / 2 - userInfo.index;
+                console.log("set chips ",userInfo.chips)
+                this.chips = userInfo.chips
+                break;
+            }
+        }
+        for(var i = 0; i < occupants.length; i++) {
+            var userInfo = occupants[i];
+            if(!userInfo)
+            {
+                continue;
+            }
+            var index = userInfo.index + playerOffset;
+            if(index >= this.userList.length)
+            {
+                index -= this.userList.length;
+            }
+            else if(index < 0)
+            {
+                index += this.userList.length;
+            }
+            var user = this.userList[index];
+            if(userInfo.profile && userInfo.profile != "")
+            {
+                this.game.load.image("userImage" + index, userInfo.profile, true);
+                // this.game.load.start();
+            }
+            user.setParam(userInfo.name, null, userInfo.chips, (userInfo.id == this.userID));
+            user.param.seatNum = userInfo.index;
+            user.param.userID = userInfo.id;
+            user.setVisible(true);
+
+            if(user.dcard != undefined  && user.dcard != null) {
+                user.dcard.visible = true;
+            }
+
+        }
+    }
+
+    updateBlindText(){
+        this.blindText.setText("$" + this.sb + " / $" + this.bb);
+    }
+}

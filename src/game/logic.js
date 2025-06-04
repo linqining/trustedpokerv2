@@ -5,71 +5,65 @@ function callbackOpen(data) {
 }
 
 function callbackClose(data) {
-    console.log("callbackClose " + data);
+    console.log("callbackClose " + JSON.stringify(data));
     this.loginCertification = false;
 
     this._disconnectReset();
 }
 
 function callbackMessage(data) {
-    if (!this.createDone){
-        return
-    }
-    if (this.loginCertification && !this.initRoomDone && !(data.action == "state" && data.type=="presence")){
-        return
-    }
-    // console.log("callbackMessage " + JSON.stringify(data));
-    if(data.version && data.version == this.strVersion) {
-        var authToken = gParam.user_name;
-
-        if (this.appToken != undefined ) {
-            authToken = this.appToken
-        };
-
-        this.betApi.loginCertification(authToken, function(isOK){
-            console.log("loginCertification is " +  isOK);
-            //alert("loginCertification is" +  isOK);
-        });
-    }
-    else if(!this.loginCertification) // loginCertification result
-    {
-        if(data.id) {
-            this.userID = data.id;
-            this.userName = data.name;
-            this.betApi.setUserID(this.userID);
-            this.loginCertification = true;
-
-            this._currentPlayButtonUpdate(false)
-            // console.log("gParam:", JSON.stringify(gParam))
-
-            // if(gParam.joinroom != undefined && gParam.joinroom != null) {
-            //     this.roomID = gParam.joinroom
-            //     console.log("enter room:", this.rootID);
-            //     this.betApi.enterRoom(function(isOK){
-            //         console.log("enterRoom is " +  isOK);
-            //     }, this.roomID);
-            //
-            // } else {
-            console.log("enter random room:");
-            this.betApi.enterRoom(function(isOK){
-                console.log("enterRoom is " +  isOK);
-            }, this.roomID,this.chipAmount);
-            // }
-        }
-    }
-    else if(data.type == "iq")
-    {
+    console.log("callback message",JSON.stringify(data))
+    // if (this.loginCertification && !this.initRoomDone && !(data.action == "state" && data.type=="presence")){
+    //     return
+    // }
+    // // console.log("callbackMessage " + JSON.stringify(data));
+    // if(data.version && data.version == this.strVersion) {
+    //     var authToken = gParam.user_name;
+    //
+    //     if (this.appToken != undefined ) {
+    //         authToken = this.appToken
+    //     };
+    //
+    //     this.betApi.loginCertification(authToken, function(isOK){
+    //         console.log("loginCertification is " +  isOK);
+    //         //alert("loginCertification is" +  isOK);
+    //     });
+    // }
+    // else if(!this.loginCertification){
+    //     if(data.id) {
+    //         this.userID = data.id;
+    //         this.userName = data.name;
+    //         this.loginCertification = true;
+    //
+    //         this._currentPlayButtonUpdate(false)
+    //         // console.log("gParam:", JSON.stringify(gParam))
+    //
+    //         // if(gParam.joinroom != undefined && gParam.joinroom != null) {
+    //         //     this.roomID = gParam.joinroom
+    //         //     console.log("enter room:", this.rootID);
+    //         //     this.betApi.enterRoom(function(isOK){
+    //         //         console.log("enterRoom is " +  isOK);
+    //         //     }, this.roomID);
+    //         //
+    //         // } else {
+    //         console.log("enter random room:");
+    //         this.betApi.enterRoom(function(isOK){
+    //             console.log("enterRoom is " +  isOK);
+    //         }, this.roomID,this.chipAmount);
+    //         // }
+    //     }
+    // }
+    // else if(data.type == "iq")
+     if(data.type == "iq") {
         if(data.class == "room")       //查询游戏房间列表
         {
             this.handleCreateRoom(data);
         }
-    }
-    else if(data.type == "message") {
-    }
-    else if(data.type == "presence") {
-        // console.log("presence data",JSON.stringify(data))
-        if(data.action == "active")         //服务器广播进入房间的玩家
-        {
+    } else if(data.type == "message"){
+         console.log("message",JSON.stringify(data))
+    } else if(data.type == "presence") {
+        console.log("presence data",JSON.stringify(data))
+        if(data.action == "active"){         //服务器广播进入房间的玩家
         }
         else if(data.action == "gone")      //服务器广播离开房间的玩家
         {
@@ -77,6 +71,7 @@ function callbackMessage(data) {
         }
         else if(data.action == "join")      //服务器通报加入游戏的玩家
         {
+            console.log("join data",JSON.stringify(data))
             this.handleJoin(data);
         }
         else if(data.action == "button")    //服务器通报本局庄家
