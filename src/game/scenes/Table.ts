@@ -191,7 +191,6 @@ export default class Table extends Phaser.Scene {
 		// op_buy_in
 		const op_buy_in = this.add.container(554, 305);
 		op_buy_in.name = "op_buy_in";
-		op_buy_in.visible = false;
 
 		// buyin_btn
 		const buyin_btn = this.add.image(65.14567187550324, 22.269595152564364, "button_yellow");
@@ -299,7 +298,7 @@ export default class Table extends Phaser.Scene {
         // const cardNumber = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K","A"];
         // for(let i = 0; i < cardImageName.length; i++) {
         //     for(let j = 0; j < cardNumber.length; j++) {
-        //         this.load.image(cardName[i] + cardNumber[j], "cards/"+cardName[i] +  "_" + cardNumber[j] + ".png")
+        //         this.load.image(cardName[i] +"_"+ cardNumber[j], "cards/"+cardName[i] +  "_" + cardNumber[j] + ".png")
         //     }
         // }
 
@@ -347,8 +346,17 @@ export default class Table extends Phaser.Scene {
         if (!userAccount){
             this.scene.start('Preloader');
         }
+        this.editorCreate();
+        const tableScene = this;
+        this.events.once("scene-awake",function () {
+            tableScene.setGameObject();
+        })
+    }
+
+	create() {
         // this.scene.start('Preloader');
-        let api = this.betApi
+        const api = this.betApi
+        const userAccount = this.registry.get("current_account");
         this.betApi = new BetApi(function (data) {
             console.log("connect success",JSON.stringify(data))
             api.loginCertification(userAccount.address, function (authData){
@@ -358,11 +366,9 @@ export default class Table extends Phaser.Scene {
         this.betApi.setUserID(userAccount.address);
         this.gameState.setUserID(userAccount.address);
         this.betApi.connect();
-    }
 
-	create() {
-        this.editorCreate();
-        this.setGameObject();
+        // this.testTexture();
+        // return
 
         // 设置buyin组件的行为
         const buyInContainer = this.scene.scene.children.getByName("op_buy_in") as Phaser.GameObjects.Container;
@@ -372,24 +378,23 @@ export default class Table extends Phaser.Scene {
             EventBus.emit('action_join_and_pay', this);
         })
 
-        let api = this.betApi
+        // let api = this.betApi
 
         EventBus.removeListener('action_join_and_pay_success');
         EventBus.on("action_join_and_pay_success",function (scene, gameid, chips) {
             console.log("action_join_and_pay_success",scene, gameid, chips);
-            console.log(api);
-            // buyInContainer.visible = false;
+            buyInContainer.visible = true; //todo open
             api.enterRoom(function (res) {
                 console.log(res)
             },gameid, chips)
         })
 
         // 重连根据用户是否在房间设置对应信息
-        const userAccount = this.registry.get("current_account")
+        // const userAccount = this.registry.get("current_account")
         reconnect(userAccount.address).then((res)=>{
             console.log("reconnect success",res.data)
             if (res.data.room_id){
-                buyInContainer.visible = false;
+                // buyInContainer.visible = false; //todo open
 
                 this.betApi.enterRoom(function (res) {
                         console.log(res)
@@ -399,6 +404,7 @@ export default class Table extends Phaser.Scene {
                 const user1 =this.scene.scene.children.getByName("user1") as Phaser.GameObjects.Container;
                 user1.visible = false;
                 console.log("reconnect hide user1",user1)
+
 
                 const op_raise =this.scene.scene.children.getByName("op_btn_raise") as Phaser.GameObjects.Container;
                 op_raise.visible = false;
@@ -413,6 +419,21 @@ export default class Table extends Phaser.Scene {
                 slider.visible = false;
             }
         });
+    }
+
+    testTexture(){
+        const user1 =this.scene.scene.children.getByName("user1") as Phaser.GameObjects.Container;
+        user1.visible = true;
+        const cardBackPrefab = user1.getByName("cardBackPrefab") as Phaser.GameObjects.Container;
+        const card_and_strength = cardBackPrefab.getByName("card_and_strength") as Phaser.GameObjects.Container;
+        const cards_container = card_and_strength.getByName("cards_container") as Phaser.GameObjects.Container;
+        let cardOne = cards_container.getByName("card_back_1") as Phaser.GameObjects.Image;
+        let cardTwo = cards_container.getByName("card_back_2") as Phaser.GameObjects.Image;
+        let frame = this.textures.get("C_A");
+        cardOne.setTexture(frame)
+        cardTwo.setTexture(frame)
+
+        console.log("reconnect hide user1",user1)
     }
 
     setGameObject() {
@@ -531,13 +552,13 @@ export default class Table extends Phaser.Scene {
         console.log("handlepot")
     }
     handleAction(data){
-        
+
     }
     handleBet(data){
-        
+
     }
     handleShowDown(data){
-        
+
     }
 
     handleState(data:StateData){
@@ -603,7 +624,7 @@ export class GameStateInstance implements GameState{
             this.publicCards[i].visible = true;
             console.log("initpublic card",this.publicCardArr[i])
             const frame = this.phaserGame.textures.get(this.formatElement(this.publicCardArr[i]));
-            this.publicCards[i].setTexture(frame);
+            this.publicCards[i].setTexture(this.formatElement(this.publicCardArr[i]));
             // this.publicCards[i].load.image(publicCards[i], this.publicCards[i].frame);
         }
         for(let i = this.publicCardArr.length; i < this.publicCards.length; i++) {
@@ -647,7 +668,7 @@ export class GameStateInstance implements GameState{
             const userInfo = occupants[i];
             if(userInfo && userInfo.id == this.userID) {
                 userIndex = i
-                playerOffset = (this.Users.length - 1) / 2 - userInfo.index;
+                playerOffset =  userInfo.index;
                 break;
             }
         }
@@ -656,7 +677,7 @@ export class GameStateInstance implements GameState{
             if(!userInfo) {
                 continue;
             }
-            let index = userInfo.index + playerOffset;
+            let index = userInfo.index - playerOffset;
             if(index >= this.Users.length) {
                 index -= this.Users.length;
             } else if(index < 0) {
@@ -667,7 +688,7 @@ export class GameStateInstance implements GameState{
                 user.initUser(userInfo,i==userIndex);
                 user.User.visible = true; 
             }else{
-                console.log("init ci")
+                console.log("init no user",user)
             }
 
         }

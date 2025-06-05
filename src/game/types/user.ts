@@ -30,7 +30,7 @@ export class UserImpl implements User{
         const card_and_strength = this.cardBackPrefab.getByName("card_and_strength") as Phaser.GameObjects.Container;
         const cards_container = card_and_strength.getByName("cards_container") as Phaser.GameObjects.Container;
         this.cardOne = cards_container.getByName("card_back_1") as Phaser.GameObjects.Image;
-        this.cardTwo = this.cardBackPrefab.getByName("card_back_2") as Phaser.GameObjects.Image;
+        this.cardTwo = cards_container.getByName("card_back_2") as Phaser.GameObjects.Image;
         
         const strength_container = card_and_strength.getByName("strength_container") as Phaser.GameObjects.Container;
         this.strengthText = strength_container.getByName("strength_text") as Phaser.GameObjects.Text;
@@ -82,7 +82,9 @@ export class UserImpl implements User{
             // this.User.
             for(let i = 0; i < this.cards.length; i++) {
                 const card = this.cards[i];
-                const frame = this.tableScene.textures.get(this.formatElement(card));
+                const frame_key = this.formatElement(card)
+                const frame = this.tableScene.textures.get(frame_key);
+                console.log("update_user_card", frame_key);
                 if (i==0){
                     console.log("update catd one", this.cardOne, frame);
                     this.cardOne.setTexture(frame)

@@ -363,7 +363,6 @@
             "useGameObjectName": true,
             "x": 554,
             "y": 305,
-            "visible": false,
             "list": [
                 {
                     "type": "Image",
