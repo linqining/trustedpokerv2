@@ -13,6 +13,7 @@ import {EventBus} from "../EventBus.ts";
 import {reconnect} from "../../api/api";
 import {Room, StateData} from "../types/types.ts";
 import {GameState} from "../types/game_state.ts"
+import {User, UserImpl} from "../types/user.ts";
 /* END-USER-IMPORTS */
 
 export default class Table extends Phaser.Scene {
@@ -43,6 +44,7 @@ export default class Table extends Phaser.Scene {
 		// user2
 		const user2 = new UserPrefab(this, 176, 463);
 		this.add.existing(user2);
+		user2.name = "user2";
 		user2.scaleX = 0.5;
 		user2.scaleY = 0.5;
 		user2.visible = false;
@@ -50,6 +52,7 @@ export default class Table extends Phaser.Scene {
 		// user9
 		const user9 = new UserPrefab(this, 931, 471);
 		this.add.existing(user9);
+		user9.name = "user9";
 		user9.scaleX = 0.5;
 		user9.scaleY = 0.5;
 		user9.visible = false;
@@ -57,6 +60,7 @@ export default class Table extends Phaser.Scene {
 		// user3
 		const user3 = new UserPrefab(this, 81, 300);
 		this.add.existing(user3);
+		user3.name = "user3";
 		user3.scaleX = 0.5;
 		user3.scaleY = 0.5;
 		user3.visible = false;
@@ -64,6 +68,7 @@ export default class Table extends Phaser.Scene {
 		// user8
 		const user8 = new UserPrefab(this, 1047, 290);
 		this.add.existing(user8);
+		user8.name = "user8";
 		user8.scaleX = 0.5;
 		user8.scaleY = 0.5;
 		user8.visible = false;
@@ -71,6 +76,7 @@ export default class Table extends Phaser.Scene {
 		// user5
 		const user5 = new UserPrefab(this, 388, 35);
 		this.add.existing(user5);
+		user5.name = "user5";
 		user5.scaleX = 0.5;
 		user5.scaleY = 0.5;
 		user5.visible = false;
@@ -78,6 +84,7 @@ export default class Table extends Phaser.Scene {
 		// user6
 		const user6 = new UserPrefab(this, 745, 27);
 		this.add.existing(user6);
+		user6.name = "user6";
 		user6.scaleX = 0.5;
 		user6.scaleY = 0.5;
 		user6.visible = false;
@@ -85,6 +92,7 @@ export default class Table extends Phaser.Scene {
 		// user4
 		const user4 = new UserPrefab(this, 139, 113);
 		this.add.existing(user4);
+		user4.name = "user4";
 		user4.scaleX = 0.5;
 		user4.scaleY = 0.5;
 		user4.visible = false;
@@ -92,6 +100,7 @@ export default class Table extends Phaser.Scene {
 		// user7
 		const user7 = new UserPrefab(this, 987, 116);
 		this.add.existing(user7);
+		user7.name = "user7";
 		user7.scaleX = 0.5;
 		user7.scaleY = 0.5;
 		user7.visible = false;
@@ -244,6 +253,12 @@ export default class Table extends Phaser.Scene {
 		public_card_5.scaleY = 0.15041695188999193;
 		public_card_container.add(public_card_5);
 
+		// chip_pool_text
+		const chip_pool_text = this.add.text(640, 207, "", {});
+		chip_pool_text.name = "chip_pool_text";
+		chip_pool_text.setOrigin(0.5, 0.5);
+		chip_pool_text.setStyle({ "color": "#000000ff", "fontSize": "21px", "stroke": "#000000ff" });
+
 		// lists
 		const public_card_list: Array<any> = [];
 
@@ -341,6 +356,7 @@ export default class Table extends Phaser.Scene {
             });
         }, callbackClose, this.callbackMessage.bind(this), callbackError);
         this.betApi.setUserID(userAccount.address);
+        this.gameState.setUserID(userAccount.address);
         this.betApi.connect();
     }
 
@@ -382,7 +398,7 @@ export default class Table extends Phaser.Scene {
                 buyInContainer.visible = true;
                 const user1 =this.scene.scene.children.getByName("user1") as Phaser.GameObjects.Container;
                 user1.visible = false;
-                console.log("user1",user1)
+                console.log("reconnect hide user1",user1)
 
                 const op_raise =this.scene.scene.children.getByName("op_btn_raise") as Phaser.GameObjects.Container;
                 op_raise.visible = false;
@@ -413,6 +429,11 @@ export default class Table extends Phaser.Scene {
 
         const chipPoolText =this.scene.scene.children.getByName("chip_pool_text") as Phaser.GameObjects.Text;
         this.gameState.chipPoolText = chipPoolText;
+        for(let i = 0; i < 9; i++) {
+            const userContainer = this.scene.scene.children.getByName("user" + (i + 1)) as Phaser.GameObjects.Container;
+            const user = new UserImpl(userContainer,this);
+            this.gameState.Users.push(user)
+        }
     }
 
      callbackMessage(data) {
@@ -478,9 +499,45 @@ export default class Table extends Phaser.Scene {
             else if(data.action == "state")  {//服务器通报房间信息
                 console.log("handle state",this);
                 this.handleState(data);
-                this.initRoomDone = true;
             }
         }
+    }
+
+    handleCreateRoom(data){
+        console.log("todohandleCreateRoom")
+    }
+    handleGone(data){
+        console.log("todohandlGone")
+    }
+    handleJoin(data){
+        console.log("handlejoin todo")
+    }
+    handleButton(data){
+        console.log("handlebutton")
+    }
+    handlePreflop(data){
+        console.log("handlePreflop")
+    }
+    handleFlop(data){
+        console.log("handlefolp")
+    }
+    handleTurn(data){
+        console.log("handleturn")
+    }
+    handleRiver(data){
+        console.log("handleriver")
+    }
+    handlePot(data){
+        console.log("handlepot")
+    }
+    handleAction(data){
+        
+    }
+    handleBet(data){
+        
+    }
+    handleShowDown(data){
+        
     }
 
     handleState(data:StateData){
@@ -488,7 +545,7 @@ export default class Table extends Phaser.Scene {
         const roomInfo = data.room;
 
         this.gameState.InitRoom(roomInfo)
-        
+
     }
 
 	/* END-USER-CODE */
@@ -498,6 +555,8 @@ export default class Table extends Phaser.Scene {
 
 // You can write more code here
 export class GameStateInstance implements GameState{
+    userID:string;
+
     sb: number;
     bb: number;
     bet: number;
@@ -510,8 +569,10 @@ export class GameStateInstance implements GameState{
     blindText:Phaser.GameObjects.Text;
     chipPoolText:Phaser.GameObjects.Text;
     publicCards:Phaser.GameObjects.Image[];
+    Users : User[];
     constructor(game:Phaser.Game) {
         this.phaserGame = game
+        this.Users = [];
     }
 
     InitRoom(roomInfo:Room){
@@ -530,7 +591,7 @@ export class GameStateInstance implements GameState{
         this.updateBlindText()
         this.initPublicCards()
         this.initChipPool(roomInfo)
-        this.initOccupants(roomInfo.occupants);
+        this.initOccupants(roomInfo);
     }
 
      formatElement(str:string) {
@@ -566,61 +627,47 @@ export class GameStateInstance implements GameState{
         }
         this.chipPoolText.setText(chipPoolCount+"");
     }
-    
-    initOccupant(roomInfo:Room){
+
+    initOccupants(roomInfo:Room){
         //初始化玩家
         let occupants = roomInfo.occupants;
-        for (let i = 0; i < this.userList.length; i++) {
-            var user = this.userList[i];
-            user.setParam(null, null, "");
+        if (!occupants){
+            occupants = [];
+            return
         }
+        // for (let i = 0; i < this.Users.length; i++) {
+        //     let user = this.Users[i];
+        //     user.setParam(null, null, "");
+        // }
         //计算座位偏移量，以自己为5号桌计算
-        var isSendCard = true;
-        var playerOffset = 0;
-        for(var i = 0; i < occupants.length; i++) {
-            var userInfo = occupants[i];
-            if(userInfo && userInfo.id == this.userID)
-            {
-                var arrayCards = userInfo.cards;
-                if(arrayCards != undefined && arrayCards != null ) {
-                    this._loadSelfCard(arrayCards);
-                } else {
-                    isSendCard = false;
-                }
-                playerOffset = (this.userList.length - 1) / 2 - userInfo.index;
-                console.log("set chips ",userInfo.chips)
-                this.chips = userInfo.chips
+        // let isSendCard = true;
+        let playerOffset = 0;
+        let userIndex =0;
+        for(let i = 0; i < occupants.length; i++) {
+            const userInfo = occupants[i];
+            if(userInfo && userInfo.id == this.userID) {
+                userIndex = i
+                playerOffset = (this.Users.length - 1) / 2 - userInfo.index;
                 break;
             }
         }
-        for(var i = 0; i < occupants.length; i++) {
-            var userInfo = occupants[i];
-            if(!userInfo)
-            {
+        for(let i = 0; i < occupants.length; i++) {
+            const userInfo = occupants[i];
+            if(!userInfo) {
                 continue;
             }
-            var index = userInfo.index + playerOffset;
-            if(index >= this.userList.length)
-            {
-                index -= this.userList.length;
+            let index = userInfo.index + playerOffset;
+            if(index >= this.Users.length) {
+                index -= this.Users.length;
+            } else if(index < 0) {
+                index += this.Users.length;
             }
-            else if(index < 0)
-            {
-                index += this.userList.length;
-            }
-            var user = this.userList[index];
-            if(userInfo.profile && userInfo.profile != "")
-            {
-                this.game.load.image("userImage" + index, userInfo.profile, true);
-                // this.game.load.start();
-            }
-            user.setParam(userInfo.name, null, userInfo.chips, (userInfo.id == this.userID));
-            user.param.seatNum = userInfo.index;
-            user.param.userID = userInfo.id;
-            user.setVisible(true);
-
-            if(user.dcard != undefined  && user.dcard != null) {
-                user.dcard.visible = true;
+            const user = this.Users[index];
+            if (user){
+                user.initUser(userInfo,i==userIndex);
+                user.User.visible = true; 
+            }else{
+                console.log("init ci")
             }
 
         }
@@ -628,5 +675,9 @@ export class GameStateInstance implements GameState{
 
     updateBlindText(){
         this.blindText.setText("$" + this.sb + " / $" + this.bb);
+    }
+
+    setUserID(strUserID:string) {
+        this.userID = strUserID;
     }
 }

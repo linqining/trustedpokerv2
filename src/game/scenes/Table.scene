@@ -54,6 +54,7 @@
                 "visible"
             ],
             "label": "user2",
+            "useGameObjectName": true,
             "x": 176,
             "y": 463,
             "scaleX": 0.5,
@@ -71,6 +72,7 @@
                 "visible"
             ],
             "label": "user9",
+            "useGameObjectName": true,
             "x": 931,
             "y": 471,
             "scaleX": 0.5,
@@ -88,6 +90,7 @@
                 "visible"
             ],
             "label": "user3",
+            "useGameObjectName": true,
             "x": 81,
             "y": 300,
             "scaleX": 0.5,
@@ -105,6 +108,7 @@
                 "visible"
             ],
             "label": "user8",
+            "useGameObjectName": true,
             "x": 1047,
             "y": 290,
             "scaleX": 0.5,
@@ -122,6 +126,7 @@
                 "visible"
             ],
             "label": "user5",
+            "useGameObjectName": true,
             "x": 388,
             "y": 35,
             "scaleX": 0.5,
@@ -139,6 +144,7 @@
                 "visible"
             ],
             "label": "user6",
+            "useGameObjectName": true,
             "x": 745,
             "y": 27,
             "scaleX": 0.5,
@@ -156,6 +162,7 @@
                 "visible"
             ],
             "label": "user4",
+            "useGameObjectName": true,
             "x": 139,
             "y": 113,
             "scaleX": 0.5,
@@ -173,6 +180,7 @@
                 "visible"
             ],
             "label": "user7",
+            "useGameObjectName": true,
             "x": 987,
             "y": 116,
             "scaleX": 0.5,
@@ -472,6 +480,19 @@
                     "scaleY": 0.15041695188999193
                 }
             ]
+        },
+        {
+            "type": "Text",
+            "id": "a1c0f8ca-4c68-4953-89ae-b9015cdf4fa2",
+            "label": "chip_pool_text",
+            "useGameObjectName": true,
+            "x": 640,
+            "y": 207,
+            "originX": 0.5,
+            "originY": 0.5,
+            "fontSize": "21px",
+            "color": "#000000ff",
+            "stroke": "#000000ff"
         }
     ],
     "plainObjects": [],

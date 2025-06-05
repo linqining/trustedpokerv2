@@ -22,19 +22,22 @@
                 {
                     "type": "Container",
                     "id": "24893f9a-64c3-461c-a329-f1e631a33aee",
-                    "label": "container_4",
+                    "label": "card_and_strength",
+                    "useGameObjectName": true,
                     "x": -53.1318359375,
                     "y": 8.356903076171875,
                     "list": [
                         {
                             "type": "Container",
                             "id": "d100cc2b-7e3b-4065-a041-fb799dc31da6",
-                            "label": "container_2",
+                            "label": "cards_container",
+                            "useGameObjectName": true,
                             "list": [
                                 {
                                     "type": "Image",
                                     "id": "004ad806-e40b-4672-bae9-88b7245f67b9",
-                                    "label": "card_back_0",
+                                    "label": "card_back_1",
+                                    "useGameObjectName": true,
                                     "texture": {
                                         "key": "card_back_0"
                                     },
@@ -46,7 +49,8 @@
                                 {
                                     "type": "Image",
                                     "id": "d69d5795-42ed-4284-8a44-4c1cc736a0e5",
-                                    "label": "card_back",
+                                    "label": "card_back_2",
+                                    "useGameObjectName": true,
                                     "texture": {
                                         "key": "card_back_0"
                                     },
@@ -60,7 +64,8 @@
                         {
                             "type": "Container",
                             "id": "54483481-0c3b-4f72-bd3b-237d84834618",
-                            "label": "container_3",
+                            "label": "strength_container",
+                            "useGameObjectName": true,
                             "x": 60.1318359375,
                             "y": 95.64309692382812,
                             "list": [
@@ -80,7 +85,8 @@
                                 {
                                     "type": "Text",
                                     "id": "b353f393-17a7-4673-aa83-3924b3405dce",
-                                    "label": "text_1",
+                                    "label": "strength_text",
+                                    "useGameObjectName": true,
                                     "y": 3,
                                     "originX": 0.49219651128488223,
                                     "originY": 0.5437108507992799,

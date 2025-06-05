@@ -24,6 +24,7 @@ export default class UserPrefab extends Phaser.GameObjects.Container {
 
 		// boy
 		const boy = scene.add.image(63.12430191040039, 114.05939483642582, "boy");
+		boy.name = "boy";
 		boy.scaleX = 0.1;
 		boy.scaleY = 0.1;
 		boy.setOrigin(0.4789448687665644, 0.5315826968501549);
@@ -31,18 +32,21 @@ export default class UserPrefab extends Phaser.GameObjects.Container {
 
 		// action
 		const action = scene.add.text(25.124302118189178, 5.059395115844794, "", {});
+		action.name = "action";
 		action.text = "Call";
 		action.setStyle({ "color": "#ffffffff", "fontSize": "35px" });
 		this.add(action);
 
 		// chips
 		const chips = scene.add.text(16.124302118189178, 178.05939511584478, "", {});
+		chips.name = "chips";
 		chips.text = "10000";
 		chips.setStyle({ "color": "#ffffffff", "fontSize": "35px" });
 		this.add(chips);
 
 		// cardBackPrefab
 		const cardBackPrefab = new CardBackPrefab(scene, 242, 79);
+		cardBackPrefab.name = "cardBackPrefab";
 		this.add(cardBackPrefab);
 
 		/* START-USER-CTR-CODE */

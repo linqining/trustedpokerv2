@@ -1,3 +1,4 @@
+import {User} from "./user.ts";
 
 export interface GameState {
     roomID: string,
@@ -10,5 +11,6 @@ export interface GameState {
     blindText:Phaser.GameObjects.Text,
     chipPoolText:Phaser.GameObjects.Text,
     publicCards:Phaser.GameObjects.Image[],
+    Users : User[],
 }
 

@@ -11,7 +11,7 @@ export interface Room {
     bb: number
     timeout: number
     button: number
-    occupants: Occupant | undefined[]
+    occupants: Occupant[]
     chips: number[]
     bet: number
     n: number
