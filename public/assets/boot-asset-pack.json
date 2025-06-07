@@ -168,6 +168,21 @@
                 "key": "card_back_3"
             },
             {
+                "url": "assets/desktop/chip_bigblind_top.png",
+                "type": "image",
+                "key": "chip_bigblind_top"
+            },
+            {
+                "url": "assets/desktop/chip_green_top.png",
+                "type": "image",
+                "key": "chip_green_top"
+            },
+            {
+                "url": "assets/desktop/chip_smallblind_top.png",
+                "type": "image",
+                "key": "chip_smallblind_top"
+            },
+            {
                 "url": {
                     "IMG": "assets/cards/D_2.png"
                 },

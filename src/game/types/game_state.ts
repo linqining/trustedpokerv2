@@ -14,7 +14,7 @@ export interface GameState {
     chipPoolText:Phaser.GameObjects.Text,
     publicCards:Phaser.GameObjects.Image[],
     Users : User[],
-    DealerButtons: Phaser.GameObjects.Image[];
+    DealerButtons: Phaser.GameObjects.Container[];
     Dealer: Phaser.GameObjects.Image;
     playerOffset:number;
     sliderContainer: Phaser.GameObjects.Container;

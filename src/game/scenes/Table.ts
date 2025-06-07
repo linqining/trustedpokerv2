@@ -5,6 +5,7 @@
 
 import BackgroundPrefab from "../prefabs/BackgroundPrefab";
 import UserPrefab from "../prefabs/UserPrefab";
+import bet_coin from "../prefabs/bet_coin";
 /* START-USER-IMPORTS */
 // import Server from "../server.js";
 import BetApi from "../betApi.js";
@@ -260,75 +261,83 @@ export default class Table extends Phaser.Scene {
 		chip_pool_text.setOrigin(0.5, 0.5);
 		chip_pool_text.setStyle({ "color": "#000000ff", "fontSize": "21px", "stroke": "#000000ff" });
 
-		// dealer1
-		const dealer1 = this.add.image(637, 492, "dealer");
-		dealer1.name = "dealer1";
-		dealer1.scaleX = 0.08798293166027904;
-		dealer1.scaleY = 0.08798293166027904;
-		dealer1.visible = false;
-
-		// dealer2
-		const dealer2 = this.add.image(284, 451, "dealer");
-		dealer2.name = "dealer2";
-		dealer2.scaleX = 0.08798293166027904;
-		dealer2.scaleY = 0.08798293166027904;
-		dealer2.visible = false;
-
-		// dealer3
-		const dealer3 = this.add.image(218, 340, "dealer");
-		dealer3.name = "dealer3";
-		dealer3.scaleX = 0.08798293166027904;
-		dealer3.scaleY = 0.08798293166027904;
-		dealer3.visible = false;
-
-		// dealer4
-		const dealer4 = this.add.image(329, 175, "dealer");
-		dealer4.name = "dealer4";
-		dealer4.scaleX = 0.08798293166027904;
-		dealer4.scaleY = 0.08798293166027904;
-		dealer4.visible = false;
-
-		// dealer5
-		const dealer5 = this.add.image(504, 163, "dealer");
-		dealer5.name = "dealer5";
-		dealer5.scaleX = 0.08798293166027904;
-		dealer5.scaleY = 0.08798293166027904;
-		dealer5.visible = false;
-
-		// dealer6
-		const dealer6 = this.add.image(824, 166, "dealer");
-		dealer6.name = "dealer6";
-		dealer6.scaleX = 0.08798293166027904;
-		dealer6.scaleY = 0.08798293166027904;
-		dealer6.visible = false;
-
-		// dealer7
-		const dealer7 = this.add.image(1038, 248, "dealer");
-		dealer7.name = "dealer7";
-		dealer7.scaleX = 0.08798293166027904;
-		dealer7.scaleY = 0.08798293166027904;
-		dealer7.visible = false;
-
-		// dealer8
-		const dealer8 = this.add.image(1060, 341, "dealer");
-		dealer8.name = "dealer8";
-		dealer8.scaleX = 0.08798293166027904;
-		dealer8.scaleY = 0.08798293166027904;
-		dealer8.visible = false;
-
-		// dealer9
-		const dealer9 = this.add.image(1017, 446, "dealer");
-		dealer9.name = "dealer9";
-		dealer9.scaleX = 0.08798293166027904;
-		dealer9.scaleY = 0.08798293166027904;
-		dealer9.visible = false;
-
 		// dealer
-		const dealer = this.add.image(621, 369, "dealer");
+		const dealer = this.add.image(620, 296, "dealer");
 		dealer.name = "dealer";
-		dealer.scaleX = 0.08798293166027904;
-		dealer.scaleY = 0.08798293166027904;
-		dealer.visible = false;
+		dealer.scaleX = 0.06200379587037338;
+		dealer.scaleY = 0.06200379587037338;
+
+		// bet_coin_1
+		const bet_coin_1 = new bet_coin(this, 561, 482);
+		this.add.existing(bet_coin_1);
+		bet_coin_1.name = "bet_coin_1";
+		bet_coin_1.scaleX = 0.18777490724676463;
+		bet_coin_1.scaleY = 0.18777490724676463;
+		bet_coin_1.visible = false;
+
+		// bet_coin_2
+		const bet_coin_2 = new bet_coin(this, 216, 429);
+		this.add.existing(bet_coin_2);
+		bet_coin_2.name = "bet_coin_2";
+		bet_coin_2.scaleX = 0.18777490724676463;
+		bet_coin_2.scaleY = 0.18777490724676463;
+		bet_coin_2.visible = false;
+
+		// bet_coin_3
+		const bet_coin_3 = new bet_coin(this, 202, 335);
+		this.add.existing(bet_coin_3);
+		bet_coin_3.name = "bet_coin_3";
+		bet_coin_3.scaleX = 0.18777490724676463;
+		bet_coin_3.scaleY = 0.18777490724676463;
+		bet_coin_3.visible = false;
+
+		// bet_coin_4
+		const bet_coin_4 = new bet_coin(this, 224, 224);
+		this.add.existing(bet_coin_4);
+		bet_coin_4.name = "bet_coin_4";
+		bet_coin_4.scaleX = 0.18777490724676463;
+		bet_coin_4.scaleY = 0.18777490724676463;
+		bet_coin_4.visible = false;
+
+		// bet_coin_5
+		const bet_coin_5 = new bet_coin(this, 419, 157);
+		this.add.existing(bet_coin_5);
+		bet_coin_5.name = "bet_coin_5";
+		bet_coin_5.scaleX = 0.18777490724676463;
+		bet_coin_5.scaleY = 0.18777490724676463;
+		bet_coin_5.visible = false;
+
+		// bet_coin_6
+		const bet_coin_6 = new bet_coin(this, 749, 153);
+		this.add.existing(bet_coin_6);
+		bet_coin_6.name = "bet_coin_6";
+		bet_coin_6.scaleX = 0.18777490724676463;
+		bet_coin_6.scaleY = 0.18777490724676463;
+		bet_coin_6.visible = false;
+
+		// bet_coin_7
+		const bet_coin_7 = new bet_coin(this, 970, 235);
+		this.add.existing(bet_coin_7);
+		bet_coin_7.name = "bet_coin_7";
+		bet_coin_7.scaleX = 0.18777490724676463;
+		bet_coin_7.scaleY = 0.18777490724676463;
+		bet_coin_7.visible = false;
+
+		// bet_coin_8
+		const bet_coin_8 = new bet_coin(this, 946, 365);
+		this.add.existing(bet_coin_8);
+		bet_coin_8.name = "bet_coin_8";
+		bet_coin_8.scaleX = 0.18777490724676463;
+		bet_coin_8.scaleY = 0.18777490724676463;
+		bet_coin_8.visible = false;
+
+		// bet_coin_9
+		const bet_coin_9 = new bet_coin(this, 930, 438);
+		this.add.existing(bet_coin_9);
+		bet_coin_9.name = "bet_coin_9";
+		bet_coin_9.scaleX = 0.18777490724676463;
+		bet_coin_9.scaleY = 0.18777490724676463;
+		bet_coin_9.visible = false;
 
 		// lists
 		const public_card_list: Array<any> = [];
@@ -372,7 +381,7 @@ export default class Table extends Phaser.Scene {
                 console.log("authdata",authData)
             });
         }, callbackClose, this.callbackMessage.bind(this), callbackError)
-        
+
         const userAccount = this.registry.get("current_account");
         this.betApi.setUserID(userAccount.address);
         this.gameState.setCurrentUser(userAccount.address);
@@ -430,7 +439,7 @@ export default class Table extends Phaser.Scene {
             }
         });
     }
-    
+
 
     setGameObject() {
         const bbText =this.scene.scene.children.getByName("bb_text") as Phaser.GameObjects.Text;
@@ -447,16 +456,20 @@ export default class Table extends Phaser.Scene {
         const chipPoolText =this.scene.scene.children.getByName("chip_pool_text") as Phaser.GameObjects.Text;
         this.gameState.chipPoolText = chipPoolText;
         for(let i = 0; i < 9; i++) {
-            const userContainer = this.scene.scene.children.getByName("user" + (i + 1)) as Phaser.GameObjects.Container;
-            const user = new UserImpl(userContainer,this);
-            this.gameState.Users.push(user)
-            const dealer = this.scene.scene.children.getByName("dealer" + (i + 1)) as Phaser.GameObjects.Image;
+            const dealer = this.scene.scene.children.getByName("bet_coin_" + (i + 1)) as Phaser.GameObjects.Container;
             this.gameState.DealerButtons.push(dealer);
+            
+            const userContainer = this.scene.scene.children.getByName("user" + (i + 1)) as Phaser.GameObjects.Container;
+            const user = new UserImpl(userContainer,dealer,this);
+            this.gameState.Users.push(user)
+            
+
         }
+        
         const dealer = this.scene.scene.children.getByName("dealer" ) as Phaser.GameObjects.Image;
         this.gameState.Dealer = dealer;
-        
-        
+
+
         // 操作面板
         this.gameState.sliderContainer = this.scene.scene.children.getByName("slider") as Phaser.GameObjects.Container;
         this.gameState.actionRaise = this.scene.scene.children.getByName("op_btn_raise") as Phaser.GameObjects.Container;
@@ -542,7 +555,7 @@ export default class Table extends Phaser.Scene {
         //通过和自己的座位号码推算应该在第几个座位
         const userIndex = this.gameState.getTargetIndex(occupant.index);
         let user = this.gameState.Users[userIndex]
-        
+
         //TODO 设置头像
         // if(occupant.profile && occupant.profile != "") {
         //     console.log("user profile",occupant.profile)
@@ -558,7 +571,7 @@ export default class Table extends Phaser.Scene {
     handleButton(data:ButtonData){
         console.log("handlebutton")
         this.gameState.buttonPos = parseInt(data.class);
-        
+
         const buttonIndex = this.gameState.getTargetIndex(this.gameState.buttonPos)
         const targetDealer =this.gameState.DealerButtons[buttonIndex]
         this.gameState.Dealer.visible = true;
@@ -604,20 +617,20 @@ export default class Table extends Phaser.Scene {
         const userIndex = this.gameState.getTargetIndex(seatNum)
         console.log("handleaction user index",userIndex)
         const user = this.gameState.Users[userIndex]
-        
+
         //todo 动画
         // this.gameStateObj.currentBettinglines = bet
 
         // 当前玩家
         if (user.userID == this.gameState.currentUser) {
             user.UpdateBet(bet);
-            
+
             // if(this._betWaitButtonChecked()) { // 预操作按钮
             //     this._autoAction();
             // } else {
             //     this._currentPlayButtonUpdate(true);
             // }
-            
+
             // 当前玩家，显示操作案板
             this.gameState.showActionMenu();
         } else {
@@ -627,10 +640,10 @@ export default class Table extends Phaser.Scene {
         // this._drawUserProgress(user.rect.left, user.rect.width, user.rect.top, user.rect.height)
     }
     showActionButton(){
-        
+
     }
     hideActionButton(){
-        
+
     }
     handleBet(data:BetData){
         const arrayInfo = data.class.split(",");
@@ -638,7 +651,7 @@ export default class Table extends Phaser.Scene {
         const betvalue = parseInt(arrayInfo[1]) // 本局下注总数
         const chips = parseInt(arrayInfo[2]) // 手上剩余筹码数
         const user = this.gameState.getUserByID(data.from)
-        
+
         if (user && user.userID != this.gameState.currentUser) {
             // todo 声音
             // this._playSound(this.soundClick);
@@ -663,7 +676,7 @@ export default class Table extends Phaser.Scene {
                 } else {
                     console.log("ERROR: can't find user, userid:",data.from);
                 }
-                
+
                 // 取消预操作
                 // if(betType == CONST.BetType_Raise) {
                 //     // 当 raise 后 wait button 发生变化
@@ -672,7 +685,7 @@ export default class Table extends Phaser.Scene {
                 //         this.waitOnClick2()
                 //     }
                 // }
-            
+
                 break;
             //弃牌
             case CONST.BetType_Fold:
@@ -691,8 +704,8 @@ export default class Table extends Phaser.Scene {
                 break;
         }
     }
-    
-    
+
+
     // handleShowDown(data){
     //
     // }
@@ -712,7 +725,7 @@ export default class Table extends Phaser.Scene {
             }
         }
         //todo
-        
+
         // this._clearWaitButtons();
         // this._setBetButtonsVisible(false);
         // this._setWaitButtonsVisible(false);
@@ -724,7 +737,7 @@ export default class Table extends Phaser.Scene {
         // this.chipPool.setText("0");
         // this.autoCall = 0;
     }
-    
+
     sendCardAnimation() {
         var sendPoint ={x:this.chipPoolBK.x + this.chipPoolBK.width * 0.14, y:this.chipPoolBK.y + this.chipPoolBK.height * 0.5}
         var userList = []
@@ -774,7 +787,7 @@ export default class Table extends Phaser.Scene {
                     if(currentIndex < userList.length ) {
                         sendCard();
                     }
-        
+
                     if(user.imagebody.visible == false) {
                         if(user.dcard != undefined  && user.dcard != null) {
                             user.dcard.visible = true;
@@ -794,7 +807,7 @@ export default class Table extends Phaser.Scene {
         }   
         return -1;
     }
-    
+
 
 	/* END-USER-CODE */
 }
@@ -819,20 +832,20 @@ export class GameStateInstance implements GameState{
     chipPoolText:Phaser.GameObjects.Text;
     publicCards:Phaser.GameObjects.Image[];
     Users : User[];
-    DealerButtons: Phaser.GameObjects.Image[];
+    DealerButtons: Phaser.GameObjects.Container[];
     Dealer: Phaser.GameObjects.Image;
     playerOffset:number;
     sliderContainer: Phaser.GameObjects.Container;
     actionRaise:Phaser.GameObjects.Container;
     actionFold :Phaser.GameObjects.Container;
     actionCheck :Phaser.GameObjects.Container;
-    
+
     constructor(game:Phaser.Game) {
         this.phaserGame = game
         this.Users = [];
         this.DealerButtons =[];
     }
-    
+
     setCurrentUser(userID:string){
         this.currentUser = userID;
     }
@@ -849,7 +862,7 @@ export class GameStateInstance implements GameState{
         this.actionCheck.visible = true
         this.actionRaise.visible = true
     }
-    
+
     getUserByID(userID: string):User|undefined{
         for(let i =0;i<this.Users.length;i++){
             if(this.Users[i].userID == userID){
@@ -935,8 +948,8 @@ export class GameStateInstance implements GameState{
         }
         console.log("initOccupants playerOffset",playerOffset,"userIndex",playerOffset)
         this.playerOffset = playerOffset;
-        
-        
+
+
         for(let i = 0; i < occupants.length; i++) {
             const userInfo = occupants[i];
             if(!userInfo) {
@@ -953,7 +966,7 @@ export class GameStateInstance implements GameState{
 
         }
     }
-    
+
     getTargetIndex(originIndex:number){
         let index =  originIndex- this.playerOffset;
         if(index >= this.Users.length) {

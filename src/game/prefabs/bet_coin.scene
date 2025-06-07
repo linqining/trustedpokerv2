@@ -1,0 +1,88 @@
+{
+    "id": "00b07f41-8ba2-442e-9600-3258b0744296",
+    "sceneType": "PREFAB",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadMethodName": "",
+        "preloadPackFiles": [],
+        "createMethodName": "",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Container",
+            "id": "9501757a-75f3-49e3-b889-92087e3dae55",
+            "label": "container_1",
+            "x": 473.7673684369045,
+            "y": 384.93599283381764,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "a667800a-e93a-4258-ab4d-67a561dea4b3",
+                    "label": "dealer",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "dealer"
+                    },
+                    "x": 69.86551890656597,
+                    "y": 76.7853424419178,
+                    "scaleX": 0.3148679647230205,
+                    "scaleY": 0.3148679647230205
+                },
+                {
+                    "type": "Image",
+                    "id": "3fd4dbf9-12bf-499c-ae69-6a5872d1b84c",
+                    "label": "sb",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "chip_smallblind_top"
+                    },
+                    "x": 73.02166189140792,
+                    "y": 73.15689750999132
+                },
+                {
+                    "type": "Image",
+                    "id": "a10fd201-73d3-4573-83ee-feef56d61353",
+                    "label": "bb",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "chip_bigblind_top"
+                    },
+                    "x": 73.02166189140792,
+                    "y": 73.15689750999132
+                },
+                {
+                    "type": "Image",
+                    "id": "d3360dfb-1d7f-4d33-b0e4-2dbb8d2ba958",
+                    "label": "bet_coin",
+                    "useGameObjectName": true,
+                    "texture": {
+                        "key": "chip_green_top"
+                    },
+                    "x": 73.02166189140792,
+                    "y": 73.15689750999132
+                },
+                {
+                    "type": "Text",
+                    "id": "4daa1a35-8649-4978-bede-c165ab729ea7",
+                    "label": "bet_txt",
+                    "useGameObjectName": true,
+                    "x": 149.2326261451974,
+                    "y": 7.656897509991325,
+                    "text": "1000000",
+                    "fontSize": "131px"
+                }
+            ]
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
