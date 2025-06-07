@@ -259,6 +259,11 @@
                 "key": "D_T"
             },
             {
+                "url": "assets/desktop/dealer.png",
+                "type": "image",
+                "key": "dealer"
+            },
+            {
                 "url": "assets/desktop/Desktop_atlas4.png",
                 "type": "image",
                 "key": "Desktop_atlas4"

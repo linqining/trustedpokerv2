@@ -11,9 +11,11 @@ import BetApi from "../betApi.js";
 import {callbackOpen,callbackClose,callbackMessage,callbackError} from "../logic.js";
 import {EventBus} from "../EventBus.ts";
 import {reconnect} from "../../api/api";
-import {Room, StateData} from "../types/types.ts";
+import {ActionData, BetData, ButtonData, JoinData, PreFlopData, Room, StateData} from "../types/types.ts";
 import {GameState} from "../types/game_state.ts"
 import {User, UserImpl} from "../types/user.ts";
+import {COONST} from "../types/const.ts";
+import CONST from "./const.ts";
 /* END-USER-IMPORTS */
 
 export default class Table extends Phaser.Scene {
@@ -47,7 +49,7 @@ export default class Table extends Phaser.Scene {
 		user2.name = "user2";
 		user2.scaleX = 0.5;
 		user2.scaleY = 0.5;
-		user2.visible = false;
+		user2.visible = true;
 
 		// user9
 		const user9 = new UserPrefab(this, 931, 471);
@@ -55,23 +57,23 @@ export default class Table extends Phaser.Scene {
 		user9.name = "user9";
 		user9.scaleX = 0.5;
 		user9.scaleY = 0.5;
-		user9.visible = false;
+		user9.visible = true;
 
 		// user3
-		const user3 = new UserPrefab(this, 81, 300);
+		const user3 = new UserPrefab(this, 18, 300);
 		this.add.existing(user3);
 		user3.name = "user3";
 		user3.scaleX = 0.5;
 		user3.scaleY = 0.5;
-		user3.visible = false;
+		user3.visible = true;
 
 		// user8
-		const user8 = new UserPrefab(this, 1047, 290);
+		const user8 = new UserPrefab(this, 1087, 290);
 		this.add.existing(user8);
 		user8.name = "user8";
 		user8.scaleX = 0.5;
 		user8.scaleY = 0.5;
-		user8.visible = false;
+		user8.visible = true;
 
 		// user5
 		const user5 = new UserPrefab(this, 388, 35);
@@ -79,7 +81,7 @@ export default class Table extends Phaser.Scene {
 		user5.name = "user5";
 		user5.scaleX = 0.5;
 		user5.scaleY = 0.5;
-		user5.visible = false;
+		user5.visible = true;
 
 		// user6
 		const user6 = new UserPrefab(this, 745, 27);
@@ -87,7 +89,7 @@ export default class Table extends Phaser.Scene {
 		user6.name = "user6";
 		user6.scaleX = 0.5;
 		user6.scaleY = 0.5;
-		user6.visible = false;
+		user6.visible = true;
 
 		// user4
 		const user4 = new UserPrefab(this, 139, 113);
@@ -95,7 +97,7 @@ export default class Table extends Phaser.Scene {
 		user4.name = "user4";
 		user4.scaleX = 0.5;
 		user4.scaleY = 0.5;
-		user4.visible = false;
+		user4.visible = true;
 
 		// user7
 		const user7 = new UserPrefab(this, 987, 116);
@@ -103,7 +105,7 @@ export default class Table extends Phaser.Scene {
 		user7.name = "user7";
 		user7.scaleX = 0.5;
 		user7.scaleY = 0.5;
-		user7.visible = false;
+		user7.visible = true;
 
 		// op_btn_check
 		const op_btn_check = this.add.container(969, 638);
@@ -258,6 +260,76 @@ export default class Table extends Phaser.Scene {
 		chip_pool_text.setOrigin(0.5, 0.5);
 		chip_pool_text.setStyle({ "color": "#000000ff", "fontSize": "21px", "stroke": "#000000ff" });
 
+		// dealer1
+		const dealer1 = this.add.image(637, 492, "dealer");
+		dealer1.name = "dealer1";
+		dealer1.scaleX = 0.08798293166027904;
+		dealer1.scaleY = 0.08798293166027904;
+		dealer1.visible = false;
+
+		// dealer2
+		const dealer2 = this.add.image(284, 451, "dealer");
+		dealer2.name = "dealer2";
+		dealer2.scaleX = 0.08798293166027904;
+		dealer2.scaleY = 0.08798293166027904;
+		dealer2.visible = false;
+
+		// dealer3
+		const dealer3 = this.add.image(218, 340, "dealer");
+		dealer3.name = "dealer3";
+		dealer3.scaleX = 0.08798293166027904;
+		dealer3.scaleY = 0.08798293166027904;
+		dealer3.visible = false;
+
+		// dealer4
+		const dealer4 = this.add.image(329, 175, "dealer");
+		dealer4.name = "dealer4";
+		dealer4.scaleX = 0.08798293166027904;
+		dealer4.scaleY = 0.08798293166027904;
+		dealer4.visible = false;
+
+		// dealer5
+		const dealer5 = this.add.image(504, 163, "dealer");
+		dealer5.name = "dealer5";
+		dealer5.scaleX = 0.08798293166027904;
+		dealer5.scaleY = 0.08798293166027904;
+		dealer5.visible = false;
+
+		// dealer6
+		const dealer6 = this.add.image(824, 166, "dealer");
+		dealer6.name = "dealer6";
+		dealer6.scaleX = 0.08798293166027904;
+		dealer6.scaleY = 0.08798293166027904;
+		dealer6.visible = false;
+
+		// dealer7
+		const dealer7 = this.add.image(1038, 248, "dealer");
+		dealer7.name = "dealer7";
+		dealer7.scaleX = 0.08798293166027904;
+		dealer7.scaleY = 0.08798293166027904;
+		dealer7.visible = false;
+
+		// dealer8
+		const dealer8 = this.add.image(1060, 341, "dealer");
+		dealer8.name = "dealer8";
+		dealer8.scaleX = 0.08798293166027904;
+		dealer8.scaleY = 0.08798293166027904;
+		dealer8.visible = false;
+
+		// dealer9
+		const dealer9 = this.add.image(1017, 446, "dealer");
+		dealer9.name = "dealer9";
+		dealer9.scaleX = 0.08798293166027904;
+		dealer9.scaleY = 0.08798293166027904;
+		dealer9.visible = false;
+
+		// dealer
+		const dealer = this.add.image(621, 369, "dealer");
+		dealer.name = "dealer";
+		dealer.scaleX = 0.08798293166027904;
+		dealer.scaleY = 0.08798293166027904;
+		dealer.visible = false;
+
 		// lists
 		const public_card_list: Array<any> = [];
 
@@ -275,69 +347,6 @@ export default class Table extends Phaser.Scene {
     private gameState:GameState = new GameStateInstance(this.game);
 
     preload(){
-        // const gImageDir = 'assets_poker/2x/';
-        // this.load.image('gamecenterbackground', gImageDir+'background.png')
-        // this.load.image('playerBK', 'assets_guopai/Desktop/player_frame.png')
-        // this.load.image('userBK', gImageDir+'player-guest.png')
-        // this.load.image('blankBK', gImageDir+'player-blank.png')
-        // this.load.image('winBK', gImageDir+'win-frame-bg.png')
-        // this.load.image('winBKFrame', gImageDir+'win-frame.png')
-        // this.load.image('buttonblue', gImageDir+'btn-big-green.png')
-        // this.load.image('buttongrey', gImageDir+'btn-big-green.png')
-        // this.load.image('buttonyellow', gImageDir+'btn-big-blue.png')
-        // this.load.image('fold_btn','assets_guopai/operate/fold.png')
-        // this.load.image('call_btn','assets_guopai/operate/call.png')
-        // this.load.image('raise_btn','assets_guopai/operate/raise.png')
-        // this.load.image('animeCoins', gImageDir+'coin.png')
-        // this.load.image('light', gImageDir+'roomLight.png')
-
-        // var cardDir = "assets_guopai/cards/"
-
-        // const cardImageName = [ "clubs", "diamonds","hearts","spades"];
-        // const cardName = [  "C", "D","H","S"]; // 梅花，方块，红心，黑桃
-        // const cardNumber = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K","A"];
-        // for(let i = 0; i < cardImageName.length; i++) {
-        //     for(let j = 0; j < cardNumber.length; j++) {
-        //         this.load.image(cardName[i] +"_"+ cardNumber[j], "cards/"+cardName[i] +  "_" + cardNumber[j] + ".png")
-        //     }
-        // }
-
-        // this.load.image("cardBK", 'assets_guopai/cards/CardBack.png')
-        // this.load.image("chipPool", gImageDir+'chip-pool.png')
-        // this.load.image("chip01", 'assets_guopai/Desktop/chips.png')
-        // this.load.image("chip05", gImageDir+'texas_chip05.png')
-        // this.load.image("chip1k", gImageDir+'texas_chip1k.png')
-        // this.load.image("chip5k", gImageDir+'texas_chip5k.png')
-        // this.load.image("chip10w", gImageDir+'texas_chip10w.png')
-        // this.load.image("chip50w", gImageDir+'texas_chip50w.png')
-        //
-        // this.load.image("dcardBK", 'assets_guopai/cards/CardBack.png')
-        // // this.load.image("dcardBK", gImageDir+'card_backs_rotate.png');
-        //
-        //
-        // this.load.image("checkOn", gImageDir+'check-on.png')
-        // this.load.image("checkOff", gImageDir+'check-off.png')
-        // this.load.image("chipbox", gImageDir+'add-chips-box.png')
-        // this.load.image("winLight", gImageDir+'light_dot.png')
-        // this.load.image("groove", gImageDir+'sliderGroove.png')
-        // this.load.image("slidebar", gImageDir+'slidebar.png');
-        // this.load.image("btnslider", gImageDir+'btn-slider.png')
-        // this.load.image("fillbox", gImageDir+'fill-box.png')
-        // this.load.image("exitdoor", gImageDir+'btn-grey.png')
-        // this.load.image("dealer", gImageDir+'dealer.png')
-        // this.load.image("waitingRound", gImageDir+'win-frameWaiting.png')
-        // this.load.image("card_typebg", gImageDir+'card_typebg.png')
-        // this.load.image("defaultProfile", 'assets_guopai/Common/avatar.png')
-        // this.load.image("buttonrules", gImageDir+'btn-rules.png')
-        //
-        // const soundDir = "assets_poker/sound/"
-        // this.load.audio('sendcard', 'assets_guopai/audio/desk_new_card.wav')
-        // this.load.audio('click', soundDir+'click.mp3')
-        // this.load.audio('chipsmoving',soundDir+ 'chipsmoving.mp3')
-        // this.load.audio('reordercard', soundDir+'reordercard.mp3')
-        // this.load.audio('ding', soundDir+'ding.mp3')
-        // this.load.audio('win', soundDir+'win.mp3')
-        // this.load.audio('lost', soundDir+'lose.mp3')
     }
 
 
@@ -355,16 +364,18 @@ export default class Table extends Phaser.Scene {
 
 	create() {
         // this.scene.start('Preloader');
+        this.betApi = new BetApi()
         const api = this.betApi
-        const userAccount = this.registry.get("current_account");
-        this.betApi = new BetApi(function (data) {
+        this.betApi.registerCallback(function (data) {
             console.log("connect success",JSON.stringify(data))
             api.loginCertification(userAccount.address, function (authData){
                 console.log("authdata",authData)
             });
-        }, callbackClose, this.callbackMessage.bind(this), callbackError);
+        }, callbackClose, this.callbackMessage.bind(this), callbackError)
+        
+        const userAccount = this.registry.get("current_account");
         this.betApi.setUserID(userAccount.address);
-        this.gameState.setUserID(userAccount.address);
+        this.gameState.setCurrentUser(userAccount.address);
         this.betApi.connect();
 
         // this.testTexture();
@@ -378,7 +389,6 @@ export default class Table extends Phaser.Scene {
             EventBus.emit('action_join_and_pay', this);
         })
 
-        // let api = this.betApi
 
         EventBus.removeListener('action_join_and_pay_success');
         EventBus.on("action_join_and_pay_success",function (scene, gameid, chips) {
@@ -420,21 +430,7 @@ export default class Table extends Phaser.Scene {
             }
         });
     }
-
-    testTexture(){
-        const user1 =this.scene.scene.children.getByName("user1") as Phaser.GameObjects.Container;
-        user1.visible = true;
-        const cardBackPrefab = user1.getByName("cardBackPrefab") as Phaser.GameObjects.Container;
-        const card_and_strength = cardBackPrefab.getByName("card_and_strength") as Phaser.GameObjects.Container;
-        const cards_container = card_and_strength.getByName("cards_container") as Phaser.GameObjects.Container;
-        let cardOne = cards_container.getByName("card_back_1") as Phaser.GameObjects.Image;
-        let cardTwo = cards_container.getByName("card_back_2") as Phaser.GameObjects.Image;
-        let frame = this.textures.get("C_A");
-        cardOne.setTexture(frame)
-        cardTwo.setTexture(frame)
-
-        console.log("reconnect hide user1",user1)
-    }
+    
 
     setGameObject() {
         const bbText =this.scene.scene.children.getByName("bb_text") as Phaser.GameObjects.Text;
@@ -454,14 +450,24 @@ export default class Table extends Phaser.Scene {
             const userContainer = this.scene.scene.children.getByName("user" + (i + 1)) as Phaser.GameObjects.Container;
             const user = new UserImpl(userContainer,this);
             this.gameState.Users.push(user)
+            const dealer = this.scene.scene.children.getByName("dealer" + (i + 1)) as Phaser.GameObjects.Image;
+            this.gameState.DealerButtons.push(dealer);
         }
+        const dealer = this.scene.scene.children.getByName("dealer" ) as Phaser.GameObjects.Image;
+        this.gameState.Dealer = dealer;
+        
+        
+        // 操作面板
+        this.gameState.sliderContainer = this.scene.scene.children.getByName("slider") as Phaser.GameObjects.Container;
+        this.gameState.actionRaise = this.scene.scene.children.getByName("op_btn_raise") as Phaser.GameObjects.Container;
+        this.gameState.actionFold = this.scene.scene.children.getByName("op_btn_fold") as Phaser.GameObjects.Container;
+        this.gameState.actionCheck = this.scene.scene.children.getByName("op_btn_check") as Phaser.GameObjects.Container;
     }
 
      callbackMessage(data) {
         console.log("callback message",JSON.stringify(data))
         if(data.type == "iq") {
-            if(data.class == "room")       //查询游戏房间列表
-            {
+            if(data.class == "room"){ //查询游戏房间列表
                 this.handleCreateRoom(data);
             }
         } else if(data.type == "message"){
@@ -524,42 +530,172 @@ export default class Table extends Phaser.Scene {
         }
     }
 
-    handleCreateRoom(data){
-        console.log("todohandleCreateRoom")
+    // handleCreateRoom(data){
+    //     console.log("todohandleCreateRoom")
+    // }
+    // handleGone(data){
+    //     console.log("todohandlGone")
+    // }
+    handleJoin(data:JoinData){
+        console.log("JoinRoom data",JSON.stringify(data))
+        let occupant = data.occupant;
+        //通过和自己的座位号码推算应该在第几个座位
+        const userIndex = this.gameState.getTargetIndex(occupant.index);
+        let user = this.gameState.Users[userIndex]
+        
+        //TODO 设置头像
+        // if(occupant.profile && occupant.profile != "") {
+        //     console.log("user profile",occupant.profile)
+        //     this.game.load.image("userImage" + userIndex, occupant.profile, true);
+        //     // this.game.load.start();
+        // }
+
+        if (occupant.name == "") {
+            console.log("error userName =", occupant.name);
+        }
+        user.initUser(occupant,occupant.id==this.gameState.currentUser)
     }
-    handleGone(data){
-        console.log("todohandlGone")
-    }
-    handleJoin(data){
-        console.log("handlejoin todo")
-    }
-    handleButton(data){
+    handleButton(data:ButtonData){
         console.log("handlebutton")
-    }
-    handlePreflop(data){
-        console.log("handlePreflop")
-    }
-    handleFlop(data){
-        console.log("handlefolp")
-    }
-    handleTurn(data){
-        console.log("handleturn")
-    }
-    handleRiver(data){
-        console.log("handleriver")
-    }
-    handlePot(data){
-        console.log("handlepot")
-    }
-    handleAction(data){
+        this.gameState.buttonPos = parseInt(data.class);
+        
+        const buttonIndex = this.gameState.getTargetIndex(this.gameState.buttonPos)
+        const targetDealer =this.gameState.DealerButtons[buttonIndex]
+        this.gameState.Dealer.visible = true;
 
-    }
-    handleBet(data){
+        this.tweens.add({
+            targets: this.gameState.Dealer,   // 目标对象
+            x: targetDealer.x,
+            y: targetDealer.y,
+            duration: 800,    // 持续时间（毫秒）
+            ease: 'Linear',    // 缓动函数（支持字符串或函数）
+            onComplete: () => { /* 动画完成回调 */ }
+        })
 
+        this._initNewRound()
+        // todo 发牌
+        // this._playSound(this.soundReorderCard, function(){
+        // this._sendCardAnimation();
     }
-    handleShowDown(data){
+    handlePreflop(data:PreFlopData){
+        const user = this.gameState.getUserByID(this.gameState.currentUser);
+        if (user){
+            const arrayCards = data.class.split(",");
+            user.updateCards(arrayCards);
+        }
+    }
+    // handleFlop(data){
+    //     console.log("handlefolp")
+    // }
+    // handleTurn(data){
+    //     console.log("handleturn")
+    // }
+    // handleRiver(data){
+    //     console.log("handleriver")
+    // }
+    // handlePot(data){
+    //     console.log("handlepot")
+    // }
+    // 用户下注
+    handleAction(data:ActionData){
+        let arrayInfo = data.class.split(",");
+        let seatNum = parseInt(arrayInfo[0]); //座位号
+        let bet = parseInt(arrayInfo[1]); //单注额
+        const userIndex = this.gameState.getTargetIndex(seatNum)
+        console.log("handleaction user index",userIndex)
+        const user = this.gameState.Users[userIndex]
+        
+        //todo 动画
+        // this.gameStateObj.currentBettinglines = bet
 
+        // 当前玩家
+        if (user.userID == this.gameState.currentUser) {
+            user.UpdateBet(bet);
+            
+            // if(this._betWaitButtonChecked()) { // 预操作按钮
+            //     this._autoAction();
+            // } else {
+            //     this._currentPlayButtonUpdate(true);
+            // }
+            
+            // 当前玩家，显示操作案板
+            this.gameState.showActionMenu();
+        } else {
+            this.gameState.hideActionMenu();
+        }
+        // todo 操作动画
+        // this._drawUserProgress(user.rect.left, user.rect.width, user.rect.top, user.rect.height)
     }
+    showActionButton(){
+        
+    }
+    hideActionButton(){
+        
+    }
+    handleBet(data:BetData){
+        const arrayInfo = data.class.split(",");
+        const betTypeName = arrayInfo[0]  // 下注类型
+        const betvalue = parseInt(arrayInfo[1]) // 本局下注总数
+        const chips = parseInt(arrayInfo[2]) // 手上剩余筹码数
+        const user = this.gameState.getUserByID(data.from)
+        
+        if (user && user.userID != this.gameState.currentUser) {
+            // todo 声音
+            // this._playSound(this.soundClick);
+        }
+
+        const betType = this._betTypeByBetTypeNames(betTypeName)
+
+        this.currentBet = betvalue
+        this.currentBetType = betType
+
+        switch(betType){
+            case CONST.BetType_ALL:
+            case CONST.BetType_Call:
+            case CONST.BetType_Raise: 
+                if (user) {
+                    user.setUseCoin(betvalue);
+                    if (user.userID == this.gameState.currentUser) {
+                        console.log("set chips bet",chips)
+                        user.setChips(chips);
+                        user.setOnDeskBet(betvalue)
+                    };
+                } else {
+                    console.log("ERROR: can't find user, userid:",data.from);
+                }
+                
+                // 取消预操作
+                // if(betType == CONST.BetType_Raise) {
+                //     // 当 raise 后 wait button 发生变化
+                //     //跟注或看牌，取消掉
+                //     if(this.waitSelected2 === true) {
+                //         this.waitOnClick2()
+                //     }
+                // }
+            
+                break;
+            //弃牌
+            case CONST.BetType_Fold:
+                if (user){
+                    user.setGiveUp(true);
+                    if (user.userID == this.gameState.currentUser) {
+                        user.resetGameRoundStatus()
+                    }
+                }
+                break;
+            //看牌
+            case CONST.BetType_Check:
+                break;
+            default:
+                console.log("ERROR: betType not a vaid value:",betType);
+                break;
+        }
+    }
+    
+    
+    // handleShowDown(data){
+    //
+    // }
 
     handleState(data:StateData){
         console.log("handle state",JSON.stringify(data));
@@ -568,6 +704,97 @@ export default class Table extends Phaser.Scene {
         this.gameState.InitRoom(roomInfo)
 
     }
+    _initNewRound() {
+        for (let i =0;  i < this.gameState.Users.length;  i++) {
+            const user = this.gameState.Users[i]
+            if (user.isPlaying){
+                user.reset()
+            }
+        }
+        //todo
+        
+        // this._clearWaitButtons();
+        // this._setBetButtonsVisible(false);
+        // this._setWaitButtonsVisible(false);
+        // this._resetGameRoundStatus();
+        // this._resetPublicCard();
+        // this._clearChipPoolCoins();
+        //
+        // this.gameStateObj.mybet = this.bb
+        // this.chipPool.setText("0");
+        // this.autoCall = 0;
+    }
+    
+    sendCardAnimation() {
+        var sendPoint ={x:this.chipPoolBK.x + this.chipPoolBK.width * 0.14, y:this.chipPoolBK.y + this.chipPoolBK.height * 0.5}
+        var userList = []
+        for(var i = 0; i < this.userList.length; i++) {
+        if (this.userList[i].param.userID != undefined && this.userList[i].param.userID != null && this.userList[i].param.userID != "") {
+                userList.push(this.userList[i]);
+            }
+        }
+        var game = this.game
+        var currentIndex = 0;
+        var that = this
+        var sendCard = function(){
+            that._playSound(that.soundSendCard)
+            var user = userList[currentIndex++]
+            if (user == undefined || user == null) {
+                console.log("user not find!!index:", currentIndex);
+                return
+            }
+            var dcard = game.add.sprite(sendPoint.x, sendPoint.y, "dcardBK");
+            dcard.setScale(0.5, 0.5);
+            dcard.setVisible(false);
+            dcard.visible = false
+            var x ;
+            var y ;
+            if(that.userID == user.param.userID) {
+                x = that.selfCards[0].x;
+                y = that.selfCards[0].y
+            }else{
+                x = user.dcard.x;
+                y = user.dcard.y;
+            }
+            var tweens = that.tweens.add({
+                targets: dcard,   // 目标对象
+                x: x,            // 目标属性值
+                y:y,
+                duration: 500,    // 持续时间（毫秒）
+                ease: 'Linear',    // 缓动函数（支持字符串或函数）
+                onComplete: () => {
+                    if(that.userID === user.param.userID) {
+                        that.selfCards[0].setVisible(true);
+                        that.selfCards[1].setVisible(true);
+                    } else {
+                        user.dcard.visible = true;
+                    }
+                    // user.dcard.visible = true;
+                    dcard.destroy();
+                    if(currentIndex < userList.length ) {
+                        sendCard();
+                    }
+        
+                    if(user.imagebody.visible == false) {
+                        if(user.dcard != undefined  && user.dcard != null) {
+                            user.dcard.visible = true;
+                        }
+                    }
+                }
+            });
+        }
+        sendCard();
+    }
+
+    _betTypeByBetTypeNames(name :string){
+    for (let i = CONST.BetTypeNames.length - 1; i >= 0; i--) {
+            if (CONST.BetTypeNames[i] == name) {
+                return i;
+            }
+        }   
+        return -1;
+    }
+    
 
 	/* END-USER-CODE */
 }
@@ -585,16 +812,52 @@ export class GameStateInstance implements GameState{
     timeout:number;
     buttonPos:number;
     publicCardArr:string[];
+    currentUser: string;
     // phaser 牌桌对象
     phaserGame:Phaser.Game;
     blindText:Phaser.GameObjects.Text;
     chipPoolText:Phaser.GameObjects.Text;
     publicCards:Phaser.GameObjects.Image[];
     Users : User[];
+    DealerButtons: Phaser.GameObjects.Image[];
+    Dealer: Phaser.GameObjects.Image;
+    playerOffset:number;
+    sliderContainer: Phaser.GameObjects.Container;
+    actionRaise:Phaser.GameObjects.Container;
+    actionFold :Phaser.GameObjects.Container;
+    actionCheck :Phaser.GameObjects.Container;
+    
     constructor(game:Phaser.Game) {
         this.phaserGame = game
         this.Users = [];
+        this.DealerButtons =[];
     }
+    
+    setCurrentUser(userID:string){
+        this.currentUser = userID;
+    }
+
+    hideActionMenu(){
+        this.sliderContainer.visible = false
+        this.actionFold.visible = false
+        this.actionCheck.visible = false
+        this.actionRaise.visible = false
+    }
+    showActionMenu(){
+        this.sliderContainer.visible = true
+        this.actionFold.visible = true
+        this.actionCheck.visible = true
+        this.actionRaise.visible = true
+    }
+    
+    getUserByID(userID: string):User|undefined{
+        for(let i =0;i<this.Users.length;i++){
+            if(this.Users[i].userID == userID){
+                return this.Users[i];
+            }
+        }
+    };
+
 
     InitRoom(roomInfo:Room){
         this.roomID = roomInfo.id
@@ -663,35 +926,42 @@ export class GameStateInstance implements GameState{
         //计算座位偏移量，以自己为5号桌计算
         // let isSendCard = true;
         let playerOffset = 0;
-        let userIndex =0;
         for(let i = 0; i < occupants.length; i++) {
             const userInfo = occupants[i];
             if(userInfo && userInfo.id == this.userID) {
-                userIndex = i
                 playerOffset =  userInfo.index;
                 break;
             }
         }
+        console.log("initOccupants playerOffset",playerOffset,"userIndex",playerOffset)
+        this.playerOffset = playerOffset;
+        
+        
         for(let i = 0; i < occupants.length; i++) {
             const userInfo = occupants[i];
             if(!userInfo) {
                 continue;
             }
-            let index = userInfo.index - playerOffset;
-            if(index >= this.Users.length) {
-                index -= this.Users.length;
-            } else if(index < 0) {
-                index += this.Users.length;
-            }
+            const index = this.getTargetIndex(userInfo.index)
             const user = this.Users[index];
             if (user){
-                user.initUser(userInfo,i==userIndex);
+                user.initUser(userInfo,index==0);
                 user.User.visible = true; 
             }else{
                 console.log("init no user",user)
             }
 
         }
+    }
+    
+    getTargetIndex(originIndex:number){
+        let index =  originIndex- this.playerOffset;
+        if(index >= this.Users.length) {
+            index -= this.Users.length;
+        } else if(index < 0) {
+            index += this.Users.length;
+        }
+        return index
     }
 
     updateBlindText(){
@@ -702,3 +972,4 @@ export class GameStateInstance implements GameState{
         this.userID = strUserID;
     }
 }
+

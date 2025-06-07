@@ -59,7 +59,7 @@
             "y": 463,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": false
+            "visible": true
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -77,7 +77,7 @@
             "y": 471,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": false
+            "visible": true
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -91,11 +91,11 @@
             ],
             "label": "user3",
             "useGameObjectName": true,
-            "x": 81,
+            "x": 18,
             "y": 300,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": false
+            "visible": true
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -109,11 +109,11 @@
             ],
             "label": "user8",
             "useGameObjectName": true,
-            "x": 1047,
+            "x": 1087,
             "y": 290,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": false
+            "visible": true
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -131,7 +131,7 @@
             "y": 35,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": false
+            "visible": true
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -149,7 +149,7 @@
             "y": 27,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": false
+            "visible": true
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -167,7 +167,7 @@
             "y": 113,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": false
+            "visible": true
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -185,7 +185,7 @@
             "y": 116,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": false
+            "visible": true
         },
         {
             "type": "Container",
@@ -492,6 +492,146 @@
             "fontSize": "21px",
             "color": "#000000ff",
             "stroke": "#000000ff"
+        },
+        {
+            "type": "Image",
+            "id": "0486c8e2-5a0f-400d-aa67-fb81283884b0",
+            "label": "dealer1",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 637,
+            "y": 492,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "9d6c5912-2252-475a-ad4e-652b4c7f7d40",
+            "label": "dealer2",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 284,
+            "y": 451,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "99bc973a-f0c5-42ba-bce2-0171032860aa",
+            "label": "dealer3",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 218,
+            "y": 340,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "099abf67-7038-4569-8ac6-498979938624",
+            "label": "dealer4",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 329,
+            "y": 175,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "193b40d7-5084-4666-95e4-03ebbb2ea488",
+            "label": "dealer5",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 504,
+            "y": 163,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "f3bf82c0-89d4-46cf-bde1-49f72dd534b7",
+            "label": "dealer6",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 824,
+            "y": 166,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "650ca324-3042-4fe6-ac2d-d7dd4fe19466",
+            "label": "dealer7",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 1038,
+            "y": 248,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "006c8b7f-d85f-4529-a0fa-2fabd90a9b70",
+            "label": "dealer8",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 1060,
+            "y": 341,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "16274a24-2845-4a43-9f4b-ee852713d43e",
+            "label": "dealer9",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 1017,
+            "y": 446,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
+        },
+        {
+            "type": "Image",
+            "id": "915d3d07-faf2-4aaa-8d30-133a7f79d34f",
+            "label": "dealer",
+            "useGameObjectName": true,
+            "texture": {
+                "key": "dealer"
+            },
+            "x": 621,
+            "y": 369,
+            "scaleX": 0.08798293166027904,
+            "scaleY": 0.08798293166027904,
+            "visible": false
         }
     ],
     "plainObjects": [],

@@ -4,9 +4,26 @@ import * as phaser from "phaser";
 
 
 export interface User {
+    isPlaying: boolean;
     userID: string,
     User : Phaser.GameObjects.Container,
     chips:number,
+
+    reset(): void;
+    UpdateBet(bet:number):void;
+    getBet():number;
+    
+    getOnDeskBet():number;
+    setOnDeskBet(bet:number):void
+    
+    getChips():number;
+    setChips(chips:number):void;
+    initUser(userInfo: Occupant, b: boolean): void;
+    setGiveUp(giveUp:boolean): void;
+    resetGameRoundStatus():void;
+    setUseCoin(userCoin:number):void
+    updateCards(cards?: string[] | undefined):void
+    
 }
 
 export class UserImpl implements User{
@@ -14,7 +31,9 @@ export class UserImpl implements User{
     seatNum:number;
     isSelf:boolean=false;
     name:string;
-    chips:number;
+    chips:number; // 用户手上的筹码
+    myBet:number;
+    onDeskBet:number;
     cards: string[] = [];
     User : Phaser.GameObjects.Container;
     tableScene:Table;
@@ -22,6 +41,9 @@ export class UserImpl implements User{
     cardOne: Phaser.GameObjects.Image;
     cardTwo: Phaser.GameObjects.Image;
     strengthText: phaser.GameObjects.Text;
+    actionText: Phaser.GameObjects.Text;
+    isPlaying: boolean = false; // 是否在游戏中
+    giveUp: boolean = false;
 
     constructor(userGameObj:Phaser.GameObjects.Container,table:Table) {
         this.User = userGameObj
@@ -34,18 +56,16 @@ export class UserImpl implements User{
         
         const strength_container = card_and_strength.getByName("strength_container") as Phaser.GameObjects.Container;
         this.strengthText = strength_container.getByName("strength_text") as Phaser.GameObjects.Text;
+        
+        this.actionText = this.User.getByName("action_text") as Phaser.GameObjects.Text;
     }
-
-    setChips(chips: number) {
-        this.chips = chips;
-    }
+    
 
     initUser(userInfo: Occupant,isSelf:boolean) {
         this.userID = userInfo.id;
         this.seatNum = userInfo.index;
         this.isSelf=isSelf;
         this.name = userInfo.name;
-
         if (isSelf){
             this.chips = userInfo.chips;
             this.updateCards(userInfo.cards)
@@ -63,22 +83,54 @@ export class UserImpl implements User{
         //     user.dcard.visible = true;
         // }
         
-        this.User.setVisible(true);
         this.User.visible = true;
-        console.log("set user visible done")
+        this.isPlaying = true;
         
+        console.log("set user visible done")
     }
-    formatElement(str:string) {
-        return str.replace(/([CDHS])([2-9ATJQK])/g, '$1_$2');
+    reset() {
+        // this.User.visible = false;
+        // this.isPlaying = false;
+        // this.cards = [];
+        // this.cardOne.setTexture("card_back_0");
+        // this.cardTwo.setTexture("card_back_0");
+        // this.strengthText.setText("");
     }
     
-    updateCards(cards?: string[] | undefined){
-        let arrayCards = cards;
-        if (!arrayCards){
-            arrayCards = [];
+    UpdateBet(bet:number){
+        if ( bet > 0 ) {
+            this.myBet = bet;
+        };
+        const diffbet = this.getBet() - this.getOnDeskBet()
+        if(diffbet > this.getChips()) {
+            const diffbet = this.getChips();
+            this.actionText.setText("Allin");
+        } else if(diffbet == 0 ) {
+            this.actionText.setText("Check");
+        } else {
+            this.actionText.setText("Call "+ diffbet);
         }
+    }
+    getBet():number{
+        return this.myBet
+    }
+    getOnDeskBet():number{
+        return this.onDeskBet
+    }  
+    setOnDeskBet(bet:number){
+        this.onDeskBet = bet;
+    }
+    
+    getChips(): number {
+        return this.chips
+    }
+    setChips(chips:number){
+        this.chips = chips;
+    }
+
+    _loadSelfCard(arrayCards:string[]) {
         this.cards = arrayCards;
-        if(arrayCards.length>0) {
+        if(this.cards.length>0) {
             // this.User.
             for(let i = 0; i < this.cards.length; i++) {
                 const card = this.cards[i];
@@ -97,6 +149,72 @@ export class UserImpl implements User{
                 // let frame = this.game.textures.get(arrayCards[i]);
                 // card.setTexture(frame);
             }
+        }
+    }
+    
+    formatElement(str:string) {
+        return str.replace(/([CDHS])([2-9ATJQK])/g, '$1_$2');
+    }
+    
+    updateCards(cards?: string[] | undefined){
+        let arrayCards = cards;
+        if (!arrayCards){
+            arrayCards = [];
+        }
+        this._loadSelfCard(arrayCards);
+    }
+    setGiveUp(bGiveUp:boolean) {
+        let alpha = 1;
+        this.giveUp = bGiveUp;
+        if(bGiveUp) {
+            alpha = 0.5;
+        }
+        // 设置动效
+        // if(this.group) {
+        //     this.containerplayer.alpha = alpha;
+        //     this.containeruser.alpha = alpha;
+        //     this.containerblank.alpha = alpha;
+        //     this.winGroup.alpha = alpha;
+        //     this.lbname.alpha = alpha;
+        //     this.imagebody.alpha = alpha;
+        //     this.lbcoin.alpha = alpha;
+        //     this.textCoin.alpha = alpha;
+        //     for(var i = 0; i < this.imageCoin.length; i++)
+        //     {
+        //         this.imageCoin[i].alpha = alpha;
+        //     }
+        // }
+    }
+
+    resetGameRoundStatus() {
+        this.myBet = 0;     //当前玩家需要下注额下
+        this.onDeskBet = 0;
+    }
+    setUseCoin(usedCoin:number) {
+        this.textCoin.text = usedCoin
+        // this.textCoin.setText(usedCoin);
+        if(this.coinTextRect.left < this.coinRect.left) {
+            // this.textCoin.x = this.coinRect.left - this.textCoin.width - this.coinRect.width * 0.9;
+        }
+        if(usedCoin != "") {
+            this.textCoin.visible = true;
+            var coin = this.game.add.image(this.rect.width / 2,  this.rect.height / 2, "chip01");
+            coin.setOrigin(0.5);
+            coin.setScale(0.3, 0.3)
+            coin.width = this.coinRect.width;
+            coin.height = this.coinRect.height;
+            this.imageCoin.push(coin);
+            this.group.add(coin);
+            this.animation.showChipMove(this.game,coin, this.coinRect.left, this.coinRect.top - this.imageCoin.length * coin.height * 0.1111);
+        }
+        else
+        {
+            this.textCoin.visible = false;
+            for(var i = 0; i < this.imageCoin.length; i++)
+            {
+                this.imageCoin[i].destroy();
+            }
+            this.imageCoin = [];
         }
     }
 }

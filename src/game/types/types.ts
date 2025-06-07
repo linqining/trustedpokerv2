@@ -52,3 +52,64 @@ export interface Proof {
     r: string
 }
 
+
+export interface ButtonData {
+    type: string
+    from: string
+    action: string
+    class: string
+}
+
+export interface BetData {
+    id: string
+    type: string
+    from: string
+    action: string
+    class: string
+}
+
+export interface PotData {
+    type: string
+    from: string
+    action: string
+    class: string
+}
+
+export interface ActionData {
+    type: string
+    from: string
+    action: string
+    class: string
+}
+
+
+export interface PreFlopData {
+    type: string
+    from: string
+    action: string
+    class: string
+}
+
+export interface JoinData {
+    type: string
+    from: string
+    action: string
+    occupant: Occupant
+}
+
+export interface Occupant {
+    id: string
+    name: string
+    profile: string
+    level: number
+    chips: number
+    index: number
+    action?: string
+    reveal_cards?: RevealCard[]
+    bet?: number
+    cards?: string[]
+}
+
+
+
+

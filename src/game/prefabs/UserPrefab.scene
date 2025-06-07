@@ -53,7 +53,7 @@
                 {
                     "type": "Text",
                     "id": "955fd9e8-ec1d-473c-95be-a788c4bf1889",
-                    "label": "action",
+                    "label": "action_text",
                     "useGameObjectName": true,
                     "x": 25.124302118189178,
                     "y": 5.059395115844794,

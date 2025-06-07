@@ -30,12 +30,12 @@ export default class UserPrefab extends Phaser.GameObjects.Container {
 		boy.setOrigin(0.4789448687665644, 0.5315826968501549);
 		this.add(boy);
 
-		// action
-		const action = scene.add.text(25.124302118189178, 5.059395115844794, "", {});
-		action.name = "action";
-		action.text = "Call";
-		action.setStyle({ "color": "#ffffffff", "fontSize": "35px" });
-		this.add(action);
+		// action_text
+		const action_text = scene.add.text(25.124302118189178, 5.059395115844794, "", {});
+		action_text.name = "action_text";
+		action_text.text = "Call";
+		action_text.setStyle({ "color": "#ffffffff", "fontSize": "35px" });
+		this.add(action_text);
 
 		// chips
 		const chips = scene.add.text(16.124302118189178, 178.05939511584478, "", {});

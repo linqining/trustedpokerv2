@@ -4,7 +4,6 @@ import Server from './server.js';
 class BetApi {
     constructor(openCallback, closeCallback, messageCallback, errorCallback) {
         this.betServer = new Server();
-        this.betServer.registerCallback(openCallback, closeCallback, messageCallback, errorCallback);
         this.userName = "";
         this.userID = "";
         this.roomID = "";
@@ -14,9 +13,9 @@ class BetApi {
         this.betServer.connect();
     }
 
-    // registerCallback(openCallback, closeCallback, messageCallback, errorCallback) {
-    //     this.betServer.registerCallback(openCallback, closeCallback, messageCallback, errorCallback);
-    // }
+    registerCallback(openCallback, closeCallback, messageCallback, errorCallback) {
+        this.betServer.registerCallback(openCallback, closeCallback, messageCallback, errorCallback);
+    }
 
 
 
