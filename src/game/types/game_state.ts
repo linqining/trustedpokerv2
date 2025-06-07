@@ -29,5 +29,6 @@ export interface GameState {
     hideActionMenu():void;
     showActionMenu():void;
     getUserByID(userID: string): User | undefined;
+    SetCurrentBet(betType:number,betValue:number):void;
 }
 

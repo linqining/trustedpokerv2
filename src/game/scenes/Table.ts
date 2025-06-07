@@ -658,9 +658,8 @@ export default class Table extends Phaser.Scene {
         }
 
         const betType = this._betTypeByBetTypeNames(betTypeName)
-
-        this.currentBet = betvalue
-        this.currentBetType = betType
+        
+        this.gameState.SetCurrentBet(betType,betvalue)
 
         switch(betType){
             case CONST.BetType_ALL:
@@ -816,7 +815,6 @@ export default class Table extends Phaser.Scene {
 
 // You can write more code here
 export class GameStateInstance implements GameState{
-    userID:string;
 
     sb: number;
     bb: number;
@@ -839,6 +837,9 @@ export class GameStateInstance implements GameState{
     actionRaise:Phaser.GameObjects.Container;
     actionFold :Phaser.GameObjects.Container;
     actionCheck :Phaser.GameObjects.Container;
+    
+    betType:number;
+    betValue:number;
 
     constructor(game:Phaser.Game) {
         this.phaserGame = game
@@ -870,6 +871,11 @@ export class GameStateInstance implements GameState{
             }
         }
     };
+
+    SetCurrentBet(betType:number,betValue:number){
+        this.betType = betType;
+        this.betValue = betValue;
+    }
 
 
     InitRoom(roomInfo:Room){
@@ -941,7 +947,9 @@ export class GameStateInstance implements GameState{
         let playerOffset = 0;
         for(let i = 0; i < occupants.length; i++) {
             const userInfo = occupants[i];
-            if(userInfo && userInfo.id == this.userID) {
+            console.log("init occupant",userInfo.id,userInfo.name,userInfo.index)
+            if(userInfo && userInfo.id == this.currentUser) {
+                console.log("find user ")
                 playerOffset =  userInfo.index;
                 break;
             }
@@ -980,9 +988,6 @@ export class GameStateInstance implements GameState{
     updateBlindText(){
         this.blindText.setText("$" + this.sb + " / $" + this.bb);
     }
-
-    setUserID(strUserID:string) {
-        this.userID = strUserID;
-    }
+    
 }
 
