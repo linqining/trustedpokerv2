@@ -11,6 +11,7 @@ export interface User {
     User : Phaser.GameObjects.Container,
     chips:number,
     BetCoin: BetCoin,
+    backGround: Phaser.GameObjects.Rectangle;
 
     reset(): void;
     UpdateBet(bet:number):void;
@@ -39,6 +40,8 @@ export class UserImpl implements User{
     onDeskBet:number;
     cards: string[] = [];
     BetCoin: BetCoin;
+    backGround: Phaser.GameObjects.Rectangle;
+
 
     User : Phaser.GameObjects.Container;
     tableScene:Table;
@@ -69,6 +72,8 @@ export class UserImpl implements User{
         console.log("chips text obj",this.chipText)
         
         this.BetCoin = new BetCoinImpl(betCoinContainer,table)
+        
+        this.backGround = this.User.getByName("user_box");
     }
     
 
@@ -96,6 +101,7 @@ export class UserImpl implements User{
         // }
         
         this.User.visible = true;
+        this.BetCoin.setVisible(true);
         this.isPlaying = true;
         
         console.log("set user visible done")
@@ -138,6 +144,7 @@ export class UserImpl implements User{
     }
     setChips(chips:number){
         this.chips = chips;
+        this.chipText.setText(chips.toString());
     }
 
     _loadSelfCard(arrayCards:string[]) {

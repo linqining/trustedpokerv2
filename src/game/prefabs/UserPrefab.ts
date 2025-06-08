@@ -14,6 +14,7 @@ export default class UserPrefab extends Phaser.GameObjects.Container {
 
 		// user_box
 		const user_box = scene.add.rectangle(62.77881089162656, 115.74967914480494, 128, 128);
+		user_box.name = "user_box";
 		user_box.scaleX = 1.0257970460360888;
 		user_box.scaleY = 1.7307571274850566;
 		user_box.setOrigin(0.4795699426706248, 0.5204300573293752);
@@ -33,14 +34,12 @@ export default class UserPrefab extends Phaser.GameObjects.Container {
 		// action_text
 		const action_text = scene.add.text(25.124302118189178, 5.059395115844794, "", {});
 		action_text.name = "action_text";
-		action_text.text = "Call";
 		action_text.setStyle({ "color": "#ffffffff", "fontSize": "35px" });
 		this.add(action_text);
 
 		// chips
 		const chips = scene.add.text(16.124302118189178, 178.05939511584478, "", {});
 		chips.name = "chips";
-		chips.text = "10000";
 		chips.setStyle({ "color": "#ffffffff", "fontSize": "35px" });
 		this.add(chips);
 

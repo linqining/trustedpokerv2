@@ -41,7 +41,7 @@
             "y": 516,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -59,7 +59,7 @@
             "y": 463,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -77,7 +77,7 @@
             "y": 471,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -95,7 +95,7 @@
             "y": 300,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -113,7 +113,7 @@
             "y": 290,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -131,7 +131,7 @@
             "y": 35,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -149,7 +149,7 @@
             "y": 27,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -167,7 +167,7 @@
             "y": 113,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "prefabId": "03270951-77ad-4aa8-8e85-01c069472905",
@@ -185,7 +185,7 @@
             "y": 116,
             "scaleX": 0.5,
             "scaleY": 0.5,
-            "visible": true
+            "visible": false
         },
         {
             "type": "Container",

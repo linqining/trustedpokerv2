@@ -123,6 +123,14 @@ export interface Proof {
     r: string
 }
 
+export interface PotData {
+    type: string
+    from: string
+    action: string
+    class: string
+}
+
+
 
 
 

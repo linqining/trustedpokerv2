@@ -23,6 +23,7 @@
                     "type": "Rectangle",
                     "id": "ad47248e-214d-44a5-aa09-ae425f97005a",
                     "label": "user_box",
+                    "useGameObjectName": true,
                     "x": 62.77881089162656,
                     "y": 115.74967914480494,
                     "scaleX": 1.0257970460360888,
@@ -57,7 +58,6 @@
                     "useGameObjectName": true,
                     "x": 25.124302118189178,
                     "y": 5.059395115844794,
-                    "text": "Call",
                     "fontSize": "35px",
                     "color": "#ffffffff"
                 },
@@ -68,7 +68,6 @@
                     "useGameObjectName": true,
                     "x": 16.124302118189178,
                     "y": 178.05939511584478,
-                    "text": "10000",
                     "fontSize": "35px",
                     "color": "#ffffffff"
                 },

@@ -19,7 +19,7 @@ export interface BetCoin {
     betText:Phaser.GameObjects.Text;
     
     
-    
+    setVisible(visible:boolean):void;
     setChips(chips:number):void;
     setDealer():void;
     setBB():void;
@@ -53,6 +53,14 @@ export class BetCoinImpl implements BetCoin{
         this.sbObj = this.BetContainer.getByName("sb") as Phaser.GameObjects.Image;
         this.betObj = this.BetContainer.getByName("bet_coin") as Phaser.GameObjects.Image;
         this.betText = this.BetContainer.getByName("bet_txt") as Phaser.GameObjects.Text;
+    }
+
+    setVisible(visible:boolean){
+        if (visible){
+            this.BetContainer.visible=true
+        }else{
+            this.BetContainer.visible = false
+        }
     }
 
     setChips(chips:number){

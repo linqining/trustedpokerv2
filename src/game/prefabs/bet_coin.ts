@@ -36,7 +36,6 @@ export default class bet_coin extends Phaser.GameObjects.Container {
 		// bet_txt
 		const bet_txt = scene.add.text(149.2326261451974, 7.656897509991325, "", {});
 		bet_txt.name = "bet_txt";
-		bet_txt.text = "1000000";
 		bet_txt.setStyle({ "fontSize": "131px" });
 		this.add(bet_txt);
 

@@ -12,7 +12,17 @@ import BetApi from "../betApi.js";
 import {callbackOpen,callbackClose,callbackMessage,callbackError} from "../logic.js";
 import {EventBus} from "../EventBus.ts";
 import {reconnect} from "../../api/api";
-import {ActionData, BetData, ButtonData, JoinData, PreFlopData, Room, ShowDownData, StateData} from "../types/types.ts";
+import {
+    ActionData,
+    BetData,
+    ButtonData,
+    JoinData,
+    PotData,
+    PreFlopData,
+    Room,
+    ShowDownData,
+    StateData
+} from "../types/types.ts";
 import {GameState} from "../types/game_state.ts"
 import {User, UserImpl} from "../types/user.ts";
 import {COONST} from "../types/const.ts";
@@ -42,7 +52,7 @@ export default class Table extends Phaser.Scene {
 		user1.name = "user1";
 		user1.scaleX = 0.5;
 		user1.scaleY = 0.5;
-		user1.visible = true;
+		user1.visible = false;
 
 		// user2
 		const user2 = new UserPrefab(this, 176, 463);
@@ -50,7 +60,7 @@ export default class Table extends Phaser.Scene {
 		user2.name = "user2";
 		user2.scaleX = 0.5;
 		user2.scaleY = 0.5;
-		user2.visible = true;
+		user2.visible = false;
 
 		// user9
 		const user9 = new UserPrefab(this, 931, 471);
@@ -58,7 +68,7 @@ export default class Table extends Phaser.Scene {
 		user9.name = "user9";
 		user9.scaleX = 0.5;
 		user9.scaleY = 0.5;
-		user9.visible = true;
+		user9.visible = false;
 
 		// user3
 		const user3 = new UserPrefab(this, 18, 300);
@@ -66,7 +76,7 @@ export default class Table extends Phaser.Scene {
 		user3.name = "user3";
 		user3.scaleX = 0.5;
 		user3.scaleY = 0.5;
-		user3.visible = true;
+		user3.visible = false;
 
 		// user8
 		const user8 = new UserPrefab(this, 1087, 290);
@@ -74,7 +84,7 @@ export default class Table extends Phaser.Scene {
 		user8.name = "user8";
 		user8.scaleX = 0.5;
 		user8.scaleY = 0.5;
-		user8.visible = true;
+		user8.visible = false;
 
 		// user5
 		const user5 = new UserPrefab(this, 388, 35);
@@ -82,7 +92,7 @@ export default class Table extends Phaser.Scene {
 		user5.name = "user5";
 		user5.scaleX = 0.5;
 		user5.scaleY = 0.5;
-		user5.visible = true;
+		user5.visible = false;
 
 		// user6
 		const user6 = new UserPrefab(this, 745, 27);
@@ -90,7 +100,7 @@ export default class Table extends Phaser.Scene {
 		user6.name = "user6";
 		user6.scaleX = 0.5;
 		user6.scaleY = 0.5;
-		user6.visible = true;
+		user6.visible = false;
 
 		// user4
 		const user4 = new UserPrefab(this, 139, 113);
@@ -98,7 +108,7 @@ export default class Table extends Phaser.Scene {
 		user4.name = "user4";
 		user4.scaleX = 0.5;
 		user4.scaleY = 0.5;
-		user4.visible = true;
+		user4.visible = false;
 
 		// user7
 		const user7 = new UserPrefab(this, 987, 116);
@@ -106,7 +116,7 @@ export default class Table extends Phaser.Scene {
 		user7.name = "user7";
 		user7.scaleX = 0.5;
 		user7.scaleY = 0.5;
-		user7.visible = true;
+		user7.visible = false;
 
 		// op_btn_check
 		const op_btn_check = this.add.container(969, 638);
@@ -454,18 +464,19 @@ export default class Table extends Phaser.Scene {
         this.gameState.publicCards = [publicCardOne,publicCardTwo,publicCardThree,publicCardFour,publicCardFive]
 
         const chipPoolText =this.scene.scene.children.getByName("chip_pool_text") as Phaser.GameObjects.Text;
+        console.log("game chip pool obj",chipPoolText)
         this.gameState.chipPoolText = chipPoolText;
         for(let i = 0; i < 9; i++) {
             const dealer = this.scene.scene.children.getByName("bet_coin_" + (i + 1)) as Phaser.GameObjects.Container;
             this.gameState.DealerButtons.push(dealer);
-            
+
             const userContainer = this.scene.scene.children.getByName("user" + (i + 1)) as Phaser.GameObjects.Container;
             const user = new UserImpl(userContainer,dealer,this);
             this.gameState.Users.push(user)
-            
+
 
         }
-        
+
         const dealer = this.scene.scene.children.getByName("dealer" ) as Phaser.GameObjects.Image;
         this.gameState.Dealer = dealer;
 
@@ -527,8 +538,7 @@ export default class Table extends Phaser.Scene {
                 this.handleAction(data);
 
             }
-            else if(data.action == "bet")       //服务器通报玩家下注结果
-            {
+            else if(data.action == "bet"){//服务器通报玩家下注结果
                 this.handleBet(data);
 
             }
@@ -575,7 +585,6 @@ export default class Table extends Phaser.Scene {
         const buttonIndex = this.gameState.getTargetIndex(this.gameState.buttonPos)
         const targetDealer =this.gameState.DealerButtons[buttonIndex]
         this.gameState.Dealer.visible = true;
-
         this.tweens.add({
             targets: this.gameState.Dealer,   // 目标对象
             x: targetDealer.x,
@@ -584,6 +593,9 @@ export default class Table extends Phaser.Scene {
             ease: 'Linear',    // 缓动函数（支持字符串或函数）
             onComplete: () => { /* 动画完成回调 */ }
         })
+        this.gameState.Dealer.visible = false;
+        const dealerObj = this.gameState.Users[buttonIndex];
+        dealerObj.BetCoin.setDealer();
 
         this._initNewRound()
         // todo 发牌
@@ -606,20 +618,46 @@ export default class Table extends Phaser.Scene {
     // handleRiver(data){
     //     console.log("handleriver")
     // }
-    // handlePot(data){
-    //     console.log("handlepot")
-    // }
+    handlePot(data:PotData){
+        console.log("handlepot")
+        let arrayPool = data.class.split(",");
+
+        // TODO 收用户筹码到池子
+        // this.chipPoolCoins = this.animation.showCollectChip(this.game,this.userList, this.chipPoolBK.x - this.chipPoolBK.width*0.3 , this.chipPoolBK.y, this.chipPoolCoins);
+        const current_user = this.gameState.getUserByID(this.gameState.currentUser)
+        current_user?.resetGameRoundStatus()
+
+        let poolall = 0;
+
+        for(let i = 0; i < arrayPool.length; i++) {
+            poolall += parseInt(arrayPool[i])
+        }
+        this.gameState.chipPoolText.setText(poolall.toString());
+
+        // clear Use coin
+        for (let i = this.gameState.Users.length - 1; i >= 0; i--) {
+            this.gameState.Users[i].setUseCoin(0);
+        }
+    }
     // 用户下注
     handleAction(data:ActionData){
-        let arrayInfo = data.class.split(",");
-        let seatNum = parseInt(arrayInfo[0]); //座位号
-        let bet = parseInt(arrayInfo[1]); //单注额
+        const arrayInfo = data.class.split(",");
+        const seatNum = parseInt(arrayInfo[0]); //座位号
+        const bet = parseInt(arrayInfo[1]); //单注额
         const userIndex = this.gameState.getTargetIndex(seatNum)
         console.log("handleaction user index",userIndex)
         const user = this.gameState.Users[userIndex]
 
         //todo 动画
         // this.gameStateObj.currentBettinglines = bet
+        for (let uIndex=0;uIndex<this.gameState.Users.length;uIndex++){
+            if (this.gameState.Users[uIndex].userID == user.userID) {
+                this.gameState.Users[uIndex].backGround.setFillStyle(0x35f058,1); // 下注玩家背景变红
+            }else{
+                this.gameState.Users[uIndex].backGround.setFillStyle(0x000000,1); // 下注玩家背景变红
+            }        
+        }
+        
 
         // 当前玩家
         if (user.userID == this.gameState.currentUser) {
@@ -658,7 +696,7 @@ export default class Table extends Phaser.Scene {
         }
 
         const betType = this._betTypeByBetTypeNames(betTypeName)
-        
+
         this.gameState.SetCurrentBet(betType,betvalue)
 
         switch(betType){
@@ -794,17 +832,18 @@ export default class Table extends Phaser.Scene {
                 }
             }
 
-            var seatNum = winUser.param["seatNum"];
-            var point = this._userPositionBySeatNum(seatNum)
+            // var seatNum = winUser.param["seatNum"];
+            // var point = this._userPositionBySeatNum(seatNum)
 
-            for(i = 0; i < this.chipPoolCoins.length; i++) {
-                this._playSound(this.chipsmoving)
-                this.animation.showChipMove(this.game,this.chipPoolCoins[i], point.x, point.y, 500)
-            }
+            // todo 筹码移动到用户的筹码堆
+            // for(i = 0; i < this.chipPoolCoins.length; i++) {
+            //     this._playSound(this.chipsmoving)
+            //     this.animation.showChipMove(this.game,this.chipPoolCoins[i], point.x, point.y, 500)
+            // }
         }
         // todo user reset
-        for (var i = this.userList.length - 1; i >= 0; i--) {
-            this.userList[i].setUseCoin("");
+        for (let i = this.gameState.Users.length - 1; i >= 0; i--) {
+            this.gameState.Users[i].reset();
         };
     }
 
@@ -936,7 +975,7 @@ export class GameStateInstance implements GameState{
     actionRaise:Phaser.GameObjects.Container;
     actionFold :Phaser.GameObjects.Container;
     actionCheck :Phaser.GameObjects.Container;
-    
+
     betType:number;
     betValue:number;
 
@@ -1087,6 +1126,6 @@ export class GameStateInstance implements GameState{
     updateBlindText(){
         this.blindText.setText("$" + this.sb + " / $" + this.bb);
     }
-    
+
 }
 
