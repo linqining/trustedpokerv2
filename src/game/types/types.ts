@@ -130,6 +130,22 @@ export interface PotData {
     class: string
 }
 
+export interface FlopData {
+    type: string
+    from: string
+    action: string
+    class: string
+}
+
+export interface RiverData {
+    type: string
+    from: string
+    action: string
+    class: string
+}
+
+
+
 
 
 

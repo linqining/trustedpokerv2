@@ -15,10 +15,10 @@ import {reconnect} from "../../api/api";
 import {
     ActionData,
     BetData,
-    ButtonData,
+    ButtonData, FlopData,
     JoinData,
     PotData,
-    PreFlopData,
+    PreFlopData, RiverData,
     Room,
     ShowDownData,
     StateData
@@ -238,13 +238,13 @@ export default class Table extends Phaser.Scene {
 		// public_card_container
 		const public_card_container = this.add.container(644, 331);
 		public_card_container.name = "public_card_container";
-		public_card_container.visible = false;
 
 		// public_card_1
 		const public_card_1 = this.add.image(-177.18549263145178, -0.23896370084037244, "card_back_0");
 		public_card_1.name = "public_card_1";
 		public_card_1.scaleX = 0.15041695188999193;
 		public_card_1.scaleY = 0.15041695188999193;
+		public_card_1.visible = false;
 		public_card_container.add(public_card_1);
 
 		// public_card_2
@@ -252,6 +252,7 @@ export default class Table extends Phaser.Scene {
 		public_card_2.name = "public_card_2";
 		public_card_2.scaleX = 0.15041695188999193;
 		public_card_2.scaleY = 0.15041695188999193;
+		public_card_2.visible = false;
 		public_card_container.add(public_card_2);
 
 		// public_card_3
@@ -259,6 +260,7 @@ export default class Table extends Phaser.Scene {
 		public_card_3.name = "public_card_3";
 		public_card_3.scaleX = 0.15041695188999193;
 		public_card_3.scaleY = 0.15041695188999193;
+		public_card_3.visible = false;
 		public_card_container.add(public_card_3);
 
 		// public_card_4
@@ -266,6 +268,7 @@ export default class Table extends Phaser.Scene {
 		public_card_4.name = "public_card_4";
 		public_card_4.scaleX = 0.15041695188999193;
 		public_card_4.scaleY = 0.15041695188999193;
+		public_card_4.visible = false;
 		public_card_container.add(public_card_4);
 
 		// public_card_5
@@ -273,6 +276,7 @@ export default class Table extends Phaser.Scene {
 		public_card_5.name = "public_card_5";
 		public_card_5.scaleX = 0.15041695188999193;
 		public_card_5.scaleY = 0.15041695188999193;
+		public_card_5.visible = false;
 		public_card_container.add(public_card_5);
 
 		// chip_pool_text
@@ -576,9 +580,48 @@ export default class Table extends Phaser.Scene {
     // handleCreateRoom(data){
     //     console.log("todohandleCreateRoom")
     // }
-    // handleGone(data){
-    //     console.log("todohandlGone")
-    // }
+    handleGone(data){
+        const goneUserID = data.occupant.id;
+        const user = this.gameState.getUserByID(goneUserID);
+        console.log("Handle Gone ........UserID:",goneUserID);
+        if (!user){
+            return
+        }
+
+        if(user.userID == this.gameState.currentUser) {
+            //gameQuit();
+            console.log("Handle Gone ........");
+            user.User.visible = false
+            this.gameState.hideActionMenu();
+            // this.selfCards[0].visible = false;
+            // this.selfCards[1].visible = false;
+
+            console.log("chips", user.chips)
+
+            if(user.chips <= 0) {
+                // if(this.game.Native != undefined) {
+                //     this.game.Native.confrimPopupWindow("你的钱输光了！！","你的积分为0， 即将被踢出游戏", "确认", function(data){
+                //         game.Native.quitToApp();
+                //     });
+                //     return;
+                // }
+                this.game.scene.start('Table');
+            }
+        }
+        user.User.visible = false;
+        user.BetCoin.setVisible(false);
+
+
+        // user.clean();
+        // user.setVisible(false)
+        // var seatNum = user.param["seatNum"]
+        // if(this.gameStateObj.bankerPos == seatNum) {
+        //     if(this.dealer != null) {
+        //         this.dealer.destroy();
+        //         this.dealer = null;
+        //     }
+        // }
+    }
     handleJoin(data:JoinData){
         console.log("JoinRoom data",JSON.stringify(data))
         let occupant = data.occupant;
@@ -629,15 +672,26 @@ export default class Table extends Phaser.Scene {
             user.updateCards(arrayCards);
         }
     }
-    // handleFlop(data){
-    //     console.log("handlefolp")
-    // }
-    // handleTurn(data){
-    //     console.log("handleturn")
-    // }
-    // handleRiver(data){
-    //     console.log("handleriver")
-    // }
+    handleFlop(data:FlopData){
+        var arrayParam = data.class.split(",");
+        var arrayCards = arrayParam.slice(0,3)
+        this._flopAnimation(arrayCards[0], arrayCards[1], arrayCards[2])
+        this._setBetCardType(arrayParam[3])
+    }
+    handleTurn(data:RiverData){
+        var arrayCards = data.class.split(",");
+        this._turnAnimation(arrayCards[0])
+
+        this._setBetCardType(arrayCards[1])
+
+        console.log("handleturn")
+    }
+    handleRiver(data){
+        var arrayCards = data.class.split(",");
+        this._riverAnimation(arrayCards[0])
+
+        this._setBetCardType(arrayCards[1])
+    }
     handlePot(data:PotData){
         console.log("handlepot")
         let arrayPool = data.class.split(",");
@@ -704,12 +758,6 @@ export default class Table extends Phaser.Scene {
         // todo 操作动画
         // this._drawUserProgress(user.rect.left, user.rect.width, user.rect.top, user.rect.height)
     }
-    showActionButton(){
-
-    }
-    hideActionButton(){
-
-    }
     handleBet(data:BetData){
         const arrayInfo = data.class.split(",");
         const betTypeName = arrayInfo[0]  // 下注类型
@@ -767,6 +815,31 @@ export default class Table extends Phaser.Scene {
                 console.log("ERROR: betType not a vaid value:",betType);
                 break;
         }
+    }
+    _flopAnimation(card1:string, card2:string, card3:string) {
+        var deskCardIDs = []
+        //var arrayCards = data.class.split(",");
+        //var publicCards = [arrayCards[0], arrayCards[1], arrayCards[2]];
+        const publicCards = [card1, card2, card3];
+
+        let lstCardImage = [];
+        for (let i = 0; i < publicCards.length; i++) {
+            this.gameState.publicCards[i].visible = true
+            deskCardIDs.push(i);
+            lstCardImage.push(publicCards[i]);
+        }
+        const that = this;
+        this.gameState.showPublicCard(deskCardIDs, lstCardImage, true, function(){
+            // that._playSound(that.soundSendCard);
+        });
+    }
+    _setBetCardType(cardType:string) {
+        const carTypeName = CONST.CardTypeNames[parseInt(cardType)]
+        const user = this.gameState.getUserByID(this.gameState.currentUser)
+        if (!user){
+            return
+        }
+        user.setStrength(carTypeName);
     }
 
 
@@ -1022,7 +1095,7 @@ export default class Table extends Phaser.Scene {
         // test native interface
         // gameQuit("test");
     }
-    
+
     _raseAction(value) {
         console.log("raise value",value)
         // var that = this
@@ -1031,7 +1104,7 @@ export default class Table extends Phaser.Scene {
             // that._playSound(that.soundClick);
             // that._setBetButtonsVisible(false)
         })
-    
+
         // that.chipboxGroup.visible = false ;
         // that.chipboxGroup.setVisible(false);
     }
@@ -1253,7 +1326,7 @@ export class GameStateInstance implements GameState{
     updateBlindText(){
         this.blindText.setText("Blinds:" + this.sb + "/" + this.bb);
     }
-    
+
 
     reSetSliderConfig(minChips:number,maxChips:number,currentChips:number){
         const sliderHandle = this.sliderHandle;
@@ -1281,16 +1354,16 @@ export class GameStateInstance implements GameState{
             // console.log("handle slider callback",data)
         });
         this.reSetSliderConfig(minChips,maxChips,currentChips);
-        
+
         this.updateSlider(sliderHandle,null,sliderFull.x);
-        
+
         const that = this;
         sliderHandle.on('drag', function (pointer, dragX, dragY) {
             that.updateSlider(this, pointer, dragX);
         });
 
     }
-    
+
     updateSlider (handle, pointer, dragX) {
         const min = handle.getData('min');
         const max = handle.getData('max');
@@ -1315,6 +1388,70 @@ export class GameStateInstance implements GameState{
         const callback = handle.getData('callback');
 
         callback.call(this, value);
+    }
+
+    showPublicCard(lstIndex:number[], lstKey:string[], showBK:boolean, callback:()=>void) {
+        if(lstIndex.length > this.publicCards.length) {
+            return;
+        }
+        const scene = this.tableScene;
+        
+        let nIndex = 0;
+        const animationTime = 100;
+        const that = this;
+        var showAnimation = function (index:number, key:string, showBK:boolean) {
+            const cardWidth = that.publicCards[index].width;
+            if(showBK) {
+                let cardBK = scene.textures.get("card_back_0");
+                that.publicCards[index].setTexture(cardBK)
+                let tween = scene.tweens.add({
+                    targets: that.publicCards[index],   // 目标对象
+                    width:0,
+                    duration: animationTime,    // 持续时间（毫秒）
+                    ease: 'Linear',    // 缓动函数（支持字符串或函数）
+                    // yoyo: true,        // 是否反向播放
+                    onComplete: () => { {
+                        const frame_key = that.formatElement(key)
+                        let publicCard = scene.textures.get(frame_key);
+                        that.publicCards[index].setTexture(publicCard)
+                        let tween2 = scene.tweens.add({
+                            targets:that.publicCards[index],
+                            width:cardWidth,
+                            duration:animationTime,
+                            onComplete:()=>{
+                                nIndex++;
+                                if(nIndex < lstIndex.length) {
+                                    showAnimation(lstIndex[nIndex], lstKey[nIndex], showBK);
+                                }
+                            }
+                        });
+                    } }
+                });
+            }
+            else {
+                that.publicCards[index].width = 0;
+                const frame_key = that.formatElement(key)
+
+                let cardBK = scene.textures.get(frame_key);
+                that.publicCards[index].setTexture(cardBK)
+                var tween = scene.tweens.add({
+                    targets: that.publicCards[index],   // 目标对象
+                    width:cardWidth,
+                    duration:animationTime,
+                    onComplete:()=>{
+                        nIndex++;
+                        if(nIndex < lstIndex.length) {
+                            showAnimation(lstIndex[nIndex], lstKey[nIndex], showBK);
+                        }
+                    }
+                });
+            }
+        };
+        if(callback != undefined) {
+            callback();
+        }
+        
+        showAnimation(lstIndex[nIndex], lstKey[nIndex], showBK);
     }
 }
 

@@ -28,6 +28,7 @@ export interface User {
     setUseCoin(userCoin:number):void //前注，bb sb
     updateCards(cards?: string[] | undefined):void
     setAction(action:string):void
+    setStrength(cardType:string):void
 }
 
 export class UserImpl implements User{
@@ -169,6 +170,9 @@ export class UserImpl implements User{
                 // card.setTexture(frame);
             }
         }
+    }
+    setStrength(cardType: string){
+        this.strengthText.setText(cardType)
     }
     
     formatElement(str:string) {

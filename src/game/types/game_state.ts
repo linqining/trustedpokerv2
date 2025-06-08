@@ -32,5 +32,6 @@ export interface GameState {
     getUserByID(userID: string): User | undefined;
     SetCurrentBet(betType:number,betValue:number):void;
     setSlider(minChips:number,maxChips:number,currentChips:number):void;
+    showPublicCard(lstIndex:number[], lstKey:string[], showBK:boolean, callback:()=>void):void;
 }
 
