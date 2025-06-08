@@ -695,6 +695,7 @@ export default class Table extends Phaser.Scene {
             if (userMinBet>=user.chips){
                 userMinBet  = user.chips
             }
+            console.log("minbet amount",bet)
             console.log("set slider", userMinBet,user.chips,userMinBet)
             this.gameState.setSlider(userMinBet,user.chips,userMinBet)
         } else {
@@ -1281,7 +1282,7 @@ export class GameStateInstance implements GameState{
         });
         this.reSetSliderConfig(minChips,maxChips,currentChips);
         
-        this.updateSlider(sliderHandle,null,currentChips);
+        this.updateSlider(sliderHandle,null,sliderFull.x);
         
         const that = this;
         sliderHandle.on('drag', function (pointer, dragX, dragY) {
@@ -1303,7 +1304,6 @@ export class GameStateInstance implements GameState{
 
         //  Calculate the value
         const diffValue = (dragX - left) * scale;
-        // console.log("update slider",dragX,left,scale,diffValue,min,max)
         let value = diffValue + min;
         if (value>max){
             value = max;
