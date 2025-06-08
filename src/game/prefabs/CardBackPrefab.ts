@@ -47,9 +47,12 @@ export default class CardBackPrefab extends Phaser.GameObjects.Container {
 		rectangle_1.scaleX = 1.6045496848837597;
 		rectangle_1.scaleY = 0.4039750558130919;
 		rectangle_1.isFilled = true;
-		rectangle_1.fillColor = 1710618;
+		rectangle_1.fillColor = 0;
 		rectangle_1.fillAlpha = 0.84;
 		strength_container.add(rectangle_1);
+
+		// vignetteFx
+		rectangle_1.postFX!.addVignette(0.5, 0.5, 0.5, 0.4);
 
 		// strength_text
 		const strength_text = scene.add.text(0, 3, "", {});

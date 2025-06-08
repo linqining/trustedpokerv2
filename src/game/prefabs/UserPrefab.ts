@@ -23,6 +23,9 @@ export default class UserPrefab extends Phaser.GameObjects.Container {
 		user_box.isStroked = true;
 		this.add(user_box);
 
+		// vignetteFx
+		user_box.postFX!.addVignette(0.5, 0.5, 0.5, 0.4);
+
 		// boy
 		const boy = scene.add.image(63.12430191040039, 114.05939483642582, "boy");
 		boy.name = "boy";
@@ -32,7 +35,7 @@ export default class UserPrefab extends Phaser.GameObjects.Container {
 		this.add(boy);
 
 		// action_text
-		const action_text = scene.add.text(25.124302118189178, 5.059395115844794, "", {});
+		const action_text = scene.add.text(6, 5, "", {});
 		action_text.name = "action_text";
 		action_text.setStyle({ "color": "#ffffffff", "fontSize": "35px" });
 		this.add(action_text);

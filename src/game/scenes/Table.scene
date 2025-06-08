@@ -235,7 +235,7 @@
                 {
                     "type": "Image",
                     "id": "ba7bda62-7ca2-49ee-adb8-974b288e2073",
-                    "label": "button_fold_1",
+                    "label": "button_fold",
                     "displayName": "button_fold",
                     "useGameObjectName": true,
                     "texture": {
@@ -320,14 +320,15 @@
                     "type": "Image",
                     "id": "ee8d8c5c-62d9-4b18-8d59-4beb1865976f",
                     "label": "slider_full",
+                    "useGameObjectName": true,
                     "texture": {
                         "key": "slider_full"
                     },
-                    "x": 140.0321179395704,
-                    "y": 15.065463195636198,
+                    "x": 17.11812009383391,
+                    "y": 11.578541090011868,
                     "scaleX": 0.5,
                     "scaleY": 0.5,
-                    "originY": 1
+                    "originX": 0
                 },
                 {
                     "type": "Image",
@@ -336,22 +337,36 @@
                     "texture": {
                         "key": "value_box"
                     },
-                    "x": -132,
-                    "y": 12,
-                    "scaleX": 0.3814860714180076,
-                    "scaleY": 0.2727097091463893
+                    "x": -75,
+                    "y": 7,
+                    "scaleX": 0.24561334306140128,
+                    "scaleY": 0.15756275935432668
                 },
                 {
                     "type": "Image",
                     "id": "c62b8f56-a7cc-4427-8fb6-d17f3f4d31a7",
                     "label": "slider_arrow",
+                    "useGameObjectName": true,
                     "texture": {
                         "key": "slider_arrow"
                     },
                     "x": 18,
                     "y": -5,
-                    "scaleX": 0.15557376061488526,
-                    "scaleY": 0.15557376061488526
+                    "scaleX": 0.15,
+                    "scaleY": 0.15
+                },
+                {
+                    "type": "Text",
+                    "id": "f3750ea4-d972-422a-aa70-312233c12002",
+                    "label": "chip_to_bet",
+                    "useGameObjectName": true,
+                    "x": -11.565390119554252,
+                    "y": -7,
+                    "originX": 1.025565287085044,
+                    "text": "0",
+                    "align": "right",
+                    "fontSize": "27px",
+                    "color": "#ffffffff"
                 }
             ]
         },
@@ -489,6 +504,7 @@
             "y": 207,
             "originX": 0.5,
             "originY": 0.5,
+            "visible": false,
             "fontSize": "21px",
             "color": "#000000ff",
             "stroke": "#000000ff"

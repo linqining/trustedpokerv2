@@ -34,7 +34,15 @@
                     "fillColor": "#000000",
                     "isStroked": true,
                     "width": 128,
-                    "height": 128
+                    "height": 128,
+                    "list": [
+                        {
+                            "type": "Vignette",
+                            "id": "83098f4c-9c5a-4ceb-8a72-f3fcbe5f4f27",
+                            "label": "vignetteFx",
+                            "strength": 0.4
+                        }
+                    ]
                 },
                 {
                     "type": "Image",
@@ -56,8 +64,8 @@
                     "id": "955fd9e8-ec1d-473c-95be-a788c4bf1889",
                     "label": "action_text",
                     "useGameObjectName": true,
-                    "x": 25.124302118189178,
-                    "y": 5.059395115844794,
+                    "x": 6,
+                    "y": 5,
                     "fontSize": "35px",
                     "color": "#ffffffff"
                 },

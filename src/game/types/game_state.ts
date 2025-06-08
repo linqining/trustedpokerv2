@@ -18,17 +18,19 @@ export interface GameState {
     Dealer: Phaser.GameObjects.Image;
     playerOffset:number;
     sliderContainer: Phaser.GameObjects.Container;
-    actionRaise:Phaser.GameObjects.Container;
-    actionFold :Phaser.GameObjects.Container;
-    actionCheck :Phaser.GameObjects.Container;
+    sliderHandle:Phaser.GameObjects.Image;
+    actionRaiseContainer:Phaser.GameObjects.Container;
+    actionFoldContainer :Phaser.GameObjects.Container;
+    actionCheckContainer :Phaser.GameObjects.Container;
 
     InitRoom(roomInfo: Room): void;
 
     getTargetIndex(seatNum: number): number;
     setCurrentUser(userID:string): void;
     hideActionMenu():void;
-    showActionMenu():void;
+    showActionMenu(user:User):void;
     getUserByID(userID: string): User | undefined;
     SetCurrentBet(betType:number,betValue:number):void;
+    setSlider(minChips:number,maxChips:number,currentChips:number):void;
 }
 

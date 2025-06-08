@@ -77,10 +77,18 @@
                                     "scaleX": 1.6045496848837597,
                                     "scaleY": 0.4039750558130919,
                                     "isFilled": true,
-                                    "fillColor": "#1a1a1a",
+                                    "fillColor": "#000000",
                                     "fillAlpha": 0.84,
                                     "width": 128,
-                                    "height": 128
+                                    "height": 128,
+                                    "list": [
+                                        {
+                                            "type": "Vignette",
+                                            "id": "210bda57-b616-4e59-9be0-42b83d026a26",
+                                            "label": "vignetteFx",
+                                            "strength": 0.4
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Text",

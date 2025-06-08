@@ -27,7 +27,7 @@ export interface User {
     resetGameRoundStatus():void;
     setUseCoin(userCoin:number):void //前注，bb sb
     updateCards(cards?: string[] | undefined):void
-    
+    setAction(action:string):void
 }
 
 export class UserImpl implements User{
@@ -186,6 +186,9 @@ export class UserImpl implements User{
             arrayCards = [];
         }
         this._loadSelfCard(arrayCards);
+    }
+    setAction(action:string){
+        this.actionText.setText(action);
     }
     setGiveUp(bGiveUp:boolean) {
         let alpha = 1;

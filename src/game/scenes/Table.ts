@@ -140,12 +140,12 @@ export default class Table extends Phaser.Scene {
 		const op_btn_fold = this.add.container(818, 639);
 		op_btn_fold.name = "op_btn_fold";
 
-		// button_fold_1
-		const button_fold_1 = this.add.image(62.812552081710464, 20.799078357486906, "button_red");
-		button_fold_1.name = "button_fold_1";
-		button_fold_1.scaleX = 0.15758130827137293;
-		button_fold_1.scaleY = 0.15758130827137293;
-		op_btn_fold.add(button_fold_1);
+		// button_fold
+		const button_fold = this.add.image(62.812552081710464, 20.799078357486906, "button_red");
+		button_fold.name = "button_fold";
+		button_fold.scaleX = 0.15758130827137293;
+		button_fold.scaleY = 0.15758130827137293;
+		op_btn_fold.add(button_fold);
 
 		// fold_text
 		const fold_text = this.add.text(24.812552081710464, 3.7990783574869056, "", {});
@@ -183,23 +183,33 @@ export default class Table extends Phaser.Scene {
 		slider.add(slider_empty);
 
 		// slider_full
-		const slider_full = this.add.image(140.0321179395704, 15.065463195636198, "slider_full");
+		const slider_full = this.add.image(17.11812009383391, 11.578541090011868, "slider_full");
+		slider_full.name = "slider_full";
 		slider_full.scaleX = 0.5;
 		slider_full.scaleY = 0.5;
-		slider_full.setOrigin(0.5, 1);
+		slider_full.setOrigin(0, 0.5);
 		slider.add(slider_full);
 
 		// value_box
-		const value_box = this.add.image(-132, 12, "value_box");
-		value_box.scaleX = 0.3814860714180076;
-		value_box.scaleY = 0.2727097091463893;
+		const value_box = this.add.image(-75, 7, "value_box");
+		value_box.scaleX = 0.24561334306140128;
+		value_box.scaleY = 0.15756275935432668;
 		slider.add(value_box);
 
 		// slider_arrow
 		const slider_arrow = this.add.image(18, -5, "slider_arrow");
-		slider_arrow.scaleX = 0.15557376061488526;
-		slider_arrow.scaleY = 0.15557376061488526;
+		slider_arrow.name = "slider_arrow";
+		slider_arrow.scaleX = 0.15;
+		slider_arrow.scaleY = 0.15;
 		slider.add(slider_arrow);
+
+		// chip_to_bet
+		const chip_to_bet = this.add.text(-11.565390119554252, -7, "", {});
+		chip_to_bet.name = "chip_to_bet";
+		chip_to_bet.setOrigin(1.025565287085044, 0);
+		chip_to_bet.text = "0";
+		chip_to_bet.setStyle({ "align": "right", "color": "#ffffffff", "fontSize": "27px" });
+		slider.add(chip_to_bet);
 
 		// op_buy_in
 		const op_buy_in = this.add.container(554, 305);
@@ -269,6 +279,7 @@ export default class Table extends Phaser.Scene {
 		const chip_pool_text = this.add.text(640, 207, "", {});
 		chip_pool_text.name = "chip_pool_text";
 		chip_pool_text.setOrigin(0.5, 0.5);
+		chip_pool_text.visible = false;
 		chip_pool_text.setStyle({ "color": "#000000ff", "fontSize": "21px", "stroke": "#000000ff" });
 
 		// dealer
@@ -363,7 +374,7 @@ export default class Table extends Phaser.Scene {
 
 	// Write your code here
     private  betApi:BetApi;
-    private gameState:GameState = new GameStateInstance(this.game);
+    private gameState:GameState = new GameStateInstance(this);
 
     preload(){
     }
@@ -473,19 +484,28 @@ export default class Table extends Phaser.Scene {
             const userContainer = this.scene.scene.children.getByName("user" + (i + 1)) as Phaser.GameObjects.Container;
             const user = new UserImpl(userContainer,dealer,this);
             this.gameState.Users.push(user)
-
-
         }
 
-        const dealer = this.scene.scene.children.getByName("dealer" ) as Phaser.GameObjects.Image;
+        const dealer = this.scene.scene.children.getByName("dealer") as Phaser.GameObjects.Image;
         this.gameState.Dealer = dealer;
 
 
         // 操作面板
         this.gameState.sliderContainer = this.scene.scene.children.getByName("slider") as Phaser.GameObjects.Container;
-        this.gameState.actionRaise = this.scene.scene.children.getByName("op_btn_raise") as Phaser.GameObjects.Container;
-        this.gameState.actionFold = this.scene.scene.children.getByName("op_btn_fold") as Phaser.GameObjects.Container;
-        this.gameState.actionCheck = this.scene.scene.children.getByName("op_btn_check") as Phaser.GameObjects.Container;
+        const sliderHandle = this.gameState.sliderContainer.getByName("slider_arrow") as Phaser.GameObjects.Image;
+        this.gameState.sliderHandle = sliderHandle;
+
+        this.gameState.actionRaiseContainer = this.scene.scene.children.getByName("op_btn_raise") as Phaser.GameObjects.Container;
+        const raiseBtn = this.gameState.actionRaiseContainer.getByName("button_raise") as Phaser.GameObjects.Image;
+        raiseBtn.setInteractive().on('pointerdown', this.actionRaise.bind(this));
+
+        this.gameState.actionFoldContainer = this.scene.scene.children.getByName("op_btn_fold") as Phaser.GameObjects.Container;
+        const foldBtn = this.gameState.actionFoldContainer.getByName("button_fold") as Phaser.GameObjects.Image;
+        foldBtn.setInteractive().on('pointerdown', this.actionFold.bind(this));
+
+        this.gameState.actionCheckContainer = this.scene.scene.children.getByName("op_btn_check") as Phaser.GameObjects.Container;
+        const callBtn = this.gameState.actionCheckContainer.getByName("button_check") as Phaser.GameObjects.Image;
+        callBtn.setInteractive().on('pointerdown', this.actionCall.bind(this));
     }
 
      callbackMessage(data) {
@@ -632,7 +652,7 @@ export default class Table extends Phaser.Scene {
         for(let i = 0; i < arrayPool.length; i++) {
             poolall += parseInt(arrayPool[i])
         }
-        this.gameState.chipPoolText.setText(poolall.toString());
+        this.gameState.chipPoolText.setText("Pot:"+poolall.toString());
 
         // clear Use coin
         for (let i = this.gameState.Users.length - 1; i >= 0; i--) {
@@ -652,12 +672,12 @@ export default class Table extends Phaser.Scene {
         // this.gameStateObj.currentBettinglines = bet
         for (let uIndex=0;uIndex<this.gameState.Users.length;uIndex++){
             if (this.gameState.Users[uIndex].userID == user.userID) {
-                this.gameState.Users[uIndex].backGround.setFillStyle(0x35f058,1); // 下注玩家背景变红
+                this.gameState.Users[uIndex].backGround.setFillStyle(0xff8410,1); // 下注玩家背景变橙色
             }else{
-                this.gameState.Users[uIndex].backGround.setFillStyle(0x000000,1); // 下注玩家背景变红
+                this.gameState.Users[uIndex].backGround.setFillStyle(0x000000,1); // 其他玩家变黑
             }        
         }
-        
+
 
         // 当前玩家
         if (user.userID == this.gameState.currentUser) {
@@ -670,7 +690,13 @@ export default class Table extends Phaser.Scene {
             // }
 
             // 当前玩家，显示操作案板
-            this.gameState.showActionMenu();
+            this.gameState.showActionMenu(user);
+            let userMinBet = bet;
+            if (userMinBet>=user.chips){
+                userMinBet  = user.chips
+            }
+            console.log("set slider", userMinBet,user.chips,userMinBet)
+            this.gameState.setSlider(userMinBet,user.chips,userMinBet)
         } else {
             this.gameState.hideActionMenu();
         }
@@ -944,6 +970,103 @@ export default class Table extends Phaser.Scene {
         }   
         return -1;
     }
+    actionFold(){
+        console.log("actionFold")
+        const that = this
+        this.betApi.betFold(function(isok:boolean) {
+            // send OK or NOK
+            that.gameState.hideActionMenu();
+            // todo placksound check
+            // that._playSound(that.soundClick);
+        });
+        console.log("game quit ============");
+    }
+    actionCheck(){
+        console.log("actionFold")
+        const that = this
+        this.betApi.betFold(function(isok:boolean) {
+            // send OK or NOK
+            that.gameState.hideActionMenu();
+            // todo placksound check
+            // that._playSound(that.soundClick);
+        });
+        console.log("game quit ============");
+    }
+
+    actionCall(){
+        console.log("actionOnClick2 click")
+        const that = this
+        const currentUser = this.gameState.getUserByID(this.gameState.currentUser);
+        if (!currentUser){
+            return
+        }
+        let betdiff = currentUser.getBet()-currentUser.getOnDeskBet()
+
+        if(betdiff > currentUser.getChips()) {
+            betdiff = currentUser.getChips();
+        }
+
+        //if (betdiff >= 0 ) {
+        this.betApi.bet(betdiff,function(isok:boolean) {
+            // send OK or NOK
+            //todo sound
+            that.gameState.hideActionMenu();
+            // that._playSound(that.soundClick);
+            // that._setBetButtonsVisible(false)
+        })
+        //}
+
+
+
+        // test native interface
+        // gameQuit("test");
+    }
+    
+    _raseAction(value) {
+        console.log("raise value",value)
+        // var that = this
+        this.betApi.bet(value,function(isok) {
+            // send OK or NOK
+            // that._playSound(that.soundClick);
+            // that._setBetButtonsVisible(false)
+        })
+    
+        // that.chipboxGroup.visible = false ;
+        // that.chipboxGroup.setVisible(false);
+    }
+
+    actionRaise(){
+        // 如果用户划动滑杆
+        if(this.gameState.sliderContainer.visible) {
+            const betChips = this.gameState.sliderHandle.getData('value')
+            this._raseAction(betChips)
+            const user = this.gameState.getUserByID(this.gameState.currentUser)
+            if (!user){
+                return
+            }
+            user.setAction("Raise");
+        } else {
+            //todo
+            // var bet = this.gameStateObj.mybet - this.gameStateObj.mybetOnDesk;
+            //
+            // if(bet > 0 && bet < this.chips) {
+            //     bet=bet*2
+            // }
+            //
+            // if(bet > this.chips) {
+            //     bet = 0;
+            // }
+            //
+            // this._updatePoolChipValue(bet*2?bet*2:10*2);
+            // this._setSliderRange(bet, this.chips);
+            // this.chipboxGroup.visible = true;
+            // this.chipboxGroup.setVisible(true);
+            // this.chipboxOpened = true;
+            //
+            // this.lbCallEvery.setText("Raise "+bet);
+        }
+        this.gameState.hideActionMenu();
+    }
 
 
 	/* END-USER-CODE */
@@ -964,6 +1087,7 @@ export class GameStateInstance implements GameState{
     currentUser: string;
     // phaser 牌桌对象
     phaserGame:Phaser.Game;
+    tableScene:Table;
     blindText:Phaser.GameObjects.Text;
     chipPoolText:Phaser.GameObjects.Text;
     publicCards:Phaser.GameObjects.Image[];
@@ -972,15 +1096,17 @@ export class GameStateInstance implements GameState{
     Dealer: Phaser.GameObjects.Image;
     playerOffset:number;
     sliderContainer: Phaser.GameObjects.Container;
-    actionRaise:Phaser.GameObjects.Container;
-    actionFold :Phaser.GameObjects.Container;
-    actionCheck :Phaser.GameObjects.Container;
+    sliderHandle:Phaser.GameObjects.Image;
+    actionRaiseContainer:Phaser.GameObjects.Container;
+    actionFoldContainer :Phaser.GameObjects.Container;
+    actionCheckContainer :Phaser.GameObjects.Container;
 
     betType:number;
     betValue:number;
 
-    constructor(game:Phaser.Game) {
-        this.phaserGame = game
+    constructor(table:Table) {
+        this.phaserGame = table.game;
+        this.tableScene = table;
         this.Users = [];
         this.DealerButtons =[];
     }
@@ -991,15 +1117,15 @@ export class GameStateInstance implements GameState{
 
     hideActionMenu(){
         this.sliderContainer.visible = false
-        this.actionFold.visible = false
-        this.actionCheck.visible = false
-        this.actionRaise.visible = false
+        this.actionFoldContainer.visible = false
+        this.actionCheckContainer.visible = false
+        this.actionRaiseContainer.visible = false
     }
-    showActionMenu(){
+    showActionMenu(user:User){
         this.sliderContainer.visible = true
-        this.actionFold.visible = true
-        this.actionCheck.visible = true
-        this.actionRaise.visible = true
+        this.actionFoldContainer.visible = true
+        this.actionCheckContainer.visible = true
+        this.actionRaiseContainer.visible = true
     }
 
     getUserByID(userID: string):User|undefined{
@@ -1066,7 +1192,7 @@ export class GameStateInstance implements GameState{
         for(let i = 0; i < roomInfo.pot.length; i++) {
             chipPoolCount += roomInfo.pot[i];
         }
-        this.chipPoolText.setText(chipPoolCount+"");
+        this.chipPoolText.setText("Pot:"+chipPoolCount);
     }
 
     initOccupants(roomInfo:Room){
@@ -1124,8 +1250,71 @@ export class GameStateInstance implements GameState{
     }
 
     updateBlindText(){
-        this.blindText.setText("$" + this.sb + " / $" + this.bb);
+        this.blindText.setText("Blinds:" + this.sb + "/" + this.bb);
+    }
+    
+
+    reSetSliderConfig(minChips:number,maxChips:number,currentChips:number){
+        const sliderHandle = this.sliderHandle;
+        const sliderFull  = this.sliderContainer.getByName("slider_full") as Phaser.GameObjects.Image;
+        const width = sliderFull.width * sliderFull.scaleX;
+        const scale = (maxChips-minChips) / width;
+        // console.log("chips and scale",maxChips,minChips,width,scale)
+        sliderHandle.setData('min', minChips);
+        sliderHandle.setData('max', maxChips);
+        sliderHandle.setData('value', currentChips);
+        sliderHandle.setData('scale', scale);
     }
 
+    setSlider(minChips:number,maxChips:number,currentChips:number){
+        const sliderHandle = this.sliderHandle;
+        const sliderFull  = this.sliderContainer.getByName("slider_full") as Phaser.GameObjects.Image;
+        // const chipToBet  = this.sliderContainer.getByName("chip_to_bet") as Phaser.GameObjects.Text;
+        sliderHandle.setInteractive();
+        console.log(sliderHandle);
+        const width = sliderFull.width * sliderFull.scaleX;
+        sliderHandle.setData('left', sliderFull.x);
+        sliderHandle.setData('right', sliderFull.x + width+10);
+        this.tableScene.input.setDraggable(sliderHandle);
+        sliderHandle.setData('callback', function (data){
+            // console.log("handle slider callback",data)
+        });
+        this.reSetSliderConfig(minChips,maxChips,currentChips);
+        
+        this.updateSlider(sliderHandle,null,currentChips);
+        
+        const that = this;
+        sliderHandle.on('drag', function (pointer, dragX, dragY) {
+            that.updateSlider(this, pointer, dragX);
+        });
+
+    }
+    
+    updateSlider (handle, pointer, dragX) {
+        const min = handle.getData('min');
+        const max = handle.getData('max');
+        const scale = handle.getData('scale');
+        const left = handle.getData('left');
+        const right = handle.getData('right');
+
+        dragX = Phaser.Math.Clamp(dragX, left, right);
+
+        handle.x = dragX;
+
+        //  Calculate the value
+        const diffValue = (dragX - left) * scale;
+        // console.log("update slider",dragX,left,scale,diffValue,min,max)
+        let value = diffValue + min;
+        if (value>max){
+            value = max;
+        }
+        handle.setData('value', value);
+        const chipToBet  = this.sliderContainer.getByName("chip_to_bet") as Phaser.GameObjects.Text;
+        chipToBet.setText(value.toFixed(0));
+
+        const callback = handle.getData('callback');
+
+        callback.call(this, value);
+    }
 }
 
