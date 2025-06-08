@@ -47,6 +47,7 @@ export class UserImpl implements User{
     cardTwo: Phaser.GameObjects.Image;
     strengthText: phaser.GameObjects.Text;
     actionText: Phaser.GameObjects.Text;
+    chipText: Phaser.GameObjects.Text;
     isPlaying: boolean = false; // 是否在游戏中
     giveUp: boolean = false;
 
@@ -64,6 +65,9 @@ export class UserImpl implements User{
         
         this.actionText = this.User.getByName("action_text") as Phaser.GameObjects.Text;
         
+        this.chipText = this.User.getByName("chips") as Phaser.GameObjects.Text;
+        console.log("chips text obj",this.chipText)
+        
         this.BetCoin = new BetCoinImpl(betCoinContainer,table)
     }
     
@@ -75,6 +79,7 @@ export class UserImpl implements User{
         this.name = userInfo.name;
         if (isSelf){
             this.chips = userInfo.chips;
+            this.updateChips(this.chips);
             this.updateCards(userInfo.cards)
         }else{
             //TODO userInfo.cards 非自己的不返回牌
@@ -161,6 +166,11 @@ export class UserImpl implements User{
     
     formatElement(str:string) {
         return str.replace(/([CDHS])([2-9ATJQK])/g, '$1_$2');
+    }
+    
+    updateChips(chips:number){
+        console.log("set user chips",chips)
+        this.chipText.setText(chips.toString());
     }
     
     updateCards(cards?: string[] | undefined){

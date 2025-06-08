@@ -12,7 +12,7 @@ import BetApi from "../betApi.js";
 import {callbackOpen,callbackClose,callbackMessage,callbackError} from "../logic.js";
 import {EventBus} from "../EventBus.ts";
 import {reconnect} from "../../api/api";
-import {ActionData, BetData, ButtonData, JoinData, PreFlopData, Room, StateData} from "../types/types.ts";
+import {ActionData, BetData, ButtonData, JoinData, PreFlopData, Room, ShowDownData, StateData} from "../types/types.ts";
 import {GameState} from "../types/game_state.ts"
 import {User, UserImpl} from "../types/user.ts";
 import {COONST} from "../types/const.ts";
@@ -705,9 +705,108 @@ export default class Table extends Phaser.Scene {
     }
 
 
-    // handleShowDown(data){
-    //
-    // }
+    handleShowDown(data:ShowDownData){
+        // console.log("showdown:",data);
+
+        // if(this.userProgressObj != undefined) {
+        //     this.userProgressObj.stop();
+        //     this.userProgressObj.clean();
+        //     //this.animation.stopShake = true; 
+        // }
+
+        const roomInfo = data.room;
+        const playerList = roomInfo.occupants;
+
+        let maxHand = 0
+        let maxHandIndex = 0
+
+        // 如果都没有hand说明只有一个人下注，没有翻牌的情况
+        let lastHasCardsIndex = -1; //保存最后一个出牌的人index
+        let hashand = false;
+
+
+        for (let i = playerList.length - 1; i >= 0; i--) {
+            let occupantInfo = playerList[i]
+
+            if(!occupantInfo) {
+                continue;
+            }
+
+            if (occupantInfo.cards) {
+                lastHasCardsIndex = i
+            }
+
+            if (occupantInfo.hand) {
+                hashand = true
+            }
+
+            var hand = occupantInfo.hand
+            if (maxHand < hand) {
+                maxHand = hand
+                maxHandIndex = i
+            }
+        };
+
+        //只有一个人下注，没有翻牌的情况
+        if (!hashand && lastHasCardsIndex!=-1) {
+            maxHandIndex = lastHasCardsIndex
+        }
+
+        const winOccupantItem = playerList[maxHandIndex]
+
+
+        if (winOccupantItem != undefined && winOccupantItem != null) {
+            const winUser = this.gameState.getUserByID(winOccupantItem.id)
+            if(winOccupantItem.chips > 0 && winOccupantItem.id == this.gameState.currentUser) {
+                winUser?.setChips(winOccupantItem.chips)
+            }
+            winUser?.setChips(winOccupantItem.chips)
+
+            // console.log("winner is ",winUser)
+
+            if (winOccupantItem.action != "fold") {
+                if(winOccupantItem.cards != null && winOccupantItem.cards != undefined) {
+                    //todo 动效，赢家手牌高亮
+                    // winUser.setWinCard(winOccupantItem.cards[0], winOccupantItem.cards[1]);
+
+                    // console.log("winner card  is ",winOccupantItem.cards)
+
+                    // if(winOccupantItem.id != this.userID) {
+                    //     this._playSound(this.soundLost);
+                    // } else {
+                    //     this._playSound(this.soundWin);
+                    // }
+
+                    const hand = winOccupantItem.hand;
+                    // console.log("winner card  is ",winOccupantItem.cards,"hand",hand);
+
+                    if(hand != undefined && hand != null) {
+                        let type = (hand >>> 16)
+                        if(type > 10) {
+                            type = 0
+                        }
+                        if(winOccupantItem.id !== this.gameState.currentUser) {
+                            // console.log("win card type is ",type)
+                            // todo userstrength
+                            // winUser.setUserTitle(CONST.CardTypeNames[type])
+                        }
+                    }
+                }
+            }
+
+            var seatNum = winUser.param["seatNum"];
+            var point = this._userPositionBySeatNum(seatNum)
+
+            for(i = 0; i < this.chipPoolCoins.length; i++) {
+                this._playSound(this.chipsmoving)
+                this.animation.showChipMove(this.game,this.chipPoolCoins[i], point.x, point.y, 500)
+            }
+        }
+        // todo user reset
+        for (var i = this.userList.length - 1; i >= 0; i--) {
+            this.userList[i].setUseCoin("");
+        };
+    }
 
     handleState(data:StateData){
         console.log("handle state",JSON.stringify(data));

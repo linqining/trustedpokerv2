@@ -33,6 +33,7 @@ export interface Occupant {
     reveal_cards?: RevealCard[]
     bet?: number
     cards?: string[]
+    hand:number
 }
 
 export interface RevealCard {
@@ -97,18 +98,31 @@ export interface JoinData {
     occupant: Occupant
 }
 
-export interface Occupant {
-    id: string
-    name: string
-    profile: string
-    level: number
-    chips: number
-    index: number
-    action?: string
-    reveal_cards?: RevealCard[]
-    bet?: number
-    cards?: string[]
+export interface ShowDownData {
+    type: string
+    from: string
+    action: string
+    room: Room
 }
+
+
+export interface RevealCard {
+    card: string
+    reveal_tokens: RevealToken[]
+}
+
+export interface RevealToken {
+    token: string
+    proof: Proof
+    public_key: string
+}
+
+export interface Proof {
+    a: string
+    b: string
+    r: string
+}
+
 
 
 
