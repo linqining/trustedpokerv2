@@ -120,16 +120,17 @@ export class UserImpl implements User{
     
     UpdateBet(bet:number){
         if ( bet > 0 ) {
+            this.BetCoin.betObj.visible = true
             this.myBet = bet;
-        };
+        }
         const diffbet = this.getBet() - this.getOnDeskBet()
         if(diffbet > this.getChips()) {
-            const diffbet = this.getChips();
-            this.actionText.setText("Allin");
+            // const diffbet = this.getChips();
+            this.setAction("Allin");
         } else if(diffbet == 0 ) {
-            this.actionText.setText("Check");
+            this.setAction("Check");
         } else {
-            this.actionText.setText("Call "+ diffbet);
+            this.setAction("Call"+diffbet);
         }
     }
     getBet():number{
@@ -221,6 +222,7 @@ export class UserImpl implements User{
     }
 
     resetGameRoundStatus() {
+        this.BetCoin.betObj.visible = false
         this.myBet = 0;     //当前玩家需要下注额下
         this.onDeskBet = 0;
     }

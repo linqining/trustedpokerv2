@@ -697,7 +697,7 @@ export default class Table extends Phaser.Scene {
         this._setBetCardType(arrayCards[1])
     }
     handlePot(data:PotData){
-        console.log("handlepot")
+        console.log("handlepot",data)
         let arrayPool = data.class.split(",");
 
         // TODO 收用户筹码到池子
@@ -710,7 +710,8 @@ export default class Table extends Phaser.Scene {
         for(let i = 0; i < arrayPool.length; i++) {
             poolall += parseInt(arrayPool[i])
         }
-        this.gameState.chipPoolText.setText("Pot:"+poolall.toString());
+        console.log("allpot ",poolall)
+        this.gameState.updatePot(poolall);
 
         // clear Use coin
         for (let i = this.gameState.Users.length - 1; i >= 0; i--) {
@@ -998,10 +999,11 @@ export default class Table extends Phaser.Scene {
         if (user){
             user.resetGameRoundStatus()
             user.UpdateBet(this.gameState.bb)
+            user.setAction("");
         }
         this._resetPublicCard()
         this._clearChipPoolCoins();
-        this.gameState.chipPoolText.setText("Pot:0")
+        this.gameState.updatePot(0);
     }
     
     _resetPublicCard() {
@@ -1140,10 +1142,12 @@ export default class Table extends Phaser.Scene {
         //
         // this.chipPoolCoins = []
     }
-    _raseAction(value) {
-        console.log("raise value",value)
+    _raseAction(value:number) {
+        const betValue = Math.floor(value)
+        console.log("raise value",betValue)
         // var that = this
-        this.betApi.bet(value,function(isok) {
+        
+        this.betApi.bet(betValue,function(isok) {
             // send OK or NOK
             // that._playSound(that.soundClick);
             // that._setBetButtonsVisible(false)
@@ -1154,35 +1158,44 @@ export default class Table extends Phaser.Scene {
     }
 
     actionRaise(){
-        // 如果用户划动滑杆
-        if(this.gameState.sliderContainer.visible) {
-            const betChips = this.gameState.sliderHandle.getData('value')
-            this._raseAction(betChips)
-            const user = this.gameState.getUserByID(this.gameState.currentUser)
-            if (!user){
-                return
-            }
-            user.setAction("Raise");
-        } else {
-            //todo
-            // var bet = this.gameStateObj.mybet - this.gameStateObj.mybetOnDesk;
-            //
-            // if(bet > 0 && bet < this.chips) {
-            //     bet=bet*2
-            // }
-            //
-            // if(bet > this.chips) {
-            //     bet = 0;
-            // }
-            //
-            // this._updatePoolChipValue(bet*2?bet*2:10*2);
-            // this._setSliderRange(bet, this.chips);
-            // this.chipboxGroup.visible = true;
-            // this.chipboxGroup.setVisible(true);
-            // this.chipboxOpened = true;
-            //
-            // this.lbCallEvery.setText("Raise "+bet);
+        const betChips = this.gameState.sliderHandle.getData('value')
+        
+        this._raseAction(betChips)
+        
+        const user = this.gameState.getUserByID(this.gameState.currentUser)
+        if (!user){
+            return
         }
+        user.setAction("Raise");
+        // // 如果用户划动滑杆
+        // if(this.gameState.sliderContainer.visible) {
+        //     const betChips = this.gameState.sliderHandle.getData('value')
+        //     this._raseAction(betChips)
+        //     const user = this.gameState.getUserByID(this.gameState.currentUser)
+        //     if (!user){
+        //         return
+        //     }
+        //     user.setAction("Raise");
+        // } else {
+        //     //todo
+        //     // var bet = this.gameStateObj.mybet - this.gameStateObj.mybetOnDesk;
+        //     //
+        //     // if(bet > 0 && bet < this.chips) {
+        //     //     bet=bet*2
+        //     // }
+        //     //
+        //     // if(bet > this.chips) {
+        //     //     bet = 0;
+        //     // }
+        //     //
+        //     // this._updatePoolChipValue(bet*2?bet*2:10*2);
+        //     // this._setSliderRange(bet, this.chips);
+        //     // this.chipboxGroup.visible = true;
+        //     // this.chipboxGroup.setVisible(true);
+        //     // this.chipboxOpened = true;
+        //     //
+        //     // this.lbCallEvery.setText("Raise "+bet);
+        // }
         this.gameState.hideActionMenu();
     }
 
@@ -1287,7 +1300,7 @@ export class GameStateInstance implements GameState{
         for(let i = 0; i < this.publicCardArr.length; i++) {
             this.publicCards[i].visible = true;
             console.log("initpublic card",this.publicCardArr[i])
-            const frame = this.phaserGame.textures.get(this.formatElement(this.publicCardArr[i]));
+            // const frame = this.tableScene.textures.get(this.formatElement(this.publicCardArr[i]));
             this.publicCards[i].setTexture(this.formatElement(this.publicCardArr[i]));
             // this.publicCards[i].load.image(publicCards[i], this.publicCards[i].frame);
         }
@@ -1310,7 +1323,7 @@ export class GameStateInstance implements GameState{
         for(let i = 0; i < roomInfo.pot.length; i++) {
             chipPoolCount += roomInfo.pot[i];
         }
-        this.chipPoolText.setText("Pot:"+chipPoolCount);
+        this.updatePot(chipPoolCount);
     }
 
     initOccupants(roomInfo:Room){
@@ -1496,6 +1509,14 @@ export class GameStateInstance implements GameState{
         }
         
         showAnimation(lstIndex[nIndex], lstKey[nIndex], showBK);
+    }
+    updatePot(pot: number) {
+        if (pot>0){
+            this.chipPoolText.visible = true
+            this.chipPoolText.setText("Pot:"+pot)
+        }else{
+            this.chipPoolText.visible = false
+        }
     }
 }
 

@@ -33,5 +33,6 @@ export interface GameState {
     SetCurrentBet(betType:number,betValue:number):void;
     setSlider(minChips:number,maxChips:number,currentChips:number):void;
     showPublicCard(lstIndex:number[], lstKey:string[], showBK:boolean, callback:()=>void):void;
+    updatePot(pot:number):void;
 }
 
