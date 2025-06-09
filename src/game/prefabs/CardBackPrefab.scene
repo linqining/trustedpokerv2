@@ -68,6 +68,7 @@
                             "useGameObjectName": true,
                             "x": 60.1318359375,
                             "y": 95.64309692382812,
+                            "visible": false,
                             "list": [
                                 {
                                     "type": "Rectangle",

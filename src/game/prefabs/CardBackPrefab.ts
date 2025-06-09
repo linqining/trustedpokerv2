@@ -40,6 +40,7 @@ export default class CardBackPrefab extends Phaser.GameObjects.Container {
 		// strength_container
 		const strength_container = scene.add.container(60.1318359375, 95.64309692382812);
 		strength_container.name = "strength_container";
+		strength_container.visible = false;
 		card_and_strength.add(strength_container);
 
 		// rectangle_1

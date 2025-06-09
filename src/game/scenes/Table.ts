@@ -644,22 +644,26 @@ export default class Table extends Phaser.Scene {
     handleButton(data:ButtonData){
         console.log("handlebutton")
         this.gameState.buttonPos = parseInt(data.class);
+        this.gameState.Dealer.visible = true;
 
         const buttonIndex = this.gameState.getTargetIndex(this.gameState.buttonPos)
         const targetDealer =this.gameState.DealerButtons[buttonIndex]
-        this.gameState.Dealer.visible = true;
-        this.tweens.add({
-            targets: this.gameState.Dealer,   // 目标对象
-            x: targetDealer.x,
-            y: targetDealer.y,
-            duration: 800,    // 持续时间（毫秒）
-            ease: 'Linear',    // 缓动函数（支持字符串或函数）
-            onComplete: () => { /* 动画完成回调 */ }
-        })
+        if (targetDealer){
+            this.tweens.add({
+                targets: this.gameState.Dealer,   // 目标对象
+                x: targetDealer.x,
+                y: targetDealer.y,
+                duration: 800,    // 持续时间（毫秒）
+                ease: 'Linear',    // 缓动函数（支持字符串或函数）
+                onComplete: () => { /* 动画完成回调 */ }
+            })
+        }else{
+            console.error("target dealer not found",buttonIndex)
+            return 
+        }
         this.gameState.Dealer.visible = false;
-        const dealerObj = this.gameState.Users[buttonIndex];
-        dealerObj.BetCoin.setDealer();
-
+        const userObj = this.gameState.Users[buttonIndex];
+        userObj.BetCoin.setDealer();
         this._initNewRound()
         // todo 发牌
         // this._playSound(this.soundReorderCard, function(){
@@ -679,7 +683,7 @@ export default class Table extends Phaser.Scene {
         this._setBetCardType(arrayParam[3])
     }
     handleTurn(data:RiverData){
-        var arrayCards = data.class.split(",");
+        const arrayCards = data.class.split(",");
         this._turnAnimation(arrayCards[0])
 
         this._setBetCardType(arrayCards[1])
@@ -687,7 +691,7 @@ export default class Table extends Phaser.Scene {
         console.log("handleturn")
     }
     handleRiver(data){
-        var arrayCards = data.class.split(",");
+        const arrayCards = data.class.split(",");
         this._riverAnimation(arrayCards[0])
 
         this._setBetCardType(arrayCards[1])
@@ -833,6 +837,23 @@ export default class Table extends Phaser.Scene {
             // that._playSound(that.soundSendCard);
         });
     }
+    _turnAnimation(card:string) {
+        //this.animation.publicCards.push(card)
+        const deskCardIDs = [3]
+        const lstCardImage = [card]
+        this.gameState.publicCards[3].visible = true;
+        this.gameState.showPublicCard(deskCardIDs, lstCardImage, false,()=>{});
+        // this._playSound(this.soundSendCard); //todo
+    }
+    _riverAnimation(card:string) {
+        //this.animation.publicCards.push(card)
+    
+        const deskCardIDs = [4]
+        const lstCardImage = [card]
+        this.gameState.publicCards[4].visible = true;
+        this.gameState.showPublicCard(deskCardIDs, lstCardImage, false,()=>{});
+        // this._playSound(this.soundSendCard);
+    }
     _setBetCardType(cardType:string) {
         const carTypeName = CONST.CardTypeNames[parseInt(cardType)]
         const user = this.gameState.getUserByID(this.gameState.currentUser)
@@ -961,18 +982,34 @@ export default class Table extends Phaser.Scene {
                 user.reset()
             }
         }
-        //todo
-
         // this._clearWaitButtons();
         // this._setBetButtonsVisible(false);
         // this._setWaitButtonsVisible(false);
         // this._resetGameRoundStatus();
         // this._resetPublicCard();
+        
         // this._clearChipPoolCoins();
         //
         // this.gameStateObj.mybet = this.bb
         // this.chipPool.setText("0");
         // this.autoCall = 0;
+        this.gameState.hideActionMenu();
+        const user = this.gameState.getUserByID(this.gameState.currentUser);
+        if (user){
+            user.resetGameRoundStatus()
+            user.UpdateBet(this.gameState.bb)
+        }
+        this._resetPublicCard()
+        this._clearChipPoolCoins();
+        this.gameState.chipPoolText.setText("Pot:0")
+    }
+    
+    _resetPublicCard() {
+        const cardBK = this.textures.get("card_back_0");    
+        for(let i = 0; i < this.gameState.publicCards.length; i++) {
+            this.gameState.publicCards[i].visible = false;
+            this.gameState.publicCards[i].setTexture(cardBK);
+        }
     }
 
     sendCardAnimation() {
@@ -1095,7 +1132,14 @@ export default class Table extends Phaser.Scene {
         // test native interface
         // gameQuit("test");
     }
-
+    _clearChipPoolCoins() {
+        // //todo  clear pot
+        // for (var i = this.chipPoolCoins.length - 1; i >= 0; i--) {
+        //     this.chipPoolCoins[i].destroy()
+        // }
+        //
+        // this.chipPoolCoins = []
+    }
     _raseAction(value) {
         console.log("raise value",value)
         // var that = this

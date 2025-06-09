@@ -49,7 +49,8 @@ export class UserImpl implements User{
     cardBackPrefab: Phaser.GameObjects.Container;
     cardOne: Phaser.GameObjects.Image;
     cardTwo: Phaser.GameObjects.Image;
-    strengthText: phaser.GameObjects.Text;
+    strengthText: Phaser.GameObjects.Text;
+    strengthContainer: Phaser.GameObjects.Container;
     actionText: Phaser.GameObjects.Text;
     chipText: Phaser.GameObjects.Text;
     isPlaying: boolean = false; // 是否在游戏中
@@ -65,6 +66,7 @@ export class UserImpl implements User{
         this.cardTwo = cards_container.getByName("card_back_2") as Phaser.GameObjects.Image;
         
         const strength_container = card_and_strength.getByName("strength_container") as Phaser.GameObjects.Container;
+        this.strengthContainer = strength_container;
         this.strengthText = strength_container.getByName("strength_text") as Phaser.GameObjects.Text;
         
         this.actionText = this.User.getByName("action_text") as Phaser.GameObjects.Text;
@@ -172,6 +174,7 @@ export class UserImpl implements User{
         }
     }
     setStrength(cardType: string){
+        this.strengthContainer.visible = true
         this.strengthText.setText(cardType)
     }
     
